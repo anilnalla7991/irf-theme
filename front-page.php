@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-<?php if(WP_DEBUG): ?><p style="background:lime;color:black;padding:10px;position:fixed;top:50px;left:0;z-index:9999;">front-page.php IS loading</p><?php endif; ?>
 
 <!-- ============================================================
      SECTION 1: HERO
