@@ -22,7 +22,16 @@
             <?php
             while (have_posts()) :
                 the_post();
-                the_content();
+                $content = get_the_content();
+                if ($content) :
+                    the_content();
+                else :
+            ?>
+            <p style="color:var(--gray); text-align:center; padding: 40px 0; font-size:16px;">
+                Content coming soon. Please check back later!
+            </p>
+            <?php
+                endif;
             endwhile;
             ?>
         </div>

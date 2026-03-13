@@ -63,6 +63,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 
 .logo-text { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: var(--white); }
 .logo-text span { color: var(--red); }
+.logo-img  { height: 48px; width: auto; display: block; }
 
 .nav-menu { display: flex; align-items: center; gap: 28px; }
 .nav-menu a { color: rgba(255,255,255,0.85); font-size: 14px; font-weight: 500; transition: var(--tr); position: relative; }
@@ -269,9 +270,10 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    PAGE BANNER & CONTENT
    ============================================================= */
-.page-banner         { position: relative; padding: 140px 0 60px; overflow: hidden; }
+.page-banner         { position: relative; padding: 140px 0 70px; overflow: hidden; min-height: 260px; display: flex; align-items: flex-end; }
 .page-banner-bg      { position: absolute; inset: 0; background: linear-gradient(135deg, #0D1B2A 0%, #1C1C2E 100%); }
-.page-banner-bg::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 80px; background: linear-gradient(to top, var(--light), transparent); }
+.page-banner-bg::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: var(--red); }
+.page-banner-bg::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 40%; background: radial-gradient(ellipse at right, rgba(254,0,0,0.08), transparent); }
 .page-banner-content { position: relative; z-index: 1; }
 .page-banner-title   { font-size: clamp(28px, 4vw, 44px); color: var(--white); margin-bottom: 14px; }
 .breadcrumb          { display: flex; align-items: center; gap: 8px; font-size: 14px; color: rgba(255,255,255,0.5); }
