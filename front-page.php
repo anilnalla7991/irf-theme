@@ -280,7 +280,7 @@
                 else :
                     // Placeholder cards when no data
                     $placeholders = array(
-                        array('name' => 'Rahul Sharma', 'exam' => 'SSC CGL 2023', 'rank' => '142', 'msg' => 'IRF's structured approach and daily mock tests helped me crack SSC CGL in my first attempt. The faculty support was exceptional.'),
+                        array('name' => 'Rahul Sharma', 'exam' => 'SSC CGL 2023', 'rank' => '142', 'msg' => 'IRF structured approach and daily mock tests helped me crack SSC CGL in my first attempt. The faculty support was exceptional.'),
                         array('name' => 'Priya Reddy', 'exam' => 'IBPS PO 2023', 'rank' => '87', 'msg' => 'The performance analysis system at IRF showed me exactly where I was going wrong. Cleared IBPS PO with a top rank!'),
                         array('name' => 'Kiran Kumar', 'exam' => 'SI Exam 2023', 'rank' => '23', 'msg' => 'Joined IRF with zero coaching experience. The step-by-step learning model made everything clear. Proud SI now!'),
                         array('name' => 'Sneha Patel', 'exam' => 'RBI Grade B 2023', 'rank' => '56', 'msg' => 'The CBT lab practice at IRF was a game changer. I was fully prepared for the online exam format from day one.'),
