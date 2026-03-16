@@ -231,12 +231,13 @@
     <div class="container">
         <div class="section-header reveal">
             <span class="section-tag">Student Stories</span>
-            <h2 class="section-title">Success Stories</h2>
-            <p class="section-subtitle" style="color:rgba(255,255,255,0.6)">Hear directly from students who achieved their dreams with IRF.</p>
+            <h2 class="section-title">What Our Students Say</h2>
+            <p class="section-subtitle stories-subtitle">Real voices. Real results. Students who cracked government exams with IRF – IACE.</p>
         </div>
         <div class="stories-carousel reveal">
             <div class="stories-track" id="storiesTrack">
                 <?php
+                $avatar_classes = array('story-avatar-1','story-avatar-2','story-avatar-3','story-avatar-4');
                 $stories_query = new WP_Query(array(
                     'post_type'      => 'success_stories',
                     'posts_per_page' => 8,
@@ -244,59 +245,69 @@
                 ));
 
                 if ($stories_query->have_posts()) :
+                    $s_i = 0;
                     while ($stories_query->have_posts()) : $stories_query->the_post();
-                        $s_name    = function_exists('get_field') ? get_field('student_name')   : get_the_title();
-                        $s_exam    = function_exists('get_field') ? get_field('exam_cleared')   : '';
-                        $s_rank    = function_exists('get_field') ? get_field('rank')           : '';
-                        $s_msg     = function_exists('get_field') ? get_field('student_message'): get_the_excerpt();
-                        $s_photo   = function_exists('get_field') ? get_field('student_photo')  : null;
+                        $s_name    = function_exists('get_field') ? get_field('student_name')    : get_the_title();
+                        $s_exam    = function_exists('get_field') ? get_field('exam_cleared')    : '';
+                        $s_rank    = function_exists('get_field') ? get_field('rank')            : '';
+                        $s_msg     = function_exists('get_field') ? get_field('student_message') : get_the_excerpt();
+                        $s_photo   = function_exists('get_field') ? get_field('student_photo')   : null;
+                        $name_parts = explode(' ', trim($s_name));
+                        $initials   = strtoupper(substr($name_parts[0], 0, 1) . (isset($name_parts[1]) ? substr($name_parts[1], 0, 1) : ''));
+                        $av_class   = $avatar_classes[$s_i % 4];
+                        $s_i++;
                 ?>
                 <div class="story-card">
-                    <div class="story-header">
+                    <span class="story-quote-icon">&ldquo;</span>
+                    <p class="story-message"><?php echo esc_html($s_msg); ?></p>
+                    <div class="story-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="story-sep"></div>
+                    <div class="story-footer">
                         <?php if ($s_photo) : ?>
                             <img src="<?php echo esc_url(is_array($s_photo) && isset($s_photo['url']) ? $s_photo['url'] : $s_photo); ?>" alt="<?php echo esc_attr($s_name); ?>" class="story-photo">
                         <?php elseif (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('thumbnail', array('class' => 'story-photo')); ?>
                         <?php else : ?>
-                            <div class="story-photo-placeholder">🎓</div>
+                            <div class="story-avatar <?php echo esc_attr($av_class); ?>"><?php echo esc_html($initials); ?></div>
                         <?php endif; ?>
-                        <div>
+                        <div class="story-info">
                             <div class="story-name"><?php echo esc_html($s_name); ?></div>
                             <?php if ($s_exam) : ?>
                                 <div class="story-exam"><?php echo esc_html($s_exam); ?></div>
                             <?php endif; ?>
                         </div>
+                        <?php if ($s_rank) : ?>
+                            <div class="story-rank-pill">&#127942; Rank <?php echo esc_html($s_rank); ?></div>
+                        <?php endif; ?>
                     </div>
-                    <?php if ($s_msg) : ?>
-                        <p class="story-message">"<?php echo esc_html($s_msg); ?>"</p>
-                    <?php endif; ?>
-                    <?php if ($s_rank) : ?>
-                        <span class="story-rank">🏆 Rank <?php echo esc_html($s_rank); ?></span>
-                    <?php endif; ?>
                 </div>
                 <?php
                     endwhile;
                     wp_reset_postdata();
                 else :
-                    // Placeholder cards when no data
                     $placeholders = array(
-                        array('name' => 'Rahul Sharma', 'exam' => 'SSC CGL 2023', 'rank' => '142', 'msg' => 'IRF structured approach and daily mock tests helped me crack SSC CGL in my first attempt. The faculty support was exceptional.'),
-                        array('name' => 'Priya Reddy', 'exam' => 'IBPS PO 2023', 'rank' => '87', 'msg' => 'The performance analysis system at IRF showed me exactly where I was going wrong. Cleared IBPS PO with a top rank!'),
-                        array('name' => 'Kiran Kumar', 'exam' => 'SI Exam 2023', 'rank' => '23', 'msg' => 'Joined IRF with zero coaching experience. The step-by-step learning model made everything clear. Proud SI now!'),
-                        array('name' => 'Sneha Patel', 'exam' => 'RBI Grade B 2023', 'rank' => '56', 'msg' => 'The CBT lab practice at IRF was a game changer. I was fully prepared for the online exam format from day one.'),
+                        array('name' => 'Rahul Sharma',  'initials' => 'RS', 'av' => 'story-avatar-1', 'exam' => 'SSC CGL 2023',    'rank' => '142', 'msg' => 'IRF\'s structured approach and daily mock tests helped me crack SSC CGL in my very first attempt. The faculty mentorship here is truly world-class.'),
+                        array('name' => 'Priya Reddy',   'initials' => 'PR', 'av' => 'story-avatar-2', 'exam' => 'IBPS PO 2023',    'rank' => '87',  'msg' => 'The performance analysis system at IRF showed me exactly where I was going wrong. Cleared IBPS PO with a top rank — couldn\'t have done it without IRF!'),
+                        array('name' => 'Kiran Kumar',   'initials' => 'KK', 'av' => 'story-avatar-3', 'exam' => 'SI Exam 2023',    'rank' => '23',  'msg' => 'Joined IRF with zero coaching experience. The step-by-step IRF learning model made every concept crystal clear. Proud SI now!'),
+                        array('name' => 'Sneha Patel',   'initials' => 'SP', 'av' => 'story-avatar-4', 'exam' => 'RBI Grade B 2023','rank' => '56',  'msg' => 'The CBT lab at IRF was a game changer. I practised in the exact same environment as the real exam. Cleared RBI Grade B on my first try!'),
+                        array('name' => 'Arjun Singh',   'initials' => 'AS', 'av' => 'story-avatar-1', 'exam' => 'RRB NTPC 2023',   'rank' => '34',  'msg' => 'The weekly mock tests and instant analytics at IRF helped me improve my score by 40 marks in just 3 months. Best investment of my life.'),
+                        array('name' => 'Divya Nair',    'initials' => 'DN', 'av' => 'story-avatar-2', 'exam' => 'SBI PO 2023',     'rank' => '61',  'msg' => 'IRF\'s exam strategy workshops gave me a clear plan for every section. Cleared SBI PO in my second attempt with a massive improvement. Thank you IRF!'),
                     );
                     foreach ($placeholders as $p) :
                 ?>
                 <div class="story-card">
-                    <div class="story-header">
-                        <div class="story-photo-placeholder">🎓</div>
-                        <div>
+                    <span class="story-quote-icon">&ldquo;</span>
+                    <p class="story-message"><?php echo esc_html($p['msg']); ?></p>
+                    <div class="story-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                    <div class="story-sep"></div>
+                    <div class="story-footer">
+                        <div class="story-avatar <?php echo esc_attr($p['av']); ?>"><?php echo esc_html($p['initials']); ?></div>
+                        <div class="story-info">
                             <div class="story-name"><?php echo esc_html($p['name']); ?></div>
                             <div class="story-exam"><?php echo esc_html($p['exam']); ?></div>
                         </div>
+                        <div class="story-rank-pill">&#127942; Rank <?php echo esc_html($p['rank']); ?></div>
                     </div>
-                    <p class="story-message">"<?php echo esc_html($p['msg']); ?>"</p>
-                    <span class="story-rank">🏆 Rank <?php echo esc_html($p['rank']); ?></span>
                 </div>
                 <?php endforeach; endif; ?>
             </div>
