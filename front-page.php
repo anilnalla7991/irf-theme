@@ -1,8 +1,34 @@
-<?php get_header(); ?>
+<?php
+// ACF Options helpers — falls back to defaults if ACF not active
+function irf_opt($key, $default = '') {
+    return function_exists('get_field') ? (get_field($key, 'option') ?: $default) : $default;
+}
+
+get_header();
+?>
 
 <!-- ============================================================
      SECTION 1: HERO
      ============================================================ -->
+<?php
+$hero_badge      = irf_opt('hero_badge',          "India's #1 Competitive Exam Institute");
+$hero_title      = irf_opt('hero_title',           'Crack Your Dream Exam with <span class="highlight">IRF – IACE</span>');
+$hero_subtitle   = irf_opt('hero_subtitle',        'Smart preparation. Expert guidance. Proven results.');
+$hero_typed_raw  = irf_opt('hero_typed_words',     "SSC CGL\nIBPS PO\nRBI Grade B\nSI Exam\nConstable\nRRB NTPC\nSBI PO");
+$hero_typed      = array_filter(array_map('trim', explode("\n", $hero_typed_raw)));
+$cta1_text       = irf_opt('hero_cta_primary_text','Enroll Now');
+$cta1_url        = irf_opt('hero_cta_primary_url', home_url('/contact'));
+$cta2_text       = irf_opt('hero_cta_sec_text',    'View Results');
+$cta2_url        = irf_opt('hero_cta_sec_url',     home_url('/results'));
+$stats = array(
+    array('num' => irf_opt('stat1_number', 5000), 'suffix' => irf_opt('stat1_suffix', '+'),      'label' => irf_opt('stat1_label', 'Students Enrolled')),
+    array('num' => irf_opt('stat2_number', 1200), 'suffix' => irf_opt('stat2_suffix', '+'),      'label' => irf_opt('stat2_label', 'Selections Made')),
+    array('num' => irf_opt('stat3_number', 10),   'suffix' => irf_opt('stat3_suffix', '+ Yrs'), 'label' => irf_opt('stat3_label', 'Experience')),
+    array('num' => irf_opt('stat4_number', 98),   'suffix' => irf_opt('stat4_suffix', '%'),      'label' => irf_opt('stat4_label', 'Success Rate')),
+);
+// Pass typed words to JS via data attribute
+$typed_json = esc_attr(json_encode(array_values($hero_typed)));
+?>
 <section class="hero">
     <div class="hero-bg"></div>
     <div class="hero-shapes">
@@ -14,34 +40,24 @@
         <div class="hero-content">
             <div class="hero-badge">
                 <span class="dot"></span>
-                India's #1 Competitive Exam Institute
+                <?php echo esc_html($hero_badge); ?>
             </div>
             <h1 class="hero-title">
-                Crack Your Dream Exam with <span class="highlight">IRF – IACE</span>
+                <?php echo wp_kses($hero_title, array('span' => array('class' => array()))); ?>
             </h1>
-            <p class="hero-subtitle">Smart preparation. Expert guidance. Proven results.</p>
-            <p class="hero-typed">We prepare you for <span class="typed-text">SSC CGL</span></p>
+            <p class="hero-subtitle"><?php echo esc_html($hero_subtitle); ?></p>
+            <p class="hero-typed">We prepare you for <span class="typed-text" data-words="<?php echo $typed_json; ?>"><?php echo esc_html($hero_typed[0] ?? 'SSC CGL'); ?></span></p>
             <div class="hero-actions">
-                <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-primary">Enroll Now &rarr;</a>
-                <a href="<?php echo esc_url(home_url('/results')); ?>" class="btn btn-outline">View Results</a>
+                <a href="<?php echo esc_url($cta1_url); ?>" class="btn btn-primary"><?php echo esc_html($cta1_text); ?> &rarr;</a>
+                <a href="<?php echo esc_url($cta2_url); ?>" class="btn btn-outline"><?php echo esc_html($cta2_text); ?></a>
             </div>
             <div class="hero-stats">
+                <?php foreach ($stats as $stat) : ?>
                 <div class="hero-stat">
-                    <div class="hero-stat-number counter" data-target="5000" data-suffix="+">0</div>
-                    <div class="hero-stat-label">Students Enrolled</div>
+                    <div class="hero-stat-number counter" data-target="<?php echo esc_attr($stat['num']); ?>" data-suffix="<?php echo esc_attr($stat['suffix']); ?>">0</div>
+                    <div class="hero-stat-label"><?php echo esc_html($stat['label']); ?></div>
                 </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number counter" data-target="1200" data-suffix="+">0</div>
-                    <div class="hero-stat-label">Selections Made</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number counter" data-target="10" data-suffix="+ Yrs">0</div>
-                    <div class="hero-stat-label">Experience</div>
-                </div>
-                <div class="hero-stat">
-                    <div class="hero-stat-number counter" data-target="98" data-suffix="%">0</div>
-                    <div class="hero-stat-label">Success Rate</div>
-                </div>
+                <?php endforeach; ?>
             </div>
         </div>
     </div>
@@ -444,14 +460,22 @@
 <!-- ============================================================
      SECTION 9: CALL TO ACTION
      ============================================================ -->
+<?php
+$cta_title     = irf_opt('cta_title',      'Ready to Start Your Government Job Journey?');
+$cta_subtitle  = irf_opt('cta_subtitle',   'Join 5,000+ students who trusted IRF and got selected. Your turn is next.');
+$cta_btn1_text = irf_opt('cta_btn1_text',  'Enroll Now');
+$cta_btn1_url  = irf_opt('cta_btn1_url',   home_url('/contact'));
+$cta_btn2_text = irf_opt('cta_btn2_text',  'Call Us Now');
+$cta_phone     = irf_opt('cta_btn2_phone', '+919876543210');
+?>
 <section class="section cta-section">
     <div class="container">
         <div class="cta-content reveal">
-            <h2 class="cta-title">Ready to Start Your Government Job Journey?</h2>
-            <p class="cta-subtitle">Join 5,000+ students who trusted IRF and got selected. Your turn is next.</p>
+            <h2 class="cta-title"><?php echo esc_html($cta_title); ?></h2>
+            <p class="cta-subtitle"><?php echo esc_html($cta_subtitle); ?></p>
             <div class="cta-actions">
-                <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-white">Enroll Now &rarr;</a>
-                <a href="tel:+919876543210" class="btn btn-outline">📞 Call Us Now</a>
+                <a href="<?php echo esc_url($cta_btn1_url); ?>" class="btn btn-white"><?php echo esc_html($cta_btn1_text); ?> &rarr;</a>
+                <a href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $cta_phone)); ?>" class="btn btn-outline">📞 <?php echo esc_html($cta_btn2_text); ?></a>
             </div>
         </div>
     </div>
