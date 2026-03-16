@@ -66,6 +66,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ==========================================
     function animateCounter(el) {
         var target   = parseInt(el.dataset.target, 10);
+        if (isNaN(target) || target <= 0) return;
         var suffix   = el.dataset.suffix || '';
         var duration = 1800;
         var steps    = 60;
@@ -117,18 +118,27 @@ document.addEventListener('DOMContentLoaded', function () {
     // ==========================================
     // Success Stories Carousel
     // ==========================================
-    var track    = document.getElementById('storiesTrack');
-    var prevBtn  = document.querySelector('.carousel-btn.prev');
-    var nextBtn  = document.querySelector('.carousel-btn.next');
-    var dots     = document.querySelectorAll('.carousel-dot');
+    var track         = document.getElementById('storiesTrack');
+    var prevBtn       = document.querySelector('.carousel-btn.prev');
+    var nextBtn       = document.querySelector('.carousel-btn.next');
+    var dotsContainer = document.getElementById('carouselDots');
 
-    if (track && prevBtn && nextBtn) {
-        var cards       = track.querySelectorAll('.story-card');
-        var cardW       = 340 + 22; // min-width + gap
-        var visible     = Math.max(1, Math.floor(track.parentElement.offsetWidth / cardW));
-        var maxIndex    = Math.max(0, cards.length - visible);
-        var current     = 0;
+    if (track && prevBtn && nextBtn && dotsContainer) {
+        var cards    = track.querySelectorAll('.story-card');
+        var cardW    = 340 + 22; // min-width + gap
+        var visible  = Math.max(1, Math.floor(track.parentElement.offsetWidth / cardW));
+        var maxIndex = Math.max(0, cards.length - visible);
+        var current  = 0;
         var autoTimer;
+
+        // Generate dots dynamically based on actual card count
+        var dots = [];
+        for (var d = 0; d <= maxIndex; d++) {
+            var dot = document.createElement('div');
+            dot.className = 'carousel-dot' + (d === 0 ? ' active' : '');
+            dotsContainer.appendChild(dot);
+            dots.push(dot);
+        }
 
         function goTo(index) {
             current = Math.max(0, Math.min(index, maxIndex));

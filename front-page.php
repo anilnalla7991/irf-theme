@@ -78,7 +78,7 @@
             );
             foreach ($exams as $index => $exam) :
             ?>
-            <div class="exam-card reveal reveal-delay-<?php echo min($index + 1, 4); ?>">
+            <div class="exam-card reveal reveal-delay-<?php echo esc_attr(min($index + 1, 4)); ?>">
                 <div class="exam-icon"><span><?php echo $exam['icon']; ?></span></div>
                 <div class="exam-name"><?php echo esc_html($exam['name']); ?></div>
                 <div class="exam-full"><?php echo esc_html($exam['full']); ?></div>
@@ -147,7 +147,7 @@
             );
             foreach ($facilities as $index => $facility) :
             ?>
-            <div class="facility-card reveal reveal-delay-<?php echo ($index % 3) + 1; ?>">
+            <div class="facility-card reveal reveal-delay-<?php echo esc_attr(($index % 3) + 1); ?>">
                 <div class="facility-icon"><?php echo $facility['icon']; ?></div>
                 <h3 class="facility-title"><?php echo esc_html($facility['title']); ?></h3>
                 <p class="facility-desc"><?php echo esc_html($facility['desc']); ?></p>
@@ -188,7 +188,7 @@
             ?>
             <div class="result-card reveal">
                 <?php if ($student_photo) : ?>
-                    <img src="<?php echo esc_url(is_array($student_photo) ? $student_photo['url'] : $student_photo); ?>" alt="<?php echo esc_attr($student_name); ?>" class="result-photo">
+                    <img src="<?php echo esc_url(is_array($student_photo) && isset($student_photo['url']) ? $student_photo['url'] : $student_photo); ?>" alt="<?php echo esc_attr($student_name); ?>" class="result-photo">
                 <?php elseif (has_post_thumbnail()) : ?>
                     <?php the_post_thumbnail('medium', array('class' => 'result-photo')); ?>
                 <?php else : ?>
@@ -254,7 +254,7 @@
                 <div class="story-card">
                     <div class="story-header">
                         <?php if ($s_photo) : ?>
-                            <img src="<?php echo esc_url(is_array($s_photo) ? $s_photo['url'] : $s_photo); ?>" alt="<?php echo esc_attr($s_name); ?>" class="story-photo">
+                            <img src="<?php echo esc_url(is_array($s_photo) && isset($s_photo['url']) ? $s_photo['url'] : $s_photo); ?>" alt="<?php echo esc_attr($s_name); ?>" class="story-photo">
                         <?php elseif (has_post_thumbnail()) : ?>
                             <?php the_post_thumbnail('thumbnail', array('class' => 'story-photo')); ?>
                         <?php else : ?>
@@ -303,12 +303,7 @@
         </div>
         <div class="carousel-controls">
             <button class="carousel-btn prev" aria-label="Previous">&#8592;</button>
-            <div class="carousel-dots" id="carouselDots">
-                <div class="carousel-dot active"></div>
-                <div class="carousel-dot"></div>
-                <div class="carousel-dot"></div>
-                <div class="carousel-dot"></div>
-            </div>
+            <div class="carousel-dots" id="carouselDots"></div>
             <button class="carousel-btn next" aria-label="Next">&#8594;</button>
         </div>
     </div>
@@ -344,7 +339,7 @@
             ?>
             <div class="announcement-card reveal">
                 <?php if ($event_image) : ?>
-                    <img src="<?php echo esc_url(is_array($event_image) ? $event_image['url'] : $event_image); ?>" alt="<?php the_title(); ?>" class="announcement-image">
+                    <img src="<?php echo esc_url(is_array($event_image) && isset($event_image['url']) ? $event_image['url'] : $event_image); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="announcement-image">
                 <?php elseif (has_post_thumbnail()) : ?>
                     <?php the_post_thumbnail('medium_large', array('class' => 'announcement-image')); ?>
                 <?php else : ?>
@@ -357,11 +352,11 @@
                             <span class="announcement-date">📅 <?php echo esc_html($event_date); ?></span>
                         <?php endif; ?>
                     </div>
-                    <h3 class="announcement-title"><?php the_title(); ?></h3>
+                    <h3 class="announcement-title"><?php echo esc_html(get_the_title()); ?></h3>
                     <?php if ($event_desc) : ?>
                         <p class="announcement-desc"><?php echo esc_html(wp_trim_words($event_desc, 20)); ?></p>
                     <?php endif; ?>
-                    <a href="<?php the_permalink(); ?>" class="announcement-link">Read More &#8594;</a>
+                    <a href="<?php echo esc_url(get_permalink()); ?>" class="announcement-link">Read More &#8594;</a>
                 </div>
             </div>
             <?php

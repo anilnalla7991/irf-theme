@@ -12,7 +12,7 @@
         <nav class="nav-wrapper">
 
             <a href="<?php echo esc_url(home_url('/')); ?>" class="site-logo">
-                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="IRF IACE" class="logo-img" style="height:50px;width:auto;max-width:180px;display:block;">
+                <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="IRF IACE" class="logo-img">
             </a>
 
             <ul class="nav-menu" id="nav-menu">
