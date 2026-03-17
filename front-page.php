@@ -1,6 +1,62 @@
 <?php
 get_header();
+
+// Banner slides — fetched from the homepage page editor
+$home_banners = function_exists('get_field') ? get_field('home_banners') : array();
 ?>
+
+<?php if (!empty($home_banners) && is_array($home_banners)) : ?>
+<!-- ============================================================
+     BANNER SLIDER
+     ============================================================ -->
+<section class="banner-slider" id="bannerSlider" aria-label="Homepage Banner">
+    <div class="banner-track" id="bannerTrack">
+        <?php foreach ($home_banners as $slide) :
+            $desk_img    = $slide['image'];
+            $desk_src    = is_array($desk_img) ? $desk_img['url'] : $desk_img;
+            $desk_alt    = is_array($desk_img) ? $desk_img['alt'] : '';
+            $mob_img     = $slide['mobile_image'];
+            $mob_src     = is_array($mob_img)  ? $mob_img['url']  : $mob_img;
+            $desk_link   = !empty($slide['link'])        ? $slide['link']        : '';
+            $mob_link    = !empty($slide['mobile_link']) ? $slide['mobile_link'] : $desk_link;
+        ?>
+        <div class="banner-slide">
+            <?php if ($desk_link) : ?>
+            <a href="<?php echo esc_url($desk_link); ?>" class="banner-link banner-link-desk">
+            <?php endif; ?>
+                <?php if ($desk_src) : ?>
+                <img src="<?php echo esc_url($desk_src); ?>"
+                     alt="<?php echo esc_attr($desk_alt); ?>"
+                     class="banner-img banner-img-desk"
+                     loading="lazy">
+                <?php endif; ?>
+            <?php if ($desk_link) : ?></a><?php endif; ?>
+
+            <?php if ($mob_link) : ?>
+            <a href="<?php echo esc_url($mob_link); ?>" class="banner-link banner-link-mob">
+            <?php endif; ?>
+                <?php if ($mob_src) : ?>
+                <img src="<?php echo esc_url($mob_src); ?>"
+                     alt="<?php echo esc_attr(is_array($mob_img) ? $mob_img['alt'] : ''); ?>"
+                     class="banner-img banner-img-mob"
+                     loading="lazy">
+                <?php endif; ?>
+            <?php if ($mob_link) : ?></a><?php endif; ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+
+    <?php if (count($home_banners) > 1) : ?>
+    <button class="banner-btn banner-prev" aria-label="Previous slide">&#8592;</button>
+    <button class="banner-btn banner-next" aria-label="Next slide">&#8594;</button>
+    <div class="banner-dots" id="bannerDots">
+        <?php foreach ($home_banners as $i => $s) : ?>
+        <button class="banner-dot<?php echo $i === 0 ? ' active' : ''; ?>" aria-label="Slide <?php echo esc_attr($i + 1); ?>"></button>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
+</section>
+<?php endif; ?>
 
 <!-- ============================================================
      SECTION 1: HERO

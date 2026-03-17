@@ -167,6 +167,42 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ==========================================
+    // Banner Slider
+    // ==========================================
+    var bannerTrack = document.getElementById('bannerTrack');
+    if (bannerTrack) {
+        var bannerSlides  = bannerTrack.querySelectorAll('.banner-slide');
+        var bannerDots    = document.querySelectorAll('.banner-dot');
+        var bannerPrev    = document.querySelector('.banner-prev');
+        var bannerNext    = document.querySelector('.banner-next');
+        var bannerCurrent = 0;
+        var bannerTotal   = bannerSlides.length;
+        var bannerTimer;
+
+        function bannerGoTo(index) {
+            bannerCurrent = (index + bannerTotal) % bannerTotal;
+            bannerTrack.style.transform = 'translateX(-' + (bannerCurrent * 100) + '%)';
+            bannerDots.forEach(function (d, i) {
+                d.classList.toggle('active', i === bannerCurrent);
+            });
+        }
+
+        function bannerStartAuto() {
+            bannerTimer = setInterval(function () {
+                bannerGoTo(bannerCurrent + 1);
+            }, 5000);
+        }
+
+        if (bannerPrev) bannerPrev.addEventListener('click', function () { clearInterval(bannerTimer); bannerGoTo(bannerCurrent - 1); bannerStartAuto(); });
+        if (bannerNext) bannerNext.addEventListener('click', function () { clearInterval(bannerTimer); bannerGoTo(bannerCurrent + 1); bannerStartAuto(); });
+        bannerDots.forEach(function (dot, i) {
+            dot.addEventListener('click', function () { clearInterval(bannerTimer); bannerGoTo(i); bannerStartAuto(); });
+        });
+
+        if (bannerTotal > 1) bannerStartAuto();
+    }
+
+    // ==========================================
     // Smooth scroll for anchor links
     // ==========================================
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
