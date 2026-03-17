@@ -29,9 +29,9 @@ add_action('after_setup_theme', 'irf_theme_setup');
    ============================================================= */
 function irf_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap', array(), null);
-    wp_enqueue_style('irf-main', get_template_directory_uri() . '/assets/css/main.css', array(), '2.1');
-    wp_enqueue_style('irf-style', get_stylesheet_uri(), array('irf-main'), '2.1');
-    wp_enqueue_script('irf-main', get_template_directory_uri() . '/assets/js/main.js', array(), '2.1', true);
+    wp_enqueue_style('irf-main', get_template_directory_uri() . '/assets/css/main.css', array(), '2.2');
+    wp_enqueue_style('irf-style', get_stylesheet_uri(), array('irf-main'), '2.2');
+    wp_enqueue_script('irf-main', get_template_directory_uri() . '/assets/js/main.js', array(), '2.2', true);
 }
 add_action('wp_enqueue_scripts', 'irf_enqueue_scripts');
 
@@ -557,9 +557,9 @@ function irf_register_acf_fields() {
                 'layout'       => 'row',
                 'button_label' => 'Add Slide',
                 'sub_fields'   => array(
-                    array('key' => 'field_bn_image',        'label' => 'Desktop Image', 'name' => 'image',        'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium',    'instructions' => 'Recommended size: 1920×600px'),
+                    array('key' => 'field_bn_image',        'label' => 'Desktop Image', 'name' => 'image',        'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium',    'instructions' => 'Desktop: 1920×500px | Tablet: 1024×420px (same image, centered crop)'),
                     array('key' => 'field_bn_link',         'label' => 'Link',          'name' => 'link',         'type' => 'url',   'instructions' => 'Leave blank if slide is not clickable'),
-                    array('key' => 'field_bn_mobile_image', 'label' => 'Mobile Image',  'name' => 'mobile_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'instructions' => 'Recommended size: 768×400px'),
+                    array('key' => 'field_bn_mobile_image', 'label' => 'Mobile Image',  'name' => 'mobile_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'instructions' => 'Mobile: 640×360px (16:9) — shown on screens below 768px'),
                     array('key' => 'field_bn_mobile_link',  'label' => 'Mobile Link',   'name' => 'mobile_link',  'type' => 'url',   'instructions' => 'Optional — separate link for mobile'),
                 ),
             ),
