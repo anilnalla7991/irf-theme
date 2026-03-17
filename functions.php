@@ -559,7 +559,7 @@ function irf_register_acf_fields() {
                 'sub_fields'   => array(
                     array('key' => 'field_bn_image',        'label' => 'Desktop Image', 'name' => 'image',        'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium',    'instructions' => 'Desktop: 1920×500px | Tablet: 1024×420px (same image, centered crop)'),
                     array('key' => 'field_bn_link',         'label' => 'Link',          'name' => 'link',         'type' => 'url',   'instructions' => 'Leave blank if slide is not clickable'),
-                    array('key' => 'field_bn_mobile_image', 'label' => 'Mobile Image',  'name' => 'mobile_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'instructions' => 'Mobile: 640×380px — shown on screens below 768px'),
+                    array('key' => 'field_bn_mobile_image', 'label' => 'Mobile Image',  'name' => 'mobile_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'instructions' => 'Mobile: 480×600px (portrait) — shown on screens below 768px'),
                     array('key' => 'field_bn_mobile_link',  'label' => 'Mobile Link',   'name' => 'mobile_link',  'type' => 'url',   'instructions' => 'Optional — separate link for mobile'),
                 ),
             ),
