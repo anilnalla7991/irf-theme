@@ -235,7 +235,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 }
 @media (max-width: 767px) {
     /* Mobile */
-    .banner-slider   { height: 62vw; min-height: 240px; max-height: 420px; }
+    .banner-slider   { height: 70vw; min-height: 240px; max-height: 300px; }
     .banner-desk-wrap { display: none;  }
     .banner-mob-wrap  { display: block; }
     .banner-nav  { width: 38px; height: 38px; }
@@ -245,7 +245,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .banner-footer { bottom: 12px; gap: 14px; }
 }
 @media (max-width: 480px) {
-    .banner-slider { height: 64vw; min-height: 220px; max-height: 340px; }
+    .banner-slider { height: 70vw; min-height: 220px; max-height: 280px; }
     .banner-nav    { display: none; }
 }
 
