@@ -81,37 +81,80 @@ $stats = array(
 $typed_json = esc_attr(json_encode(array_values($hero_typed)));
 ?>
 <section class="hero">
+    <!-- Layered background -->
     <div class="hero-bg"></div>
-    <div class="hero-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-    </div>
+    <div class="hero-orb hero-orb-1"></div>
+    <div class="hero-orb hero-orb-2"></div>
+    <div class="hero-orb hero-orb-3"></div>
+    <div class="hero-grid"></div>
+
     <div class="container">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <span class="dot"></span>
-                <?php echo esc_html($hero_badge); ?>
-            </div>
-            <h1 class="hero-title">
-                <?php echo wp_kses($hero_title, array('span' => array('class' => array()))); ?>
-            </h1>
-            <p class="hero-subtitle"><?php echo esc_html($hero_subtitle); ?></p>
-            <p class="hero-typed">We prepare you for <span class="typed-text" data-words="<?php echo $typed_json; ?>"><?php echo esc_html($hero_typed[0] ?? 'SSC CGL'); ?></span></p>
-            <div class="hero-actions">
-                <a href="<?php echo esc_url($cta1_url); ?>" class="btn btn-primary"><?php echo esc_html($cta1_text); ?> &rarr;</a>
-                <a href="<?php echo esc_url($cta2_url); ?>" class="btn btn-outline"><?php echo esc_html($cta2_text); ?></a>
-            </div>
-            <div class="hero-stats">
-                <?php foreach ($stats as $stat) : ?>
-                <div class="hero-stat">
-                    <div class="hero-stat-number counter" data-target="<?php echo esc_attr($stat['num']); ?>" data-suffix="<?php echo esc_attr($stat['suffix']); ?>">0</div>
-                    <div class="hero-stat-label"><?php echo esc_html($stat['label']); ?></div>
+        <div class="hero-split">
+
+            <!-- ── LEFT: Text content ── -->
+            <div class="hero-left">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    <?php echo esc_html($hero_badge); ?>
                 </div>
-                <?php endforeach; ?>
+                <h1 class="hero-title">
+                    <?php echo wp_kses($hero_title, array('span' => array('class' => array()))); ?>
+                </h1>
+                <p class="hero-subtitle"><?php echo esc_html($hero_subtitle); ?></p>
+                <p class="hero-typed">We prepare you for <span class="typed-text" data-words="<?php echo $typed_json; ?>"><?php echo esc_html($hero_typed[0] ?? 'SSC CGL'); ?></span></p>
+                <div class="hero-actions">
+                    <a href="<?php echo esc_url($cta1_url); ?>" class="btn btn-primary"><?php echo esc_html($cta1_text); ?> &rarr;</a>
+                    <a href="<?php echo esc_url($cta2_url); ?>" class="btn btn-outline"><?php echo esc_html($cta2_text); ?></a>
+                </div>
+                <div class="hero-features">
+                    <span class="hero-feat"><span>✓</span> Practice Hall</span>
+                    <span class="hero-feat"><span>✓</span> Computer Lab</span>
+                    <span class="hero-feat"><span>✓</span> Mentor Guidance</span>
+                </div>
+            </div>
+
+            <!-- ── RIGHT: Visual ── -->
+            <div class="hero-right" id="heroVisual">
+
+                <!-- Glow backdrop -->
+                <div class="hero-glow-bg"></div>
+
+                <!-- Central SVG ring — shows success rate -->
+                <div class="hero-ring-wrap">
+                    <svg class="ring-svg" viewBox="0 0 220 220" aria-hidden="true">
+                        <circle class="ring-track" cx="110" cy="110" r="96"/>
+                        <circle class="ring-fill"  cx="110" cy="110" r="96" id="ringFill"/>
+                    </svg>
+                    <div class="ring-center">
+                        <span class="ring-number counter" data-target="<?php echo esc_attr($stats[3]['num']); ?>" data-suffix="<?php echo esc_attr($stats[3]['suffix']); ?>">0</span>
+                        <span class="ring-label"><?php echo esc_html($stats[3]['label']); ?></span>
+                    </div>
+                </div>
+
+                <!-- Glassmorphism stat cards -->
+                <div class="stat-card stat-card-1">
+                    <div class="stat-card-num counter" data-target="<?php echo esc_attr($stats[0]['num']); ?>" data-suffix="<?php echo esc_attr($stats[0]['suffix']); ?>">0</div>
+                    <div class="stat-card-label"><?php echo esc_html($stats[0]['label']); ?></div>
+                </div>
+                <div class="stat-card stat-card-2">
+                    <div class="stat-card-num counter" data-target="<?php echo esc_attr($stats[1]['num']); ?>" data-suffix="<?php echo esc_attr($stats[1]['suffix']); ?>">0</div>
+                    <div class="stat-card-label"><?php echo esc_html($stats[1]['label']); ?></div>
+                </div>
+                <div class="stat-card stat-card-3">
+                    <div class="stat-card-num counter" data-target="<?php echo esc_attr($stats[2]['num']); ?>" data-suffix="<?php echo esc_attr($stats[2]['suffix']); ?>">0</div>
+                    <div class="stat-card-label"><?php echo esc_html($stats[2]['label']); ?></div>
+                </div>
+
+                <!-- Floating education icons -->
+                <div class="float-icon float-icon-1" aria-hidden="true">🎓</div>
+                <div class="float-icon float-icon-2" aria-hidden="true">📚</div>
+                <div class="float-icon float-icon-3" aria-hidden="true">🏆</div>
+                <div class="float-icon float-icon-4" aria-hidden="true">⭐</div>
+
             </div>
         </div>
     </div>
+
     <div class="scroll-indicator">
         <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
         <span>Scroll Down</span>

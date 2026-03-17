@@ -167,30 +167,73 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ==========================================
-    // Banner Slider
+    // Banner Slider — 3D Cube Effect
     // ==========================================
     var bannerTrack = document.getElementById('bannerTrack');
     if (bannerTrack) {
-        var bannerSlides  = bannerTrack.querySelectorAll('.banner-slide');
-        var bannerDots    = document.querySelectorAll('.banner-dot');
+        var bannerSlides  = Array.prototype.slice.call(bannerTrack.querySelectorAll('.banner-slide'));
+        var bannerDots    = Array.prototype.slice.call(document.querySelectorAll('.banner-dot'));
         var bannerPrev    = document.querySelector('.banner-prev');
         var bannerNext    = document.querySelector('.banner-next');
         var bannerCurrent = 0;
         var bannerTotal   = bannerSlides.length;
+        var bannerBusy    = false;
         var bannerTimer;
 
-        function bannerGoTo(index) {
-            bannerCurrent = (index + bannerTotal) % bannerTotal;
-            bannerTrack.style.transform = 'translateX(-' + (bannerCurrent * 100) + '%)';
-            bannerDots.forEach(function (d, i) {
-                d.classList.toggle('active', i === bannerCurrent);
+        // Init: only first slide visible
+        bannerSlides.forEach(function (s, i) {
+            s.style.position    = i === 0 ? 'relative' : 'absolute';
+            s.style.top         = '0';
+            s.style.left        = '0';
+            s.style.width       = '100%';
+            s.style.opacity     = i === 0 ? '1' : '0';
+            s.style.transform   = i === 0 ? 'rotateY(0deg) scale(1)' : 'rotateY(90deg) scale(0.95)';
+            s.style.zIndex      = i === 0 ? '2' : '1';
+        });
+        bannerTrack.style.position = 'relative';
+
+        function bannerGoTo(next) {
+            if (bannerBusy || next === bannerCurrent || bannerTotal < 2) return;
+            bannerBusy = true;
+
+            var curr    = bannerSlides[bannerCurrent];
+            var nextEl  = bannerSlides[(next + bannerTotal) % bannerTotal];
+            var dir     = (next > bannerCurrent || (bannerCurrent === bannerTotal - 1 && next === 0)) ? 1 : -1;
+
+            // Stage next slide
+            nextEl.style.transition = 'none';
+            nextEl.style.opacity    = '1';
+            nextEl.style.transform  = 'rotateY(' + (90 * dir) + 'deg) scale(0.95)';
+            nextEl.style.zIndex     = '2';
+            nextEl.style.position   = 'absolute';
+            curr.style.zIndex       = '3';
+
+            // Trigger
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    var dur = '0.75s cubic-bezier(0.77,0,0.18,1)';
+                    curr.style.transition  = 'transform ' + dur + ', opacity ' + dur;
+                    nextEl.style.transition = 'transform ' + dur + ', opacity ' + dur;
+
+                    curr.style.transform   = 'rotateY(' + (-90 * dir) + 'deg) scale(0.95)';
+                    curr.style.opacity     = '0';
+                    nextEl.style.transform = 'rotateY(0deg) scale(1)';
+                });
             });
+
+            setTimeout(function () {
+                curr.style.position  = 'absolute';
+                curr.style.zIndex    = '1';
+                nextEl.style.zIndex  = '2';
+                nextEl.style.position = 'relative';
+                bannerCurrent = (next + bannerTotal) % bannerTotal;
+                bannerDots.forEach(function (d, i) { d.classList.toggle('active', i === bannerCurrent); });
+                bannerBusy = false;
+            }, 780);
         }
 
         function bannerStartAuto() {
-            bannerTimer = setInterval(function () {
-                bannerGoTo(bannerCurrent + 1);
-            }, 5000);
+            bannerTimer = setInterval(function () { bannerGoTo(bannerCurrent + 1); }, 5000);
         }
 
         if (bannerPrev) bannerPrev.addEventListener('click', function () { clearInterval(bannerTimer); bannerGoTo(bannerCurrent - 1); bannerStartAuto(); });
@@ -198,8 +241,36 @@ document.addEventListener('DOMContentLoaded', function () {
         bannerDots.forEach(function (dot, i) {
             dot.addEventListener('click', function () { clearInterval(bannerTimer); bannerGoTo(i); bannerStartAuto(); });
         });
-
         if (bannerTotal > 1) bannerStartAuto();
+    }
+
+    // ==========================================
+    // Hero: SVG Ring fill trigger
+    // ==========================================
+    var ringFill = document.getElementById('ringFill');
+    if (ringFill) {
+        // Inject SVG gradient defs
+        var svg = ringFill.closest('svg');
+        if (svg) {
+            var defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+            defs.innerHTML = '<linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#fe0000"/><stop offset="100%" style="stop-color:#ff6b35"/></linearGradient>';
+            svg.insertBefore(defs, svg.firstChild);
+        }
+        setTimeout(function () { ringFill.classList.add('animated'); }, 400);
+    }
+
+    // ==========================================
+    // Hero Right: mouse parallax tilt
+    // ==========================================
+    var heroVisual = document.getElementById('heroVisual');
+    if (heroVisual && window.innerWidth > 900) {
+        document.addEventListener('mousemove', function (e) {
+            var cx = window.innerWidth  / 2;
+            var cy = window.innerHeight / 2;
+            var dx = (e.clientX - cx) / cx;
+            var dy = (e.clientY - cy) / cy;
+            heroVisual.style.transform = 'perspective(1200px) rotateY(' + (dx * 6) + 'deg) rotateX(' + (-dy * 4) + 'deg)';
+        });
     }
 
     // ==========================================
