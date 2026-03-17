@@ -7,54 +7,86 @@ $home_banners = function_exists('get_field') ? get_field('home_banners') : array
 
 <?php if (!empty($home_banners) && is_array($home_banners)) : ?>
 <!-- ============================================================
-     BANNER SLIDER
+     BANNER SLIDER — Cinematic Edition
      ============================================================ -->
 <section class="banner-slider" id="bannerSlider" aria-label="Homepage Banner">
-    <div class="banner-track" id="bannerTrack">
-        <?php foreach ($home_banners as $slide) :
-            $desk_img    = $slide['image'];
-            $desk_src    = is_array($desk_img) ? $desk_img['url'] : $desk_img;
-            $desk_alt    = is_array($desk_img) ? $desk_img['alt'] : '';
-            $mob_img     = $slide['mobile_image'];
-            $mob_src     = is_array($mob_img)  ? $mob_img['url']  : $mob_img;
-            $desk_link   = !empty($slide['link'])        ? $slide['link']        : '';
-            $mob_link    = !empty($slide['mobile_link']) ? $slide['mobile_link'] : $desk_link;
+
+    <!-- Slides -->
+    <div class="banner-slides" id="bannerTrack">
+        <?php foreach ($home_banners as $idx => $slide) :
+            $desk_img  = $slide['image'];
+            $desk_src  = is_array($desk_img) ? $desk_img['url'] : $desk_img;
+            $desk_alt  = is_array($desk_img) ? $desk_img['alt'] : '';
+            $mob_img   = $slide['mobile_image'];
+            $mob_src   = is_array($mob_img)  ? $mob_img['url']  : $mob_img;
+            $desk_link = !empty($slide['link'])        ? $slide['link']        : '';
+            $mob_link  = !empty($slide['mobile_link']) ? $slide['mobile_link'] : $desk_link;
+            $is_first  = $idx === 0;
         ?>
-        <div class="banner-slide">
-            <?php if ($desk_link) : ?>
-            <a href="<?php echo esc_url($desk_link); ?>" class="banner-link banner-link-desk">
-            <?php endif; ?>
-                <?php if ($desk_src) : ?>
+        <div class="banner-slide<?php echo $is_first ? ' active' : ''; ?>">
+
+            <!-- Desktop image -->
+            <?php if ($desk_src) : ?>
+            <div class="banner-img-wrap banner-desk-wrap">
+                <?php if ($desk_link) : ?><a href="<?php echo esc_url($desk_link); ?>" tabindex="-1"><?php endif; ?>
                 <img src="<?php echo esc_url($desk_src); ?>"
                      alt="<?php echo esc_attr($desk_alt); ?>"
-                     class="banner-img banner-img-desk"
-                     loading="lazy">
-                <?php endif; ?>
-            <?php if ($desk_link) : ?></a><?php endif; ?>
-
-            <?php if ($mob_link) : ?>
-            <a href="<?php echo esc_url($mob_link); ?>" class="banner-link banner-link-mob">
+                     class="banner-bg-img"
+                     loading="<?php echo $is_first ? 'eager' : 'lazy'; ?>">
+                <?php if ($desk_link) : ?></a><?php endif; ?>
+            </div>
             <?php endif; ?>
-                <?php if ($mob_src) : ?>
+
+            <!-- Mobile image -->
+            <?php if ($mob_src) : ?>
+            <div class="banner-img-wrap banner-mob-wrap">
+                <?php if ($mob_link) : ?><a href="<?php echo esc_url($mob_link); ?>" tabindex="-1"><?php endif; ?>
                 <img src="<?php echo esc_url($mob_src); ?>"
-                     alt="<?php echo esc_attr(is_array($mob_img) ? $mob_img['alt'] : ''); ?>"
-                     class="banner-img banner-img-mob"
+                     alt="<?php echo esc_attr(is_array($mob_img) ? $mob_img['alt'] : $desk_alt); ?>"
+                     class="banner-bg-img"
                      loading="lazy">
-                <?php endif; ?>
-            <?php if ($mob_link) : ?></a><?php endif; ?>
+                <?php if ($mob_link) : ?></a><?php endif; ?>
+            </div>
+            <?php endif; ?>
+
+            <!-- Cinematic gradient overlay -->
+            <div class="banner-overlay"></div>
         </div>
         <?php endforeach; ?>
     </div>
 
-    <?php if (count($home_banners) > 1) : ?>
-    <button class="banner-btn banner-prev" aria-label="Previous slide">&#8592;</button>
-    <button class="banner-btn banner-next" aria-label="Next slide">&#8594;</button>
-    <div class="banner-dots" id="bannerDots">
-        <?php foreach ($home_banners as $i => $s) : ?>
-        <button class="banner-dot<?php echo $i === 0 ? ' active' : ''; ?>" aria-label="Slide <?php echo esc_attr($i + 1); ?>"></button>
-        <?php endforeach; ?>
+    <?php $total = count($home_banners); ?>
+
+    <!-- Top progress bar -->
+    <div class="banner-progress-track">
+        <div class="banner-progress-fill" id="bannerProgress"></div>
+    </div>
+
+    <?php if ($total > 1) : ?>
+    <!-- Prev / Next -->
+    <button class="banner-nav banner-prev" aria-label="Previous slide">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="banner-nav banner-next" aria-label="Next slide">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <!-- Bottom bar: counter + pill dots -->
+    <div class="banner-footer">
+        <div class="banner-counter">
+            <span class="banner-curr" id="bannerCurrNum">01</span>
+            <span class="banner-slash">/</span>
+            <span class="banner-total"><?php echo esc_html(str_pad($total, 2, '0', STR_PAD_LEFT)); ?></span>
+        </div>
+        <div class="banner-dots" id="bannerDots">
+            <?php for ($i = 0; $i < $total; $i++) : ?>
+            <button class="banner-dot<?php echo $i === 0 ? ' active' : ''; ?>"
+                    aria-label="Slide <?php echo esc_attr($i + 1); ?>"></button>
+            <?php endfor; ?>
+        </div>
     </div>
     <?php endif; ?>
+
 </section>
 <?php endif; ?>
 

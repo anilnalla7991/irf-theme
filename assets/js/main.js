@@ -167,81 +167,103 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ==========================================
-    // Banner Slider — 3D Cube Effect
+    // Banner Slider — Cinematic Clip-Path Reveal
     // ==========================================
     var bannerTrack = document.getElementById('bannerTrack');
     if (bannerTrack) {
-        var bannerSlides  = Array.prototype.slice.call(bannerTrack.querySelectorAll('.banner-slide'));
-        var bannerDots    = Array.prototype.slice.call(document.querySelectorAll('.banner-dot'));
-        var bannerPrev    = document.querySelector('.banner-prev');
-        var bannerNext    = document.querySelector('.banner-next');
-        var bannerCurrent = 0;
-        var bannerTotal   = bannerSlides.length;
-        var bannerBusy    = false;
+        var bannerSlides   = Array.prototype.slice.call(bannerTrack.querySelectorAll('.banner-slide'));
+        var bannerDots     = Array.prototype.slice.call(document.querySelectorAll('.banner-dot'));
+        var bannerPrev     = document.querySelector('.banner-prev');
+        var bannerNext     = document.querySelector('.banner-next');
+        var bannerProgress = document.getElementById('bannerProgress');
+        var bannerCurrNum  = document.getElementById('bannerCurrNum');
+        var bannerCurrent  = 0;
+        var bannerTotal    = bannerSlides.length;
+        var bannerBusy     = false;
         var bannerTimer;
+        var progressTimer;
+        var INTERVAL       = 5000; // ms between slides
+        var TRANSITION     = 900;  // ms clip-path animation duration
 
-        // Init: only first slide visible
-        bannerSlides.forEach(function (s, i) {
-            s.style.position    = i === 0 ? 'relative' : 'absolute';
-            s.style.top         = '0';
-            s.style.left        = '0';
-            s.style.width       = '100%';
-            s.style.opacity     = i === 0 ? '1' : '0';
-            s.style.transform   = i === 0 ? 'rotateY(0deg) scale(1)' : 'rotateY(90deg) scale(0.95)';
-            s.style.zIndex      = i === 0 ? '2' : '1';
-        });
-        bannerTrack.style.position = 'relative';
+        function bannerPad(n) {
+            return (n < 10 ? '0' : '') + n;
+        }
 
-        function bannerGoTo(next) {
-            if (bannerBusy || next === bannerCurrent || bannerTotal < 2) return;
-            bannerBusy = true;
+        function bannerUpdateUI(index) {
+            bannerDots.forEach(function (d, i) { d.classList.toggle('active', i === index); });
+            if (bannerCurrNum) { bannerCurrNum.textContent = bannerPad(index + 1); }
+        }
 
-            var curr    = bannerSlides[bannerCurrent];
-            var nextEl  = bannerSlides[(next + bannerTotal) % bannerTotal];
-            var dir     = (next > bannerCurrent || (bannerCurrent === bannerTotal - 1 && next === 0)) ? 1 : -1;
-
-            // Stage next slide
-            nextEl.style.transition = 'none';
-            nextEl.style.opacity    = '1';
-            nextEl.style.transform  = 'rotateY(' + (90 * dir) + 'deg) scale(0.95)';
-            nextEl.style.zIndex     = '2';
-            nextEl.style.position   = 'absolute';
-            curr.style.zIndex       = '3';
-
-            // Trigger
+        function bannerStartProgress() {
+            if (!bannerProgress) return;
+            clearInterval(progressTimer);
+            bannerProgress.style.transition = 'none';
+            bannerProgress.style.width = '0%';
             requestAnimationFrame(function () {
                 requestAnimationFrame(function () {
-                    var dur = '0.75s cubic-bezier(0.77,0,0.18,1)';
-                    curr.style.transition  = 'transform ' + dur + ', opacity ' + dur;
-                    nextEl.style.transition = 'transform ' + dur + ', opacity ' + dur;
-
-                    curr.style.transform   = 'rotateY(' + (-90 * dir) + 'deg) scale(0.95)';
-                    curr.style.opacity     = '0';
-                    nextEl.style.transform = 'rotateY(0deg) scale(1)';
+                    bannerProgress.style.transition = 'width ' + INTERVAL + 'ms linear';
+                    bannerProgress.style.width = '100%';
                 });
             });
+        }
 
+        function bannerGoTo(next) {
+            if (bannerBusy || bannerTotal < 2) return;
+            var target = (next + bannerTotal) % bannerTotal;
+            if (target === bannerCurrent) return;
+            bannerBusy = true;
+
+            var curr   = bannerSlides[bannerCurrent];
+            var nextEl = bannerSlides[target];
+
+            // Bring next slide in with .entering (triggers clip-path animation)
+            nextEl.classList.add('entering');
+            // After animation completes, swap active
             setTimeout(function () {
-                curr.style.position  = 'absolute';
-                curr.style.zIndex    = '1';
-                nextEl.style.zIndex  = '2';
-                nextEl.style.position = 'relative';
-                bannerCurrent = (next + bannerTotal) % bannerTotal;
-                bannerDots.forEach(function (d, i) { d.classList.toggle('active', i === bannerCurrent); });
+                curr.classList.remove('active');
+                nextEl.classList.remove('entering');
+                nextEl.classList.add('active');
+                bannerCurrent = target;
+                bannerUpdateUI(bannerCurrent);
                 bannerBusy = false;
-            }, 780);
+            }, TRANSITION);
         }
 
         function bannerStartAuto() {
-            bannerTimer = setInterval(function () { bannerGoTo(bannerCurrent + 1); }, 5000);
+            clearInterval(bannerTimer);
+            bannerStartProgress();
+            bannerTimer = setInterval(function () {
+                bannerGoTo(bannerCurrent + 1);
+                bannerStartProgress();
+            }, INTERVAL);
         }
 
-        if (bannerPrev) bannerPrev.addEventListener('click', function () { clearInterval(bannerTimer); bannerGoTo(bannerCurrent - 1); bannerStartAuto(); });
-        if (bannerNext) bannerNext.addEventListener('click', function () { clearInterval(bannerTimer); bannerGoTo(bannerCurrent + 1); bannerStartAuto(); });
+        // Init UI
+        bannerUpdateUI(0);
+
+        if (bannerPrev) {
+            bannerPrev.addEventListener('click', function () {
+                clearInterval(bannerTimer);
+                bannerGoTo(bannerCurrent - 1);
+                bannerStartAuto();
+            });
+        }
+        if (bannerNext) {
+            bannerNext.addEventListener('click', function () {
+                clearInterval(bannerTimer);
+                bannerGoTo(bannerCurrent + 1);
+                bannerStartAuto();
+            });
+        }
         bannerDots.forEach(function (dot, i) {
-            dot.addEventListener('click', function () { clearInterval(bannerTimer); bannerGoTo(i); bannerStartAuto(); });
+            dot.addEventListener('click', function () {
+                clearInterval(bannerTimer);
+                bannerGoTo(i);
+                bannerStartAuto();
+            });
         });
-        if (bannerTotal > 1) bannerStartAuto();
+
+        if (bannerTotal > 1) { bannerStartAuto(); }
     }
 
     // ==========================================
