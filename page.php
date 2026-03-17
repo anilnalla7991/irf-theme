@@ -5,11 +5,11 @@
     <div class="page-banner-bg"></div>
     <div class="container">
         <div class="page-banner-content">
-            <h1 class="page-banner-title"><?php the_title(); ?></h1>
+            <h1 class="page-banner-title"><?php echo esc_html(get_the_title()); ?></h1>
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
                 <span class="breadcrumb-sep">&#8250;</span>
-                <span><?php the_title(); ?></span>
+                <span><?php echo esc_html(get_the_title()); ?></span>
             </nav>
         </div>
     </div>
@@ -22,8 +22,7 @@
             <?php
             while (have_posts()) :
                 the_post();
-                $content = get_the_content();
-                if ($content) :
+                if (get_the_content()) :
                     the_content();
                 else :
             ?>

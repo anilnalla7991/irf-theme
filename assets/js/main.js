@@ -34,7 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
     var typedEl = document.querySelector('.typed-text');
     if (typedEl) {
         var wordsAttr  = typedEl.getAttribute('data-words');
-        var words      = wordsAttr ? JSON.parse(wordsAttr) : ['SSC CGL', 'IBPS PO', 'RBI Grade B', 'SI Exam', 'Constable', 'RRB NTPC', 'SBI PO'];
+        var words;
+        try { words = wordsAttr ? JSON.parse(wordsAttr) : null; } catch (e) { words = null; }
+        words = words && words.length ? words : ['SSC CGL', 'IBPS PO', 'RBI Grade B', 'SI Exam', 'Constable', 'RRB NTPC', 'SBI PO'];
         var wordIndex  = 0;
         var charIndex  = 0;
         var deleting   = false;

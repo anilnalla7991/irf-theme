@@ -1,11 +1,5 @@
 
 <?php
-// ACF options helper (defined in front-page.php; safe to redefine here)
-if (!function_exists('irf_opt')) {
-    function irf_opt($key, $default = '') {
-        return function_exists('get_field') ? (get_field($key, 'option') ?: $default) : $default;
-    }
-}
 $f_phone   = irf_opt('site_phone',   '+91 98765 43210');
 $f_email   = irf_opt('site_email',   'info@irf-iace.com');
 $f_address = irf_opt('site_address', '123, Main Road, Hyderabad, Telangana – 500001');

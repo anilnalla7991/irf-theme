@@ -1,9 +1,4 @@
 <?php
-// ACF Options helpers — falls back to defaults if ACF not active
-function irf_opt($key, $default = '') {
-    return function_exists('get_field') ? (get_field($key, 'option') ?: $default) : $default;
-}
-
 get_header();
 ?>
 
@@ -95,7 +90,7 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
             foreach ($exams as $index => $exam) :
             ?>
             <div class="exam-card reveal reveal-delay-<?php echo esc_attr(min($index + 1, 4)); ?>">
-                <div class="exam-icon"><span><?php echo $exam['icon']; ?></span></div>
+                <div class="exam-icon"><span aria-hidden="true"><?php echo esc_html($exam['icon']); ?></span></div>
                 <div class="exam-name"><?php echo esc_html($exam['name']); ?></div>
                 <div class="exam-full"><?php echo esc_html($exam['full']); ?></div>
             </div>
@@ -164,7 +159,7 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
             foreach ($facilities as $index => $facility) :
             ?>
             <div class="facility-card reveal reveal-delay-<?php echo esc_attr(($index % 3) + 1); ?>">
-                <div class="facility-icon"><?php echo $facility['icon']; ?></div>
+                <div class="facility-icon" aria-hidden="true"><?php echo esc_html($facility['icon']); ?></div>
                 <h3 class="facility-title"><?php echo esc_html($facility['title']); ?></h3>
                 <p class="facility-desc"><?php echo esc_html($facility['desc']); ?></p>
             </div>
@@ -444,7 +439,7 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
             <div class="reel-item">
                 <div class="reel-placeholder">
                     <div class="reel-play-icon">&#9654;</div>
-                    <span>IRF Short #<?php echo $i + 1; ?></span>
+                    <span>IRF Short #<?php echo esc_html($i + 1); ?></span>
                     <small>Add YouTube ID</small>
                 </div>
             </div>
