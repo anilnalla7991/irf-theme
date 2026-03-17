@@ -527,7 +527,8 @@ function irf_register_acf_fields() {
 
     /* ----------------------------------------------------------
        HOMEPAGE — attached to the front page editor
-       (appears when you edit the page set as "Homepage")
+       Sections that match the actual homepage:
+       Slider | YouTube Reels
     ---------------------------------------------------------- */
     acf_add_local_field_group(array(
         'key'      => 'group_irf_homepage',
@@ -556,80 +557,31 @@ function irf_register_acf_fields() {
                 'layout'       => 'row',
                 'button_label' => 'Add Slide',
                 'sub_fields'   => array(
-                    array('key' => 'field_bn_image',        'label' => 'Desktop Image', 'name' => 'image',        'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium', 'instructions' => 'Recommended size: 1920×600px'),
+                    array('key' => 'field_bn_image',        'label' => 'Desktop Image', 'name' => 'image',        'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium',    'instructions' => 'Recommended size: 1920×600px'),
                     array('key' => 'field_bn_link',         'label' => 'Link',          'name' => 'link',         'type' => 'url',   'instructions' => 'Leave blank if slide is not clickable'),
                     array('key' => 'field_bn_mobile_image', 'label' => 'Mobile Image',  'name' => 'mobile_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'instructions' => 'Recommended size: 768×400px'),
-                    array('key' => 'field_bn_mobile_link',  'label' => 'Mobile Link',   'name' => 'mobile_link',  'type' => 'url',   'instructions' => 'Optional separate link for mobile'),
+                    array('key' => 'field_bn_mobile_link',  'label' => 'Mobile Link',   'name' => 'mobile_link',  'type' => 'url',   'instructions' => 'Optional — separate link for mobile'),
                 ),
             ),
 
-            /* ---- TAB: Popular Courses ---- */
-            array('key' => 'field_hp_tab_popular', 'label' => 'Popular Courses', 'name' => '', 'type' => 'tab', 'placement' => 'top'),
-            array('key' => 'field_hp_pop_tag',      'label' => 'Section Tag',   'name' => 'popular_tag',      'type' => 'text', 'default_value' => 'Top Picks'),
-            array('key' => 'field_hp_pop_title',    'label' => 'Section Title', 'name' => 'popular_title',    'type' => 'text', 'default_value' => 'Popular Courses'),
-            array('key' => 'field_hp_pop_subtitle', 'label' => 'Subtitle',      'name' => 'popular_subtitle', 'type' => 'text', 'default_value' => 'Most enrolled courses by our students.'),
+            /* ---- TAB: YouTube Reels ---- */
+            array('key' => 'field_hp_tab_reels', 'label' => 'YouTube Reels', 'name' => '', 'type' => 'tab', 'placement' => 'top'),
+            array('key' => 'field_hp_reels_tag',      'label' => 'Section Tag',      'name' => 'reels_tag',      'type' => 'text', 'default_value' => 'Watch & Learn'),
+            array('key' => 'field_hp_reels_title',    'label' => 'Section Title',    'name' => 'reels_title',    'type' => 'text', 'default_value' => 'IRF on YouTube'),
+            array('key' => 'field_hp_reels_subtitle', 'label' => 'Section Subtitle', 'name' => 'reels_subtitle', 'type' => 'text', 'default_value' => 'Quick exam tips, success stories and strategies — straight from our YouTube channel.'),
             array(
-                'key'          => 'field_hp_popular_list',
-                'label'        => 'Course Cards',
-                'name'         => 'popular_courses',
-                'type'         => 'repeater',
-                'min'          => 0,
-                'layout'       => 'block',
-                'button_label' => 'Add Course',
-                'sub_fields'   => array(
-                    array('key' => 'field_pc_icon',     'label' => 'Icon (Emoji)',   'name' => 'icon',     'type' => 'text',     'default_value' => '📚'),
-                    array('key' => 'field_pc_name',     'label' => 'Course Name',    'name' => 'name',     'type' => 'text'),
-                    array('key' => 'field_pc_desc',     'label' => 'Short Desc',     'name' => 'desc',     'type' => 'textarea', 'rows' => 2),
-                    array('key' => 'field_pc_duration', 'label' => 'Duration',       'name' => 'duration', 'type' => 'text',     'placeholder' => 'e.g. 6 Months'),
-                    array('key' => 'field_pc_link',     'label' => 'Enquire Link',   'name' => 'link',     'type' => 'url'),
-                ),
-            ),
-
-            /* ---- TAB: Why Us ---- */
-            array('key' => 'field_hp_tab_why', 'label' => 'Why Us', 'name' => '', 'type' => 'tab', 'placement' => 'top'),
-            array('key' => 'field_hp_why_tag',      'label' => 'Section Tag',   'name' => 'why_tag',      'type' => 'text', 'default_value' => 'Why Choose IRF'),
-            array('key' => 'field_hp_why_title',    'label' => 'Section Title', 'name' => 'why_title',    'type' => 'text', 'default_value' => 'What Makes Us Different'),
-            array('key' => 'field_hp_why_subtitle', 'label' => 'Subtitle',      'name' => 'why_subtitle', 'type' => 'text', 'default_value' => 'A coaching institute built around results, not promises.'),
-            array(
-                'key'          => 'field_hp_why_points',
-                'label'        => 'Reasons / Points',
-                'name'         => 'why_points',
+                'key'          => 'field_hp_reels_videos',
+                'label'        => 'YouTube Shorts',
+                'name'         => 'home_youtube_videos',
                 'type'         => 'repeater',
                 'min'          => 0,
                 'layout'       => 'table',
-                'button_label' => 'Add Point',
+                'button_label' => 'Add YouTube Short',
+                'instructions' => 'Paste only the Video ID — the part after youtube.com/shorts/  e.g. for youtube.com/shorts/dQw4w9WgXcQ enter: dQw4w9WgXcQ',
                 'sub_fields'   => array(
-                    array('key' => 'field_wp_icon',  'label' => 'Icon (Emoji)', 'name' => 'icon',  'type' => 'text',     'default_value' => '✅'),
-                    array('key' => 'field_wp_title', 'label' => 'Title',        'name' => 'title', 'type' => 'text'),
-                    array('key' => 'field_wp_desc',  'label' => 'Description',  'name' => 'desc',  'type' => 'textarea', 'rows' => 2),
+                    array('key' => 'field_hp_reel_id', 'label' => 'YouTube Short Video ID', 'name' => 'video_id', 'type' => 'text', 'placeholder' => 'e.g. dQw4w9WgXcQ'),
                 ),
             ),
-
-            /* ---- TAB: Our Process ---- */
-            array('key' => 'field_hp_tab_process', 'label' => 'Our Process', 'name' => '', 'type' => 'tab', 'placement' => 'top'),
-            array('key' => 'field_hp_proc_tag',      'label' => 'Section Tag',   'name' => 'process_tag',      'type' => 'text', 'default_value' => 'How It Works'),
-            array('key' => 'field_hp_proc_title',    'label' => 'Section Title', 'name' => 'process_title',    'type' => 'text', 'default_value' => 'Our Admission Process'),
-            array('key' => 'field_hp_proc_subtitle', 'label' => 'Subtitle',      'name' => 'process_subtitle', 'type' => 'text', 'default_value' => 'Getting started is simple. Follow these steps.'),
-            array(
-                'key'          => 'field_hp_proc_steps',
-                'label'        => 'Process Steps',
-                'name'         => 'process_steps',
-                'type'         => 'repeater',
-                'min'          => 0,
-                'layout'       => 'table',
-                'button_label' => 'Add Step',
-                'sub_fields'   => array(
-                    array('key' => 'field_ps_num',   'label' => 'Step No.',    'name' => 'number', 'type' => 'number'),
-                    array('key' => 'field_ps_title', 'label' => 'Step Title',  'name' => 'title',  'type' => 'text'),
-                    array('key' => 'field_ps_desc',  'label' => 'Description', 'name' => 'desc',   'type' => 'textarea', 'rows' => 2),
-                    array('key' => 'field_ps_icon',  'label' => 'Icon (Emoji)','name' => 'icon',   'type' => 'text', 'default_value' => '📌'),
-                ),
-            ),
-
-            /* ---- TAB: Testimonials ---- */
-            array('key' => 'field_hp_tab_testi', 'label' => 'Testimonial', 'name' => '', 'type' => 'tab', 'placement' => 'top'),
-            array('key' => 'field_hp_testi_note', 'label' => 'Note', 'name' => '', 'type' => 'message',
-                'message' => 'Testimonials are pulled automatically from the <strong>Success Stories</strong> custom post type. Add stories there and they will appear in the carousel on the homepage.'),
 
         ),
     ));

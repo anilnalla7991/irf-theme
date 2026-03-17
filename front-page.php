@@ -468,10 +468,11 @@ $facilities = (!empty($fac_acf) && is_array($fac_acf)) ? $fac_acf : $fac_default
      SECTION 8: YOUTUBE REELS AUTO-SCROLL
      ============================================================ -->
 <?php
-$reels_tag      = irf_opt('reels_tag',      'Watch & Learn');
-$reels_title    = irf_opt('reels_title',    'IRF on YouTube');
-$reels_subtitle = irf_opt('reels_subtitle', 'Quick exam tips, success stories and strategies — straight from our YouTube channel.');
-$reels_acf      = function_exists('get_field') ? get_field('reels_videos', 'option') : array();
+// Read from homepage page editor fields
+$reels_tag      = function_exists('get_field') ? (get_field('reels_tag')      ?: 'Watch & Learn')    : 'Watch & Learn';
+$reels_title    = function_exists('get_field') ? (get_field('reels_title')    ?: 'IRF on YouTube')   : 'IRF on YouTube';
+$reels_subtitle = function_exists('get_field') ? (get_field('reels_subtitle') ?: 'Quick exam tips, success stories and strategies — straight from our YouTube channel.') : 'Quick exam tips, success stories and strategies — straight from our YouTube channel.';
+$reels_acf      = function_exists('get_field') ? get_field('home_youtube_videos') : array();
 $youtube_reels  = array();
 if (!empty($reels_acf) && is_array($reels_acf)) {
     foreach ($reels_acf as $row) {
