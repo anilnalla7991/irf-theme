@@ -137,6 +137,48 @@ if (function_exists('acf_add_options_page')) {
         'menu_slug'   => 'irf-settings-siteinfo',
         'parent_slug' => 'irf-theme-settings',
     ));
+
+    acf_add_options_sub_page(array(
+        'page_title'  => 'Exams Section',
+        'menu_title'  => 'Exams Section',
+        'menu_slug'   => 'irf-settings-exams',
+        'parent_slug' => 'irf-theme-settings',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'  => 'Learning Model',
+        'menu_title'  => 'Learning Model',
+        'menu_slug'   => 'irf-settings-learning',
+        'parent_slug' => 'irf-theme-settings',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'  => 'Facilities Section',
+        'menu_title'  => 'Facilities',
+        'menu_slug'   => 'irf-settings-facilities',
+        'parent_slug' => 'irf-theme-settings',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'  => 'YouTube Reels',
+        'menu_title'  => 'YouTube Reels',
+        'menu_slug'   => 'irf-settings-reels',
+        'parent_slug' => 'irf-theme-settings',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'  => 'Section Headers',
+        'menu_title'  => 'Section Headers',
+        'menu_slug'   => 'irf-settings-headers',
+        'parent_slug' => 'irf-theme-settings',
+    ));
+
+    acf_add_options_sub_page(array(
+        'page_title'  => 'About Page',
+        'menu_title'  => 'About Page',
+        'menu_slug'   => 'irf-settings-about',
+        'parent_slug' => 'irf-theme-settings',
+    ));
 }
 
 
@@ -227,6 +269,261 @@ function irf_register_acf_fields() {
             array('key' => 'field_social_telegram',  'label' => 'Telegram URL',   'name' => 'social_telegram',  'type' => 'url'),
         ),
     ));
+
+    /* ----------------------------------------------------------
+       EXAMS SECTION (Options page)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_exams',
+        'title'    => 'Exams Section',
+        'location' => array(array(array(
+            'param'    => 'options_page',
+            'operator' => '==',
+            'value'    => 'irf-settings-exams',
+        ))),
+        'fields' => array(
+            array('key' => 'field_exams_tag',      'label' => 'Section Tag',      'name' => 'exams_tag',      'type' => 'text',     'default_value' => 'What We Teach'),
+            array('key' => 'field_exams_title',    'label' => 'Section Title',    'name' => 'exams_title',    'type' => 'text',     'default_value' => 'Exams We Prepare For'),
+            array('key' => 'field_exams_subtitle', 'label' => 'Section Subtitle', 'name' => 'exams_subtitle', 'type' => 'text',     'default_value' => 'Comprehensive coaching for all major government competitive exams across India.'),
+            array(
+                'key'        => 'field_exams_list',
+                'label'      => 'Exam Cards',
+                'name'       => 'exams_list',
+                'type'       => 'repeater',
+                'min'        => 1,
+                'layout'     => 'table',
+                'button_label' => 'Add Exam',
+                'sub_fields' => array(
+                    array('key' => 'field_exam_icon', 'label' => 'Icon (Emoji)', 'name' => 'icon', 'type' => 'text', 'default_value' => '📋'),
+                    array('key' => 'field_exam_name', 'label' => 'Short Name',   'name' => 'name', 'type' => 'text', 'placeholder' => 'e.g. SSC CGL'),
+                    array('key' => 'field_exam_full', 'label' => 'Full Name',    'name' => 'full', 'type' => 'text', 'placeholder' => 'e.g. Combined Graduate Level'),
+                ),
+            ),
+        ),
+    ));
+
+
+    /* ----------------------------------------------------------
+       LEARNING MODEL SECTION (Options page)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_learning',
+        'title'    => 'Learning Model Section',
+        'location' => array(array(array(
+            'param'    => 'options_page',
+            'operator' => '==',
+            'value'    => 'irf-settings-learning',
+        ))),
+        'fields' => array(
+            array('key' => 'field_learn_tag',      'label' => 'Section Tag',      'name' => 'learning_tag',      'type' => 'text', 'default_value' => 'Our Methodology'),
+            array('key' => 'field_learn_title',    'label' => 'Section Title',    'name' => 'learning_title',    'type' => 'text', 'default_value' => 'The IRF Learning Model'),
+            array('key' => 'field_learn_subtitle', 'label' => 'Section Subtitle', 'name' => 'learning_subtitle', 'type' => 'text', 'default_value' => 'A proven 4-step framework that has produced thousands of government job selections.'),
+            array(
+                'key'          => 'field_learn_steps',
+                'label'        => 'Steps',
+                'name'         => 'learning_steps',
+                'type'         => 'repeater',
+                'min'          => 1,
+                'max'          => 8,
+                'layout'       => 'block',
+                'button_label' => 'Add Step',
+                'sub_fields'   => array(
+                    array('key' => 'field_step_icon',  'label' => 'Icon (Emoji)',  'name' => 'icon',  'type' => 'text',     'default_value' => '📝'),
+                    array('key' => 'field_step_title', 'label' => 'Step Title',    'name' => 'title', 'type' => 'text'),
+                    array('key' => 'field_step_desc',  'label' => 'Description',   'name' => 'desc',  'type' => 'textarea', 'rows' => 2),
+                ),
+            ),
+        ),
+    ));
+
+
+    /* ----------------------------------------------------------
+       FACILITIES SECTION (Options page)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_facilities',
+        'title'    => 'Facilities Section',
+        'location' => array(array(array(
+            'param'    => 'options_page',
+            'operator' => '==',
+            'value'    => 'irf-settings-facilities',
+        ))),
+        'fields' => array(
+            array('key' => 'field_fac_tag',      'label' => 'Section Tag',      'name' => 'facilities_tag',      'type' => 'text', 'default_value' => 'World-Class Infrastructure'),
+            array('key' => 'field_fac_title',    'label' => 'Section Title',    'name' => 'facilities_title',    'type' => 'text', 'default_value' => 'Our Facilities'),
+            array('key' => 'field_fac_subtitle', 'label' => 'Section Subtitle', 'name' => 'facilities_subtitle', 'type' => 'text', 'default_value' => 'Everything you need to prepare, practice and perform — all under one roof.'),
+            array(
+                'key'          => 'field_fac_list',
+                'label'        => 'Facility Cards',
+                'name'         => 'facilities_list',
+                'type'         => 'repeater',
+                'min'          => 1,
+                'layout'       => 'block',
+                'button_label' => 'Add Facility',
+                'sub_fields'   => array(
+                    array('key' => 'field_fac_icon',  'label' => 'Icon (Emoji)', 'name' => 'icon',  'type' => 'text',     'default_value' => '🏛️'),
+                    array('key' => 'field_fac_title2', 'label' => 'Title',       'name' => 'title', 'type' => 'text'),
+                    array('key' => 'field_fac_desc',  'label' => 'Description',  'name' => 'desc',  'type' => 'textarea', 'rows' => 3),
+                ),
+            ),
+        ),
+    ));
+
+
+    /* ----------------------------------------------------------
+       YOUTUBE REELS SECTION (Options page)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_reels',
+        'title'    => 'YouTube Reels Section',
+        'location' => array(array(array(
+            'param'    => 'options_page',
+            'operator' => '==',
+            'value'    => 'irf-settings-reels',
+        ))),
+        'fields' => array(
+            array('key' => 'field_reels_tag',      'label' => 'Section Tag',      'name' => 'reels_tag',      'type' => 'text', 'default_value' => 'Watch & Learn'),
+            array('key' => 'field_reels_title',    'label' => 'Section Title',    'name' => 'reels_title',    'type' => 'text', 'default_value' => 'IRF on YouTube'),
+            array('key' => 'field_reels_subtitle', 'label' => 'Section Subtitle', 'name' => 'reels_subtitle', 'type' => 'text', 'default_value' => 'Quick exam tips, success stories and strategies — straight from our YouTube channel.'),
+            array(
+                'key'          => 'field_reels_videos',
+                'label'        => 'YouTube Shorts',
+                'name'         => 'reels_videos',
+                'type'         => 'repeater',
+                'layout'       => 'table',
+                'button_label' => 'Add YouTube Short',
+                'instructions' => 'Add each YouTube Shorts video ID (the part after youtube.com/shorts/)',
+                'sub_fields'   => array(
+                    array('key' => 'field_reel_video_id', 'label' => 'Video ID', 'name' => 'video_id', 'type' => 'text', 'placeholder' => 'e.g. dQw4w9WgXcQ'),
+                ),
+            ),
+        ),
+    ));
+
+
+    /* ----------------------------------------------------------
+       SECTION HEADERS — Results, Stories, Announcements
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_headers',
+        'title'    => 'Section Headers',
+        'location' => array(array(array(
+            'param'    => 'options_page',
+            'operator' => '==',
+            'value'    => 'irf-settings-headers',
+        ))),
+        'fields' => array(
+            // Results
+            array('key' => 'field_hdr_res_tab',      'label' => 'Results Section',        'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_hdr_res_tag',       'label' => 'Tag',                    'name' => 'results_tag',         'type' => 'text', 'default_value' => 'Proven Track Record'),
+            array('key' => 'field_hdr_res_title',     'label' => 'Title',                  'name' => 'results_title',       'type' => 'text', 'default_value' => 'Our Toppers'),
+            array('key' => 'field_hdr_res_subtitle',  'label' => 'Subtitle',               'name' => 'results_subtitle',    'type' => 'text', 'default_value' => 'Real students. Real results. Selections across every major competitive exam.'),
+            array('key' => 'field_hdr_res_btn',       'label' => '"View All" Button Text', 'name' => 'results_btn_text',    'type' => 'text', 'default_value' => 'View All Results'),
+            // Stories
+            array('key' => 'field_hdr_sto_tab',      'label' => 'Success Stories Section', 'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_hdr_sto_tag',       'label' => 'Tag',                    'name' => 'stories_tag',         'type' => 'text', 'default_value' => 'Student Stories'),
+            array('key' => 'field_hdr_sto_title',     'label' => 'Title',                  'name' => 'stories_title',       'type' => 'text', 'default_value' => 'What Our Students Say'),
+            array('key' => 'field_hdr_sto_subtitle',  'label' => 'Subtitle',               'name' => 'stories_subtitle',    'type' => 'text', 'default_value' => 'Real voices. Real results. Students who cracked government exams with IRF – IACE.'),
+            // Announcements
+            array('key' => 'field_hdr_ann_tab',      'label' => 'Announcements Section',  'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_hdr_ann_tag',       'label' => 'Tag',                   'name' => 'ann_tag',             'type' => 'text', 'default_value' => 'Stay Updated'),
+            array('key' => 'field_hdr_ann_title',     'label' => 'Title',                 'name' => 'ann_title',           'type' => 'text', 'default_value' => 'Latest Announcements'),
+            array('key' => 'field_hdr_ann_subtitle',  'label' => 'Subtitle',              'name' => 'ann_subtitle',        'type' => 'text', 'default_value' => 'Upcoming events, exam schedules and important notifications from IRF.'),
+            array('key' => 'field_hdr_ann_btn',       'label' => '"View All" Button Text','name' => 'ann_btn_text',        'type' => 'text', 'default_value' => 'View All Announcements'),
+        ),
+    ));
+
+
+    /* ----------------------------------------------------------
+       ABOUT PAGE (Options page)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_about',
+        'title'    => 'About Page',
+        'location' => array(array(array(
+            'param'    => 'options_page',
+            'operator' => '==',
+            'value'    => 'irf-settings-about',
+        ))),
+        'fields' => array(
+            // Banner
+            array('key' => 'field_ab_tab_banner',   'label' => 'Page Banner',         'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_ab_banner_title',  'label' => 'Banner Title',        'name' => 'about_banner_title',  'type' => 'text',  'default_value' => 'About IRF – IACE'),
+            array('key' => 'field_ab_banner_sub',    'label' => 'Banner Subtitle',     'name' => 'about_banner_sub',    'type' => 'text',  'default_value' => "India's #1 Competitive Exam Coaching Institute"),
+            // Intro
+            array('key' => 'field_ab_tab_intro',    'label' => 'Intro Section',       'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_ab_intro_tag',     'label' => 'Section Tag',         'name' => 'about_intro_tag',     'type' => 'text',  'default_value' => 'Who We Are'),
+            array('key' => 'field_ab_intro_title',   'label' => 'Section Title',       'name' => 'about_intro_title',   'type' => 'text',  'default_value' => 'IRF – IACE Result Factory'),
+            array('key' => 'field_ab_intro_text',    'label' => 'About Description',   'name' => 'about_intro_text',    'type' => 'wysiwyg', 'tabs' => 'visual', 'toolbar' => 'basic', 'media_upload' => 0,
+                'default_value' => '<p>IRF – IACE Result Factory is a premier competitive exam coaching institute based in Hyderabad. Since 2014, we have been dedicated to shaping successful government job careers through smart preparation, consistent practice, and expert mentorship.</p><p>Our proven methodology and state-of-the-art infrastructure have helped thousands of students crack SSC, Banking, Railway, and Police exams.</p>'),
+            array('key' => 'field_ab_intro_image',   'label' => 'About Image',         'name' => 'about_intro_image',   'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium'),
+            // Stats
+            array('key' => 'field_ab_tab_stats',    'label' => 'Stats',               'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_ab_stats_tag',     'label' => 'Section Tag',         'name' => 'about_stats_tag',     'type' => 'text',  'default_value' => 'By The Numbers'),
+            array('key' => 'field_ab_stats_title',   'label' => 'Section Title',       'name' => 'about_stats_title',   'type' => 'text',  'default_value' => 'Our Impact'),
+            array(
+                'key'          => 'field_ab_stats_list',
+                'label'        => 'Stats',
+                'name'         => 'about_stats',
+                'type'         => 'repeater',
+                'min'          => 1,
+                'layout'       => 'table',
+                'button_label' => 'Add Stat',
+                'sub_fields'   => array(
+                    array('key' => 'field_ab_stat_num',    'label' => 'Number',  'name' => 'number',  'type' => 'number'),
+                    array('key' => 'field_ab_stat_suffix', 'label' => 'Suffix',  'name' => 'suffix',  'type' => 'text',  'placeholder' => '+  or  %'),
+                    array('key' => 'field_ab_stat_label',  'label' => 'Label',   'name' => 'label',   'type' => 'text'),
+                ),
+            ),
+            // Mission & Vision
+            array('key' => 'field_ab_tab_mv',       'label' => 'Mission & Vision',    'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_ab_mission_title', 'label' => 'Mission Title',       'name' => 'about_mission_title', 'type' => 'text',     'default_value' => 'Our Mission'),
+            array('key' => 'field_ab_mission_text',  'label' => 'Mission Text',        'name' => 'about_mission_text',  'type' => 'textarea', 'rows' => 3, 'default_value' => 'To empower every aspiring government job candidate with world-class coaching, tools, and mentorship that maximize their selection probability.'),
+            array('key' => 'field_ab_mission_icon',  'label' => 'Mission Icon (Emoji)','name' => 'about_mission_icon',  'type' => 'text',     'default_value' => '🎯'),
+            array('key' => 'field_ab_vision_title',  'label' => 'Vision Title',        'name' => 'about_vision_title',  'type' => 'text',     'default_value' => 'Our Vision'),
+            array('key' => 'field_ab_vision_text',   'label' => 'Vision Text',         'name' => 'about_vision_text',   'type' => 'textarea', 'rows' => 3, 'default_value' => 'To become the most trusted and results-driven competitive exam institute in South India, producing lakhs of government employees.'),
+            array('key' => 'field_ab_vision_icon',   'label' => 'Vision Icon (Emoji)', 'name' => 'about_vision_icon',   'type' => 'text',     'default_value' => '🏆'),
+            // Values
+            array('key' => 'field_ab_tab_vals',     'label' => 'Core Values',         'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_ab_vals_tag',      'label' => 'Section Tag',         'name' => 'about_values_tag',    'type' => 'text',  'default_value' => 'What We Stand For'),
+            array('key' => 'field_ab_vals_title',    'label' => 'Section Title',       'name' => 'about_values_title',  'type' => 'text',  'default_value' => 'Our Core Values'),
+            array(
+                'key'          => 'field_ab_values',
+                'label'        => 'Values',
+                'name'         => 'about_values',
+                'type'         => 'repeater',
+                'min'          => 1,
+                'layout'       => 'table',
+                'button_label' => 'Add Value',
+                'sub_fields'   => array(
+                    array('key' => 'field_ab_val_icon',  'label' => 'Icon (Emoji)', 'name' => 'icon',  'type' => 'text', 'default_value' => '⭐'),
+                    array('key' => 'field_ab_val_title', 'label' => 'Title',        'name' => 'title', 'type' => 'text'),
+                    array('key' => 'field_ab_val_desc',  'label' => 'Description',  'name' => 'desc',  'type' => 'textarea', 'rows' => 2),
+                ),
+            ),
+            // Team
+            array('key' => 'field_ab_tab_team',     'label' => 'Team',                'name' => '',                   'type' => 'tab'),
+            array('key' => 'field_ab_team_tag',      'label' => 'Section Tag',         'name' => 'about_team_tag',      'type' => 'text',  'default_value' => 'Our Experts'),
+            array('key' => 'field_ab_team_title',    'label' => 'Section Title',       'name' => 'about_team_title',    'type' => 'text',  'default_value' => 'Meet Our Expert Faculty'),
+            array('key' => 'field_ab_team_subtitle', 'label' => 'Section Subtitle',    'name' => 'about_team_subtitle', 'type' => 'text',  'default_value' => 'Experienced mentors and subject matter experts dedicated to your success.'),
+            array(
+                'key'          => 'field_ab_team_members',
+                'label'        => 'Team Members',
+                'name'         => 'about_team',
+                'type'         => 'repeater',
+                'layout'       => 'block',
+                'button_label' => 'Add Team Member',
+                'sub_fields'   => array(
+                    array('key' => 'field_tm_photo',  'label' => 'Photo',        'name' => 'photo',      'type' => 'image',    'return_format' => 'array', 'preview_size' => 'thumbnail'),
+                    array('key' => 'field_tm_name',   'label' => 'Name',         'name' => 'name',       'type' => 'text'),
+                    array('key' => 'field_tm_role',   'label' => 'Role/Subject', 'name' => 'role',       'type' => 'text',     'placeholder' => 'e.g. Quantitative Aptitude Expert'),
+                    array('key' => 'field_tm_exp',    'label' => 'Experience',   'name' => 'experience', 'type' => 'text',     'placeholder' => 'e.g. 10+ Years'),
+                    array('key' => 'field_tm_bio',    'label' => 'Short Bio',    'name' => 'bio',        'type' => 'textarea', 'rows' => 2),
+                ),
+            ),
+        ),
+    ));
+
 
     /* ----------------------------------------------------------
        RESULTS CPT FIELDS

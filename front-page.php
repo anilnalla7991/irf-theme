@@ -66,29 +66,34 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
 <!-- ============================================================
      SECTION 2: EXAMS WE PREPARE FOR
      ============================================================ -->
+<?php
+$exams_tag      = irf_opt('exams_tag',      'What We Teach');
+$exams_title    = irf_opt('exams_title',    'Exams We Prepare For');
+$exams_subtitle = irf_opt('exams_subtitle', 'Comprehensive coaching for all major government competitive exams across India.');
+$exams_acf      = function_exists('get_field') ? get_field('exams_list', 'option') : array();
+$exams_default  = array(
+    array('icon' => '📋', 'name' => 'SSC CGL',    'full' => 'Combined Graduate Level'),
+    array('icon' => '📄', 'name' => 'SSC CHSL',   'full' => 'Combined Higher Secondary'),
+    array('icon' => '🏦', 'name' => 'IBPS PO',    'full' => 'Probationary Officer'),
+    array('icon' => '💳', 'name' => 'IBPS Clerk', 'full' => 'Clerical Cadre'),
+    array('icon' => '🏛️', 'name' => 'RBI Grade B','full' => 'Reserve Bank of India'),
+    array('icon' => '👮', 'name' => 'SI Exam',    'full' => 'Sub Inspector'),
+    array('icon' => '🚔', 'name' => 'Constable',  'full' => 'Police Constable'),
+    array('icon' => '🚂', 'name' => 'RRB NTPC',   'full' => 'Railway Recruitment Board'),
+    array('icon' => '📊', 'name' => 'SBI PO',     'full' => 'State Bank of India'),
+    array('icon' => '⚖️', 'name' => 'NABARD',     'full' => 'Agriculture Bank'),
+);
+$exams = (!empty($exams_acf) && is_array($exams_acf)) ? $exams_acf : $exams_default;
+?>
 <section class="section exams-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">What We Teach</span>
-            <h2 class="section-title">Exams We Prepare For</h2>
-            <p class="section-subtitle">Comprehensive coaching for all major government competitive exams across India.</p>
+            <span class="section-tag"><?php echo esc_html($exams_tag); ?></span>
+            <h2 class="section-title"><?php echo esc_html($exams_title); ?></h2>
+            <p class="section-subtitle"><?php echo esc_html($exams_subtitle); ?></p>
         </div>
         <div class="exams-grid">
-            <?php
-            $exams = array(
-                array('icon' => '📋', 'name' => 'SSC CGL', 'full' => 'Combined Graduate Level'),
-                array('icon' => '📄', 'name' => 'SSC CHSL', 'full' => 'Combined Higher Secondary'),
-                array('icon' => '🏦', 'name' => 'IBPS PO', 'full' => 'Probationary Officer'),
-                array('icon' => '💳', 'name' => 'IBPS Clerk', 'full' => 'Clerical Cadre'),
-                array('icon' => '🏛️', 'name' => 'RBI Grade B', 'full' => 'Reserve Bank of India'),
-                array('icon' => '👮', 'name' => 'SI Exam', 'full' => 'Sub Inspector'),
-                array('icon' => '🚔', 'name' => 'Constable', 'full' => 'Police Constable'),
-                array('icon' => '🚂', 'name' => 'RRB NTPC', 'full' => 'Railway Recruitment Board'),
-                array('icon' => '📊', 'name' => 'SBI PO', 'full' => 'State Bank of India'),
-                array('icon' => '⚖️', 'name' => 'NABARD', 'full' => 'Agriculture Bank'),
-            );
-            foreach ($exams as $index => $exam) :
-            ?>
+            <?php foreach ($exams as $index => $exam) : ?>
             <div class="exam-card reveal reveal-delay-<?php echo esc_attr(min($index + 1, 4)); ?>">
                 <div class="exam-icon"><span aria-hidden="true"><?php echo esc_html($exam['icon']); ?></span></div>
                 <div class="exam-name"><?php echo esc_html($exam['name']); ?></div>
@@ -103,34 +108,34 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
 <!-- ============================================================
      SECTION 3: IRF LEARNING MODEL
      ============================================================ -->
+<?php
+$learn_tag      = irf_opt('learning_tag',      'Our Methodology');
+$learn_title    = irf_opt('learning_title',    'The IRF Learning Model');
+$learn_subtitle = irf_opt('learning_subtitle', 'A proven 4-step framework that has produced thousands of government job selections.');
+$learn_acf      = function_exists('get_field') ? get_field('learning_steps', 'option') : array();
+$learn_default  = array(
+    array('icon' => '📝', 'title' => 'Practice', 'desc' => 'Daily mock tests, previous year papers and topic-wise drills to build exam readiness.'),
+    array('icon' => '🔍', 'title' => 'Analyze',  'desc' => 'Detailed performance analytics to identify weak areas and track your progress scientifically.'),
+    array('icon' => '🎯', 'title' => 'Improve',  'desc' => 'Targeted sessions with expert mentors to close gaps and strengthen your core concepts.'),
+    array('icon' => '🏆', 'title' => 'Perform',  'desc' => 'Full-length simulated exams in CBT format to build speed, accuracy and exam-day confidence.'),
+);
+$learn_steps = (!empty($learn_acf) && is_array($learn_acf)) ? $learn_acf : $learn_default;
+?>
 <section class="section learning-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">Our Methodology</span>
-            <h2 class="section-title">The IRF Learning Model</h2>
-            <p class="section-subtitle" style="color:rgba(255,255,255,0.6)">A proven 4-step framework that has produced thousands of government job selections.</p>
+            <span class="section-tag"><?php echo esc_html($learn_tag); ?></span>
+            <h2 class="section-title"><?php echo esc_html($learn_title); ?></h2>
+            <p class="section-subtitle" style="color:rgba(255,255,255,0.6)"><?php echo esc_html($learn_subtitle); ?></p>
         </div>
         <div class="learning-steps">
-            <div class="learning-step reveal reveal-delay-1">
-                <div class="step-number"><span class="step-icon">📝</span></div>
-                <h3 class="step-title">Practice</h3>
-                <p class="step-desc">Daily mock tests, previous year papers and topic-wise drills to build exam readiness.</p>
+            <?php foreach ($learn_steps as $i => $step) : ?>
+            <div class="learning-step reveal reveal-delay-<?php echo esc_attr(min($i + 1, 4)); ?>">
+                <div class="step-number"><span class="step-icon" aria-hidden="true"><?php echo esc_html($step['icon']); ?></span></div>
+                <h3 class="step-title"><?php echo esc_html($step['title']); ?></h3>
+                <p class="step-desc"><?php echo esc_html($step['desc']); ?></p>
             </div>
-            <div class="learning-step reveal reveal-delay-2">
-                <div class="step-number"><span class="step-icon">🔍</span></div>
-                <h3 class="step-title">Analyze</h3>
-                <p class="step-desc">Detailed performance analytics to identify weak areas and track your progress scientifically.</p>
-            </div>
-            <div class="learning-step reveal reveal-delay-3">
-                <div class="step-number"><span class="step-icon">🎯</span></div>
-                <h3 class="step-title">Improve</h3>
-                <p class="step-desc">Targeted sessions with expert mentors to close gaps and strengthen your core concepts.</p>
-            </div>
-            <div class="learning-step reveal reveal-delay-4">
-                <div class="step-number"><span class="step-icon">🏆</span></div>
-                <h3 class="step-title">Perform</h3>
-                <p class="step-desc">Full-length simulated exams in CBT format to build speed, accuracy and exam-day confidence.</p>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
 </section>
@@ -139,25 +144,30 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
 <!-- ============================================================
      SECTION 4: FACILITIES
      ============================================================ -->
+<?php
+$fac_tag      = irf_opt('facilities_tag',      'World-Class Infrastructure');
+$fac_title    = irf_opt('facilities_title',    'Our Facilities');
+$fac_subtitle = irf_opt('facilities_subtitle', 'Everything you need to prepare, practice and perform — all under one roof.');
+$fac_acf      = function_exists('get_field') ? get_field('facilities_list', 'option') : array();
+$fac_default  = array(
+    array('icon' => '🏛️', 'title' => 'Practice Hall',       'desc' => 'Spacious, air-conditioned study halls designed for focused, distraction-free learning with seating for 200+ students.'),
+    array('icon' => '💻', 'title' => 'CBT Lab',             'desc' => 'State-of-the-art computer-based testing lab with 100+ systems simulating the exact real exam environment.'),
+    array('icon' => '👨‍🏫', 'title' => 'Expert Mentorship',  'desc' => 'One-on-one mentoring sessions with experienced faculty who are former toppers and subject matter experts.'),
+    array('icon' => '📊', 'title' => 'Mock Tests',          'desc' => 'Weekly full-length mock exams with instant analysis, rankings and detailed score breakdowns.'),
+    array('icon' => '📈', 'title' => 'Performance Analysis','desc' => 'AI-powered analytics dashboard to track strengths, weaknesses and daily improvement metrics.'),
+    array('icon' => '🗺️', 'title' => 'Exam Strategy',       'desc' => 'Customized study plans, time management workshops and last-mile revision strategies for every exam.'),
+);
+$facilities = (!empty($fac_acf) && is_array($fac_acf)) ? $fac_acf : $fac_default;
+?>
 <section class="section facilities-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">World-Class Infrastructure</span>
-            <h2 class="section-title">Our Facilities</h2>
-            <p class="section-subtitle">Everything you need to prepare, practice and perform — all under one roof.</p>
+            <span class="section-tag"><?php echo esc_html($fac_tag); ?></span>
+            <h2 class="section-title"><?php echo esc_html($fac_title); ?></h2>
+            <p class="section-subtitle"><?php echo esc_html($fac_subtitle); ?></p>
         </div>
         <div class="facilities-grid">
-            <?php
-            $facilities = array(
-                array('icon' => '🏛️', 'title' => 'Practice Hall', 'desc' => 'Spacious, air-conditioned study halls designed for focused, distraction-free learning with seating for 200+ students.'),
-                array('icon' => '💻', 'title' => 'CBT Lab', 'desc' => 'State-of-the-art computer-based testing lab with 100+ systems simulating the exact real exam environment.'),
-                array('icon' => '👨‍🏫', 'title' => 'Expert Mentorship', 'desc' => 'One-on-one mentoring sessions with experienced faculty who are former toppers and subject matter experts.'),
-                array('icon' => '📊', 'title' => 'Mock Tests', 'desc' => 'Weekly full-length mock exams with instant analysis, rankings and detailed score breakdowns.'),
-                array('icon' => '📈', 'title' => 'Performance Analysis', 'desc' => 'AI-powered analytics dashboard to track strengths, weaknesses and daily improvement metrics.'),
-                array('icon' => '🗺️', 'title' => 'Exam Strategy', 'desc' => 'Customized study plans, time management workshops and last-mile revision strategies for every exam.'),
-            );
-            foreach ($facilities as $index => $facility) :
-            ?>
+            <?php foreach ($facilities as $index => $facility) : ?>
             <div class="facility-card reveal reveal-delay-<?php echo esc_attr(($index % 3) + 1); ?>">
                 <div class="facility-icon" aria-hidden="true"><?php echo esc_html($facility['icon']); ?></div>
                 <h3 class="facility-title"><?php echo esc_html($facility['title']); ?></h3>
@@ -175,9 +185,9 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
 <section class="section results-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">Proven Track Record</span>
-            <h2 class="section-title">Our Toppers</h2>
-            <p class="section-subtitle">Real students. Real results. Selections across every major competitive exam.</p>
+            <span class="section-tag"><?php echo esc_html(irf_opt('results_tag',      'Proven Track Record')); ?></span>
+            <h2 class="section-title"><?php echo esc_html(irf_opt('results_title',    'Our Toppers')); ?></h2>
+            <p class="section-subtitle"><?php echo esc_html(irf_opt('results_subtitle','Real students. Real results. Selections across every major competitive exam.')); ?></p>
         </div>
         <div class="results-grid">
             <?php
@@ -229,7 +239,7 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
             <?php endif; ?>
         </div>
         <div style="text-align:center; margin-top:48px;">
-            <a href="<?php echo esc_url(home_url('/results')); ?>" class="btn btn-primary">View All Results &rarr;</a>
+            <a href="<?php echo esc_url(home_url('/results')); ?>" class="btn btn-primary"><?php echo esc_html(irf_opt('results_btn_text', 'View All Results')); ?> &rarr;</a>
         </div>
     </div>
 </section>
@@ -241,9 +251,9 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
 <section class="section stories-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">Student Stories</span>
-            <h2 class="section-title">What Our Students Say</h2>
-            <p class="section-subtitle stories-subtitle">Real voices. Real results. Students who cracked government exams with IRF – IACE.</p>
+            <span class="section-tag"><?php echo esc_html(irf_opt('stories_tag',      'Student Stories')); ?></span>
+            <h2 class="section-title"><?php echo esc_html(irf_opt('stories_title',    'What Our Students Say')); ?></h2>
+            <p class="section-subtitle stories-subtitle"><?php echo esc_html(irf_opt('stories_subtitle', 'Real voices. Real results. Students who cracked government exams with IRF – IACE.')); ?></p>
         </div>
         <div class="stories-carousel reveal">
             <div class="stories-track" id="storiesTrack">
@@ -338,9 +348,9 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
 <section class="section announcements-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">Stay Updated</span>
-            <h2 class="section-title">Latest Announcements</h2>
-            <p class="section-subtitle">Upcoming events, exam schedules and important notifications from IRF.</p>
+            <span class="section-tag"><?php echo esc_html(irf_opt('ann_tag',      'Stay Updated')); ?></span>
+            <h2 class="section-title"><?php echo esc_html(irf_opt('ann_title',    'Latest Announcements')); ?></h2>
+            <p class="section-subtitle"><?php echo esc_html(irf_opt('ann_subtitle','Upcoming events, exam schedules and important notifications from IRF.')); ?></p>
         </div>
         <div class="announcements-grid">
             <?php
@@ -392,7 +402,7 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
             <?php endif; ?>
         </div>
         <div style="text-align:center; margin-top:48px;">
-            <a href="<?php echo esc_url(home_url('/announcements')); ?>" class="btn btn-primary">View All Announcements &rarr;</a>
+            <a href="<?php echo esc_url(home_url('/announcements')); ?>" class="btn btn-primary"><?php echo esc_html(irf_opt('ann_btn_text', 'View All Announcements')); ?> &rarr;</a>
         </div>
     </div>
 </section>
@@ -401,52 +411,48 @@ $typed_json = esc_attr(json_encode(array_values($hero_typed)));
 <!-- ============================================================
      SECTION 8: YOUTUBE REELS AUTO-SCROLL
      ============================================================ -->
+<?php
+$reels_tag      = irf_opt('reels_tag',      'Watch & Learn');
+$reels_title    = irf_opt('reels_title',    'IRF on YouTube');
+$reels_subtitle = irf_opt('reels_subtitle', 'Quick exam tips, success stories and strategies — straight from our YouTube channel.');
+$reels_acf      = function_exists('get_field') ? get_field('reels_videos', 'option') : array();
+$youtube_reels  = array();
+if (!empty($reels_acf) && is_array($reels_acf)) {
+    foreach ($reels_acf as $row) {
+        if (!empty($row['video_id'])) {
+            $youtube_reels[] = sanitize_text_field($row['video_id']);
+        }
+    }
+}
+?>
 <section class="section reels-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">Watch &amp; Learn</span>
-            <h2 class="section-title">IRF on YouTube</h2>
-            <p class="section-subtitle">Quick exam tips, success stories and strategies — straight from our YouTube channel.</p>
+            <span class="section-tag"><?php echo esc_html($reels_tag); ?></span>
+            <h2 class="section-title"><?php echo esc_html($reels_title); ?></h2>
+            <p class="section-subtitle"><?php echo esc_html($reels_subtitle); ?></p>
         </div>
     </div>
     <div class="reels-track-wrapper">
         <div class="reels-track" id="reelsTrack">
-            <?php
-            // Add YouTube Shorts video IDs here
-            // Example: 'dQw4w9WgXcQ' is the part after youtube.com/shorts/
-            $youtube_reels = array(
-                // Add your YouTube Shorts IDs below:
-                // 'VIDEO_ID_1',
-                // 'VIDEO_ID_2',
-            );
-
-            if (!empty($youtube_reels)) :
-                // Duplicate for seamless loop
+            <?php if (!empty($youtube_reels)) :
                 $all_reels = array_merge($youtube_reels, $youtube_reels);
-                foreach ($all_reels as $video_id) :
-            ?>
+                foreach ($all_reels as $video_id) : ?>
             <div class="reel-item">
                 <div class="reel-embed">
                     <iframe src="https://www.youtube.com/embed/<?php echo esc_attr($video_id); ?>?rel=0&modestbranding=1" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
             </div>
-            <?php
-                endforeach;
-            else :
-                // Placeholder reels
-                for ($i = 0; $i < 10; $i++) :
-            ?>
+            <?php endforeach; else :
+                for ($i = 0; $i < 10; $i++) : ?>
             <div class="reel-item">
                 <div class="reel-placeholder">
                     <div class="reel-play-icon">&#9654;</div>
                     <span>IRF Short #<?php echo esc_html($i + 1); ?></span>
-                    <small>Add YouTube ID</small>
+                    <small>Add YouTube IDs in IRF Settings → YouTube Reels</small>
                 </div>
             </div>
-            <?php
-                endfor;
-            endif;
-            ?>
+            <?php endfor; endif; ?>
         </div>
     </div>
 </section>
