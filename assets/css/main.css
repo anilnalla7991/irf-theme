@@ -373,16 +373,44 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 
 /* Responsive */
 @media (max-width: 900px) {
-    .hero-split { grid-template-columns: 1fr; gap: 50px; padding: 110px 0 60px; text-align: center; }
+    .hero-split { grid-template-columns: 1fr; gap: 40px; padding: 80px 0 60px; text-align: center; }
     .hero-badge, .hero-actions, .hero-features { justify-content: center; }
-    .hero-right { height: 380px; margin: 0 auto; width: 100%; max-width: 420px; }
     .hero-title { font-size: clamp(28px, 6vw, 44px); }
+
+    /* Hero right: ring on top row, stat cards side by side on bottom row */
+    .hero-right {
+        height: auto;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        padding: 0 10px;
+        margin: 0 auto;
+        width: 100%;
+    }
+    .hero-ring-wrap {
+        flex: 0 0 100%;
+        display: flex;
+        justify-content: center;
+    }
+    /* Stat cards: static, side by side in a row */
+    .stat-card {
+        position: static;
+        animation: none;
+        flex: 1;
+        min-width: 85px;
+        max-width: 120px;
+        padding: 12px 10px;
+    }
+    .stat-card-1, .stat-card-2, .stat-card-3 { animation: none; }
+    .stat-card-num { font-size: 20px; }
+    /* Hide float icons on mobile */
+    .float-icon { display: none; }
 }
 @media (max-width: 480px) {
-    .hero-right { height: 320px; }
-    .stat-card { padding: 10px 14px; min-width: 100px; }
-    .stat-card-num { font-size: 20px; }
-    .float-icon { font-size: 20px; }
+    .stat-card { min-width: 75px; max-width: 100px; padding: 10px 8px; }
+    .stat-card-num { font-size: 17px; }
 }
 
 /* =============================================================
