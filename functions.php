@@ -441,9 +441,9 @@ function irf_register_acf_fields() {
         'key'      => 'group_irf_about',
         'title'    => 'About Page',
         'location' => array(array(array(
-            'param'    => 'options_page',
+            'param'    => 'page_template',
             'operator' => '==',
-            'value'    => 'irf-settings-about',
+            'value'    => 'template-about.php',
         ))),
         'fields' => array(
             // Banner
@@ -586,6 +586,78 @@ function irf_register_acf_fields() {
         ),
     ));
 
+
+    /* ----------------------------------------------------------
+       RESULTS PAGE (page template)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_results_page',
+        'title'    => 'Results Page',
+        'location' => array(array(array('param' => 'page_template', 'operator' => '==', 'value' => 'template-results.php'))),
+        'fields' => array(
+            array('key' => 'field_rp_tab_banner',   'label' => 'Page Banner',     'name' => '', 'type' => 'tab'),
+            array('key' => 'field_rp_banner_title', 'label' => 'Banner Title',    'name' => 'banner_title',    'type' => 'text', 'default_value' => 'Our Toppers'),
+            array('key' => 'field_rp_banner_sub',   'label' => 'Banner Subtitle', 'name' => 'banner_subtitle', 'type' => 'text', 'default_value' => 'Real students. Real results.'),
+            array('key' => 'field_rp_tab_section',  'label' => 'Section Header',  'name' => '', 'type' => 'tab'),
+            array('key' => 'field_rp_sec_tag',      'label' => 'Section Tag',     'name' => 'section_tag',     'type' => 'text', 'default_value' => 'Proven Track Record'),
+            array('key' => 'field_rp_sec_title',    'label' => 'Section Title',   'name' => 'section_title',   'type' => 'text', 'default_value' => 'Student Selections'),
+            array('key' => 'field_rp_sec_subtitle', 'label' => 'Section Subtitle','name' => 'section_subtitle','type' => 'text', 'default_value' => 'Real students. Real results. Selections across every major competitive exam.'),
+        ),
+    ));
+
+    /* ----------------------------------------------------------
+       SUCCESS STORIES PAGE (page template)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_stories_page',
+        'title'    => 'Success Stories Page',
+        'location' => array(array(array('param' => 'page_template', 'operator' => '==', 'value' => 'template-stories.php'))),
+        'fields' => array(
+            array('key' => 'field_sp_tab_banner',   'label' => 'Page Banner',     'name' => '', 'type' => 'tab'),
+            array('key' => 'field_sp_banner_title', 'label' => 'Banner Title',    'name' => 'banner_title',    'type' => 'text', 'default_value' => 'Success Stories'),
+            array('key' => 'field_sp_banner_sub',   'label' => 'Banner Subtitle', 'name' => 'banner_subtitle', 'type' => 'text', 'default_value' => 'Students who achieved their dreams with IRF.'),
+            array('key' => 'field_sp_tab_section',  'label' => 'Section Header',  'name' => '', 'type' => 'tab'),
+            array('key' => 'field_sp_sec_tag',      'label' => 'Section Tag',     'name' => 'section_tag',     'type' => 'text', 'default_value' => 'Student Stories'),
+            array('key' => 'field_sp_sec_title',    'label' => 'Section Title',   'name' => 'section_title',   'type' => 'text', 'default_value' => 'Hear From Our Students'),
+            array('key' => 'field_sp_sec_subtitle', 'label' => 'Section Subtitle','name' => 'section_subtitle','type' => 'text', 'default_value' => 'Real experiences from students who achieved their government job dreams with IRF.'),
+        ),
+    ));
+
+    /* ----------------------------------------------------------
+       ANNOUNCEMENTS PAGE (page template)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_ann_page',
+        'title'    => 'Announcements Page',
+        'location' => array(array(array('param' => 'page_template', 'operator' => '==', 'value' => 'template-announcements.php'))),
+        'fields' => array(
+            array('key' => 'field_ap_tab_banner',   'label' => 'Page Banner',     'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ap_banner_title', 'label' => 'Banner Title',    'name' => 'banner_title',    'type' => 'text', 'default_value' => 'Announcements & Events'),
+            array('key' => 'field_ap_banner_sub',   'label' => 'Banner Subtitle', 'name' => 'banner_subtitle', 'type' => 'text', 'default_value' => 'Stay updated with the latest from IRF.'),
+            array('key' => 'field_ap_tab_section',  'label' => 'Section Header',  'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ap_sec_tag',      'label' => 'Section Tag',     'name' => 'section_tag',     'type' => 'text', 'default_value' => 'Stay Updated'),
+            array('key' => 'field_ap_sec_title',    'label' => 'Section Title',   'name' => 'section_title',   'type' => 'text', 'default_value' => 'Latest Announcements'),
+            array('key' => 'field_ap_sec_subtitle', 'label' => 'Section Subtitle','name' => 'section_subtitle','type' => 'text', 'default_value' => 'Upcoming events, exam schedules and important notifications from IRF.'),
+        ),
+    ));
+
+    /* ----------------------------------------------------------
+       BLOG PAGE (Posts page in Settings > Reading)
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_blog_page',
+        'title'    => 'Blog Page',
+        'location' => array(array(array('param' => 'page_type', 'operator' => '==', 'value' => 'posts_page'))),
+        'fields' => array(
+            array('key' => 'field_bp_tab_banner',   'label' => 'Page Banner',     'name' => '', 'type' => 'tab'),
+            array('key' => 'field_bp_banner_title', 'label' => 'Banner Title',    'name' => 'banner_title',    'type' => 'text', 'default_value' => 'Blog'),
+            array('key' => 'field_bp_banner_sub',   'label' => 'Banner Subtitle', 'name' => 'banner_subtitle', 'type' => 'text', 'default_value' => 'Exam tips, strategy guides and success stories.'),
+            array('key' => 'field_bp_tab_section',  'label' => 'Section Header',  'name' => '', 'type' => 'tab'),
+            array('key' => 'field_bp_sec_tag',      'label' => 'Section Tag',     'name' => 'section_tag',     'type' => 'text', 'default_value' => 'Latest Articles'),
+            array('key' => 'field_bp_sec_title',    'label' => 'Section Title',   'name' => 'section_title',   'type' => 'text', 'default_value' => 'IRF Blog'),
+            array('key' => 'field_bp_sec_subtitle', 'label' => 'Section Subtitle','name' => 'section_subtitle','type' => 'text', 'default_value' => 'Exam tips, strategy guides, and success stories from our faculty and students.'),
+        ),
+    ));
 
     /* ----------------------------------------------------------
        RESULTS CPT FIELDS

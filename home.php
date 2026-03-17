@@ -1,16 +1,22 @@
 <?php get_header(); ?>
 
+<?php $blog_page_id = get_option('page_for_posts'); ?>
+
 <!-- Page Banner -->
 <section class="page-banner">
     <div class="page-banner-bg"></div>
     <div class="container">
         <div class="page-banner-content">
-            <h1 class="page-banner-title">Blog</h1>
+            <h1 class="page-banner-title"><?php echo esc_html((function_exists('get_field') ? get_field('banner_title', $blog_page_id) : '') ?: 'Blog'); ?></h1>
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
                 <span class="breadcrumb-sep">&#8250;</span>
-                <span>Blog</span>
+                <span><?php echo esc_html((function_exists('get_field') ? get_field('banner_title', $blog_page_id) : '') ?: 'Blog'); ?></span>
             </nav>
+            <?php $banner_subtitle = (function_exists('get_field') ? get_field('banner_subtitle', $blog_page_id) : '') ?: ''; ?>
+            <?php if ($banner_subtitle) : ?>
+            <p class="page-banner-subtitle"><?php echo esc_html($banner_subtitle); ?></p>
+            <?php endif; ?>
         </div>
     </div>
 </section>
@@ -19,9 +25,9 @@
 <section class="section blog-archive-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">Latest Articles</span>
-            <h2 class="section-title">IRF Blog</h2>
-            <p class="section-subtitle">Exam tips, strategy guides, and success stories from our faculty and students.</p>
+            <span class="section-tag"><?php echo esc_html((function_exists('get_field') ? get_field('section_tag', $blog_page_id) : '') ?: 'Latest Articles'); ?></span>
+            <h2 class="section-title"><?php echo esc_html((function_exists('get_field') ? get_field('section_title', $blog_page_id) : '') ?: 'IRF Blog'); ?></h2>
+            <p class="section-subtitle"><?php echo esc_html((function_exists('get_field') ? get_field('section_subtitle', $blog_page_id) : '') ?: 'Exam tips, strategy guides, and success stories from our faculty and students.'); ?></p>
         </div>
         <div class="blog-grid">
             <?php if (have_posts()) : while (have_posts()) : the_post(); ?>

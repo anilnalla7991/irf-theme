@@ -4,8 +4,8 @@
  */
 get_header();
 
-$ab_banner_title = irf_opt('about_banner_title', 'About IRF – IACE');
-$ab_banner_sub   = irf_opt('about_banner_sub',   "India's #1 Competitive Exam Coaching Institute");
+$ab_banner_title = (function_exists('get_field') ? get_field('about_banner_title') : '') ?: 'About IRF – IACE';
+$ab_banner_sub   = (function_exists('get_field') ? get_field('about_banner_sub')   : '') ?: "India's #1 Competitive Exam Coaching Institute";
 ?>
 
 <!-- ============================================================
@@ -33,10 +33,10 @@ $ab_banner_sub   = irf_opt('about_banner_sub',   "India's #1 Competitive Exam Co
      INTRO SECTION
      ============================================================ -->
 <?php
-$ab_intro_tag   = irf_opt('about_intro_tag',   'Who We Are');
-$ab_intro_title = irf_opt('about_intro_title', 'IRF – IACE Result Factory');
-$ab_intro_text  = irf_opt('about_intro_text',  '<p>IRF – IACE Result Factory is a premier competitive exam coaching institute based in Hyderabad. Since 2014, we have been dedicated to shaping successful government job careers through smart preparation, consistent practice, and expert mentorship.</p>');
-$ab_intro_image = function_exists('get_field') ? get_field('about_intro_image', 'option') : null;
+$ab_intro_tag   = (function_exists('get_field') ? get_field('about_intro_tag')   : '') ?: 'Who We Are';
+$ab_intro_title = (function_exists('get_field') ? get_field('about_intro_title') : '') ?: 'IRF – IACE Result Factory';
+$ab_intro_text  = (function_exists('get_field') ? get_field('about_intro_text')  : '') ?: '<p>IRF – IACE Result Factory is a premier competitive exam coaching institute based in Hyderabad. Since 2014, we have been dedicated to shaping successful government job careers through smart preparation, consistent practice, and expert mentorship.</p>';
+$ab_intro_image = function_exists('get_field') ? get_field('about_intro_image') : null;
 ?>
 <section class="section about-intro-section">
     <div class="container">
@@ -63,9 +63,9 @@ $ab_intro_image = function_exists('get_field') ? get_field('about_intro_image', 
      STATS SECTION
      ============================================================ -->
 <?php
-$ab_stats_tag   = irf_opt('about_stats_tag',   'By The Numbers');
-$ab_stats_title = irf_opt('about_stats_title', 'Our Impact');
-$ab_stats_acf   = function_exists('get_field') ? get_field('about_stats', 'option') : array();
+$ab_stats_tag   = (function_exists('get_field') ? get_field('about_stats_tag')   : '') ?: 'By The Numbers';
+$ab_stats_title = (function_exists('get_field') ? get_field('about_stats_title') : '') ?: 'Our Impact';
+$ab_stats_acf   = function_exists('get_field') ? get_field('about_stats') : array();
 $ab_stats_def   = array(
     array('number' => 5000, 'suffix' => '+',      'label' => 'Students Enrolled'),
     array('number' => 1200, 'suffix' => '+',      'label' => 'Selections Made'),
@@ -98,12 +98,12 @@ $ab_stats = (!empty($ab_stats_acf) && is_array($ab_stats_acf)) ? $ab_stats_acf :
      MISSION & VISION
      ============================================================ -->
 <?php
-$ab_mission_icon  = irf_opt('about_mission_icon',  '🎯');
-$ab_mission_title = irf_opt('about_mission_title', 'Our Mission');
-$ab_mission_text  = irf_opt('about_mission_text',  'To empower every aspiring government job candidate with world-class coaching, tools, and mentorship that maximize their selection probability.');
-$ab_vision_icon   = irf_opt('about_vision_icon',   '🏆');
-$ab_vision_title  = irf_opt('about_vision_title',  'Our Vision');
-$ab_vision_text   = irf_opt('about_vision_text',   'To become the most trusted and results-driven competitive exam institute in South India, producing lakhs of government employees.');
+$ab_mission_icon  = (function_exists('get_field') ? get_field('about_mission_icon')  : '') ?: '🎯';
+$ab_mission_title = (function_exists('get_field') ? get_field('about_mission_title') : '') ?: 'Our Mission';
+$ab_mission_text  = (function_exists('get_field') ? get_field('about_mission_text')  : '') ?: 'To empower every aspiring government job candidate with world-class coaching, tools, and mentorship that maximize their selection probability.';
+$ab_vision_icon   = (function_exists('get_field') ? get_field('about_vision_icon')   : '') ?: '🏆';
+$ab_vision_title  = (function_exists('get_field') ? get_field('about_vision_title')  : '') ?: 'Our Vision';
+$ab_vision_text   = (function_exists('get_field') ? get_field('about_vision_text')   : '') ?: 'To become the most trusted and results-driven competitive exam institute in South India, producing lakhs of government employees.';
 ?>
 <section class="section about-mv-section">
     <div class="container">
@@ -127,9 +127,9 @@ $ab_vision_text   = irf_opt('about_vision_text',   'To become the most trusted a
      CORE VALUES
      ============================================================ -->
 <?php
-$ab_vals_tag   = irf_opt('about_values_tag',   'What We Stand For');
-$ab_vals_title = irf_opt('about_values_title', 'Our Core Values');
-$ab_vals_acf   = function_exists('get_field') ? get_field('about_values', 'option') : array();
+$ab_vals_tag   = (function_exists('get_field') ? get_field('about_values_tag')   : '') ?: 'What We Stand For';
+$ab_vals_title = (function_exists('get_field') ? get_field('about_values_title') : '') ?: 'Our Core Values';
+$ab_vals_acf   = function_exists('get_field') ? get_field('about_values') : array();
 $ab_vals_def   = array(
     array('icon' => '💎', 'title' => 'Excellence',   'desc' => 'We set the highest standards in teaching quality, study material, and student support.'),
     array('icon' => '🤝', 'title' => 'Integrity',    'desc' => 'Honest performance feedback and transparent progress tracking for every student.'),
@@ -163,10 +163,10 @@ $ab_values = (!empty($ab_vals_acf) && is_array($ab_vals_acf)) ? $ab_vals_acf : $
      TEAM SECTION
      ============================================================ -->
 <?php
-$ab_team_tag      = irf_opt('about_team_tag',      'Our Experts');
-$ab_team_title    = irf_opt('about_team_title',    'Meet Our Expert Faculty');
-$ab_team_subtitle = irf_opt('about_team_subtitle', 'Experienced mentors and subject matter experts dedicated to your success.');
-$ab_team_acf      = function_exists('get_field') ? get_field('about_team', 'option') : array();
+$ab_team_tag      = (function_exists('get_field') ? get_field('about_team_tag')      : '') ?: 'Our Experts';
+$ab_team_title    = (function_exists('get_field') ? get_field('about_team_title')    : '') ?: 'Meet Our Expert Faculty';
+$ab_team_subtitle = (function_exists('get_field') ? get_field('about_team_subtitle') : '') ?: 'Experienced mentors and subject matter experts dedicated to your success.';
+$ab_team_acf      = function_exists('get_field') ? get_field('about_team') : array();
 ?>
 <?php if (!empty($ab_team_acf) && is_array($ab_team_acf)) : ?>
 <section class="section">
