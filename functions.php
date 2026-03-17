@@ -557,9 +557,9 @@ function irf_register_acf_fields() {
                 'layout'       => 'row',
                 'button_label' => 'Add Slide',
                 'sub_fields'   => array(
-                    array('key' => 'field_bn_image',        'label' => 'Desktop Image', 'name' => 'image',        'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium',    'instructions' => 'Desktop: 1920×500px | Tablet: 1024×420px (same image, centered crop)'),
+                    array('key' => 'field_bn_image',        'label' => 'Desktop Image', 'name' => 'image',        'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium',    'instructions' => 'Desktop &amp; Tablet: 1920×500px landscape (will auto-crop to 400px on tablet)'),
                     array('key' => 'field_bn_link',         'label' => 'Link',          'name' => 'link',         'type' => 'url',   'instructions' => 'Leave blank if slide is not clickable'),
-                    array('key' => 'field_bn_mobile_image', 'label' => 'Mobile Image',  'name' => 'mobile_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'instructions' => 'Mobile: 480×600px (portrait) — shown on screens below 768px'),
+                    array('key' => 'field_bn_mobile_image', 'label' => 'Mobile Image',  'name' => 'mobile_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'instructions' => 'Mobile: 640×360px landscape — shown on screens below 768px'),
                     array('key' => 'field_bn_mobile_link',  'label' => 'Mobile Link',   'name' => 'mobile_link',  'type' => 'url',   'instructions' => 'Optional — separate link for mobile'),
                 ),
             ),
