@@ -172,28 +172,35 @@ document.addEventListener('DOMContentLoaded', function () {
     var tickerTabs   = document.querySelectorAll('.irf-tab');
     var tickerTracks = document.querySelectorAll('.irf-ticker-track');
     var tickerBar    = document.getElementById('irfTickerBar');
-    var PX_PER_SEC   = 130; // pixels per second — same speed across all tabs
+    var PX_PER_SEC   = 130;
 
-    function setTickerSpeed(track) {
-        var inner = track ? track.querySelector('.irf-ticker-inner') : null;
-        if (!inner) return;
-        var w = inner.scrollWidth;
+    /* Clone the inner element off-screen to get its true natural width,
+       regardless of whether its parent track is visible or not.        */
+    function measureInnerWidth(inner) {
+        var clone = inner.cloneNode(true);
+        clone.style.cssText = [
+            'position:fixed', 'top:-9999px', 'left:0',
+            'display:inline-flex', 'white-space:nowrap',
+            'visibility:hidden', 'animation:none', 'transform:none',
+            'pointer-events:none', 'z-index:-1'
+        ].join(';');
+        document.body.appendChild(clone);
+        var w = clone.offsetWidth;
+        document.body.removeChild(clone);
+        return w;
+    }
+
+    function applySpeed(inner) {
+        var w = measureInnerWidth(inner);
         if (w <= 0) return;
-        // -50% = one full set width; duration = half-width / speed
-        var dur = Math.max(8, Math.round((w / 2) / PX_PER_SEC));
+        var dur = Math.max(6, Math.round((w / 2) / PX_PER_SEC));
         inner.style.animationDuration = dur + 's';
     }
 
-    // Set speed for all tracks on load (measure while hidden via display:block trick)
+    /* Set speed for every track at load time */
     tickerTracks.forEach(function (track) {
-        var wasActive = track.classList.contains('active');
-        if (!wasActive) {
-            track.style.cssText = 'display:block;visibility:hidden;position:absolute;';
-        }
-        setTickerSpeed(track);
-        if (!wasActive) {
-            track.style.cssText = '';
-        }
+        var inner = track.querySelector('.irf-ticker-inner');
+        if (inner) applySpeed(inner);
     });
 
     tickerTabs.forEach(function (tab) {
@@ -210,12 +217,14 @@ document.addEventListener('DOMContentLoaded', function () {
             var activeTrack = document.querySelector('.irf-ticker-track[data-track="' + target + '"]');
             if (activeTrack) {
                 activeTrack.classList.add('active');
-                // Restart animation cleanly
                 var inner = activeTrack.querySelector('.irf-ticker-inner');
                 if (inner) {
-                    inner.style.animation = 'none';
-                    inner.offsetHeight; // reflow
-                    inner.style.animation = '';
+                    /* Preserve the calculated duration across animation restart */
+                    var dur = inner.style.animationDuration;
+                    inner.style.animationName = 'none';
+                    inner.offsetHeight;
+                    inner.style.animationName = '';
+                    if (dur) inner.style.animationDuration = dur;
                 }
             }
         });

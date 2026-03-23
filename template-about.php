@@ -183,7 +183,7 @@ $ticker_cats = array(
     'batches'   => array('label' => 'New Batches',    'color' => '#E07B00', 'types' => array('Batch')),
     'news'      => array('label' => 'Flash News',     'color' => '#CC1100', 'types' => array('Flash News', 'Notice')),
     'results'   => array('label' => 'Our Results',    'color' => '#1255A6', 'types' => array('Result')),
-    'schedules' => array('label' => 'Live Schedules', 'color' => '#1A7A4A', 'types' => array('Schedule', 'Exam', 'Event')),
+    'schedules' => array('label' => 'Live Schedules', 'color' => '#1A7A4A', 'types' => array('Schedule')),
 );
 
 /* Query all announcements and group */
