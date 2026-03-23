@@ -62,7 +62,14 @@ $ab_timeline_def  = array(
     array('year' => '2022', 'title' => '1000+ Selections Milestone', 'desc' => 'Celebrated 1000+ cumulative government job selections across Banking, SSC and State PSC.'),
     array('year' => '2024', 'title' => '10 Years of Excellence',     'desc' => 'Decade of transforming aspirants into officers — with 5000+ enrolled and still growing.'),
 );
-$ab_timeline = (!empty($ab_timeline_acf) && is_array($ab_timeline_acf)) ? $ab_timeline_acf : $ab_timeline_def;
+// Use fallback if ACF returned nothing OR returned empty rows (no year saved)
+$ab_timeline_has_data = false;
+if (is_array($ab_timeline_acf) && !empty($ab_timeline_acf)) {
+    foreach ($ab_timeline_acf as $row) {
+        if (!empty($row['year']) || !empty($row['title'])) { $ab_timeline_has_data = true; break; }
+    }
+}
+$ab_timeline = $ab_timeline_has_data ? $ab_timeline_acf : $ab_timeline_def;
 
 /* ── Core Values ── */
 $ab_vals_tag   = (function_exists($gf) ? get_field('about_values_tag')   : '') ?: 'What We Stand For';
@@ -77,7 +84,13 @@ $ab_vals_def   = array(
     array('icon' => '🎯', 'title' => 'Focus',         'desc' => 'Laser-focused preparation strategies with structured timetables and daily performance benchmarks.'),
     array('icon' => '🏆', 'title' => 'Results',       'desc' => 'We measure success by selections — thousands of students have achieved their dream government jobs with us.'),
 );
-$ab_values = (!empty($ab_vals_acf) && is_array($ab_vals_acf)) ? $ab_vals_acf : $ab_vals_def;
+$ab_vals_has_data = false;
+if (is_array($ab_vals_acf) && !empty($ab_vals_acf)) {
+    foreach ($ab_vals_acf as $row) {
+        if (!empty($row['title'])) { $ab_vals_has_data = true; break; }
+    }
+}
+$ab_values = $ab_vals_has_data ? $ab_vals_acf : $ab_vals_def;
 
 /* ── Why Choose Us ── */
 $ab_why_tag       = (function_exists($gf) ? get_field('about_why_tag')       : '') ?: 'Why Choose Us';
@@ -93,7 +106,13 @@ $ab_why_items_def = array(
     array('title' => 'Personal Mentorship',           'desc' => 'One-on-one doubt sessions and career guidance to keep every student on the right track.'),
     array('title' => 'Interview Preparation',         'desc' => 'Dedicated GD & interview coaching rounds to help students clear the final selection stage.'),
 );
-$ab_why_items = (!empty($ab_why_items_acf) && is_array($ab_why_items_acf)) ? $ab_why_items_acf : $ab_why_items_def;
+$ab_why_has_data = false;
+if (is_array($ab_why_items_acf) && !empty($ab_why_items_acf)) {
+    foreach ($ab_why_items_acf as $row) {
+        if (!empty($row['title'])) { $ab_why_has_data = true; break; }
+    }
+}
+$ab_why_items = $ab_why_has_data ? $ab_why_items_acf : $ab_why_items_def;
 
 /* ── Team ── */
 $ab_team_tag      = (function_exists($gf) ? get_field('about_team_tag')      : '') ?: 'Our Experts';
@@ -282,14 +301,31 @@ function irf_img_alt($field, $fallback = '') {
             <p class="section-subtitle"><?php echo esc_html($ab_journey_sub); ?></p>
         </div>
         <div class="ab-timeline">
-            <?php foreach ($ab_timeline as $i => $item) : ?>
-            <div class="ab-tl-item reveal reveal-delay-<?php echo esc_attr(($i % 3) + 1); ?>">
-                <div class="ab-tl-year"><?php echo esc_html($item['year']); ?></div>
-                <div class="ab-tl-dot"></div>
-                <div class="ab-tl-card">
-                    <h4 class="ab-tl-title"><?php echo esc_html($item['title']); ?></h4>
-                    <p class="ab-tl-desc"><?php echo esc_html($item['desc']); ?></p>
-                </div>
+            <?php foreach ($ab_timeline as $i => $item) :
+                $is_even = ($i % 2 === 1); // 0-indexed: items 1,3,5 are "even" visually
+                $delay   = esc_attr(($i % 3) + 1);
+                $year    = esc_html($item['year']);
+                $title   = esc_html($item['title']);
+                $desc    = esc_html($item['desc']);
+            ?>
+            <div class="ab-tl-item <?php echo $is_even ? 'ab-tl-even' : 'ab-tl-odd'; ?> reveal reveal-delay-<?php echo $delay; ?>">
+                <?php if ($is_even) : ?>
+                    <!-- Even: card | dot | year -->
+                    <div class="ab-tl-card">
+                        <h4 class="ab-tl-title"><?php echo $title; ?></h4>
+                        <p class="ab-tl-desc"><?php echo $desc; ?></p>
+                    </div>
+                    <div class="ab-tl-dot"></div>
+                    <div class="ab-tl-year"><?php echo $year; ?></div>
+                <?php else : ?>
+                    <!-- Odd: year | dot | card -->
+                    <div class="ab-tl-year"><?php echo $year; ?></div>
+                    <div class="ab-tl-dot"></div>
+                    <div class="ab-tl-card">
+                        <h4 class="ab-tl-title"><?php echo $title; ?></h4>
+                        <p class="ab-tl-desc"><?php echo $desc; ?></p>
+                    </div>
+                <?php endif; ?>
             </div>
             <?php endforeach; ?>
         </div>

@@ -729,21 +729,23 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 
 /* TIMELINE */
 .ab-journey-section { background: var(--white); }
-.ab-timeline        { position: relative; margin-top: 60px; }
+.ab-timeline         { position: relative; margin-top: 60px; }
 .ab-timeline::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--red), var(--navy)); transform: translateX(-50%); }
-.ab-tl-item         { display: grid; grid-template-columns: 1fr 40px 1fr; align-items: start; gap: 0; margin-bottom: 48px; }
-.ab-tl-item:nth-child(odd)  .ab-tl-year { text-align: right; padding-right: 32px; }
-.ab-tl-item:nth-child(odd)  .ab-tl-card { padding-left: 32px; }
-.ab-tl-item:nth-child(even) .ab-tl-year { order: 3; text-align: left; padding-left: 32px; }
-.ab-tl-item:nth-child(even) .ab-tl-dot  { order: 2; }
-.ab-tl-item:nth-child(even) .ab-tl-card { order: 1; text-align: right; padding-right: 32px; padding-left: 0; }
-.ab-tl-year         { font-size: 22px; font-weight: 800; color: var(--red); font-family: 'Poppins', sans-serif; padding-top: 6px; }
-.ab-tl-dot          { display: flex; align-items: flex-start; justify-content: center; padding-top: 8px; }
-.ab-tl-dot::before  { content: ''; width: 16px; height: 16px; border-radius: 50%; background: var(--red); border: 3px solid var(--white); box-shadow: 0 0 0 3px var(--red); flex-shrink: 0; }
-.ab-tl-card         { background: var(--light); border-radius: var(--radius); padding: 20px 24px; border: 1px solid var(--border); transition: var(--tr); }
-.ab-tl-card:hover   { box-shadow: var(--shadow); border-color: rgba(254,0,0,0.2); }
-.ab-tl-title        { font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; }
-.ab-tl-desc         { font-size: 13.5px; color: var(--gray); line-height: 1.7; }
+/* 3-col grid: left-content | dot | right-content */
+.ab-tl-item          { display: grid; grid-template-columns: 1fr 40px 1fr; align-items: start; gap: 0; margin-bottom: 48px; }
+/* ODD items: year | dot | card */
+.ab-tl-odd .ab-tl-year { text-align: right; padding-right: 32px; padding-left: 0; }
+.ab-tl-odd .ab-tl-card { padding-left: 32px; padding-right: 0; text-align: left; }
+/* EVEN items: card | dot | year */
+.ab-tl-even .ab-tl-card { padding-right: 32px; padding-left: 0; text-align: right; }
+.ab-tl-even .ab-tl-year { text-align: left; padding-left: 32px; padding-right: 0; }
+.ab-tl-year          { font-size: 22px; font-weight: 800; color: var(--red); font-family: 'Poppins', sans-serif; padding-top: 6px; }
+.ab-tl-dot           { display: flex; align-items: flex-start; justify-content: center; padding-top: 8px; }
+.ab-tl-dot::before   { content: ''; width: 16px; height: 16px; border-radius: 50%; background: var(--red); border: 3px solid var(--white); box-shadow: 0 0 0 3px var(--red); flex-shrink: 0; }
+.ab-tl-card          { background: var(--light); border-radius: var(--radius); padding: 20px 24px; border: 1px solid var(--border); transition: var(--tr); }
+.ab-tl-card:hover    { box-shadow: var(--shadow); border-color: rgba(254,0,0,0.2); }
+.ab-tl-title         { font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 6px; }
+.ab-tl-desc          { font-size: 13.5px; color: var(--gray); line-height: 1.7; }
 
 /* CORE VALUES */
 .ab-values-section  { background: var(--charcoal); }
@@ -912,15 +914,15 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .ab-collage-badge-exp { right: 12px; }
     .ab-mv-grid        { grid-template-columns: 1fr; }
     .ab-timeline::before { left: 20px; transform: none; }
-    .ab-tl-item        { grid-template-columns: 20px 1fr; gap: 0; }
-    .ab-tl-item:nth-child(odd)  .ab-tl-year,
-    .ab-tl-item:nth-child(even) .ab-tl-year { order: unset; text-align: left; padding: 0 0 8px 16px; grid-column: 2; }
-    .ab-tl-item:nth-child(even) .ab-tl-dot  { order: unset; }
-    .ab-tl-item:nth-child(even) .ab-tl-card { order: unset; text-align: left; padding-right: 0; padding-left: 16px; }
-    .ab-tl-item:nth-child(odd)  .ab-tl-card { padding-left: 16px; padding-right: 0; }
-    .ab-tl-dot         { align-items: flex-start; justify-content: flex-start; grid-row: span 2; padding-top: 10px; }
-    .ab-tl-year        { grid-row: 1; grid-column: 2; }
-    .ab-tl-card        { grid-row: 2; grid-column: 2; }
+    /* Mobile: 2-col grid — dot | content; year sits above card in col 2 */
+    .ab-tl-item         { grid-template-columns: 40px 1fr; }
+    /* Re-order DOM so dot is always col-1, year+card in col-2 */
+    .ab-tl-odd .ab-tl-year,
+    .ab-tl-even .ab-tl-year  { grid-column: 2; grid-row: 1; text-align: left; padding: 0 0 6px 16px; font-size: 18px; }
+    .ab-tl-odd .ab-tl-dot,
+    .ab-tl-even .ab-tl-dot   { grid-column: 1; grid-row: 1 / span 2; justify-content: flex-start; padding-top: 6px; }
+    .ab-tl-odd .ab-tl-card,
+    .ab-tl-even .ab-tl-card  { grid-column: 2; grid-row: 2; text-align: left; padding: 16px 0 16px 16px; }
     .ab-values-grid    { grid-template-columns: 1fr; }
     .ab-why-grid       { grid-template-columns: 1fr; }
     .ab-why-image img  { height: 260px; }
