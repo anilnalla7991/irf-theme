@@ -271,6 +271,9 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
+        // FX that animate the LEAVING (current) slide too
+        var BFX_HAS_LEAVE = { 'slide-x': true, 'slide-y': true, 'cube': true };
+
         function bannerGoTo(next) {
             if (bannerBusy || bannerTotal < 2) return;
             var target = (next + bannerTotal) % bannerTotal;
@@ -279,14 +282,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var curr   = bannerSlides[bannerCurrent];
             var nextEl = bannerSlides[target];
+            var fx     = nextEl.getAttribute('data-fx') || 'diagonal';
 
-            // Bring next slide in with .entering (triggers clip-path animation)
-            nextEl.classList.add('entering');
-            // After animation completes, swap active
+            // Show entering slide
+            nextEl.style.opacity = '1';
+            nextEl.classList.add('entering-' + fx);
+
+            // Animate current slide out (push/cube effects)
+            if (BFX_HAS_LEAVE[fx]) {
+                curr.classList.add('leaving-' + fx);
+            }
+
             setTimeout(function () {
-                curr.classList.remove('active');
-                nextEl.classList.remove('entering');
+                // Clean up entering slide
+                nextEl.classList.remove('entering-' + fx);
+                nextEl.style.opacity = '';
                 nextEl.classList.add('active');
+
+                // Clean up leaving slide
+                curr.classList.remove('active');
+                curr.classList.remove('leaving-' + fx);
+
                 bannerCurrent = target;
                 bannerUpdateUI(bannerCurrent);
                 bannerBusy = false;

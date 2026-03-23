@@ -70,6 +70,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     position: relative;
     width: 100%;
     height: 100%;
+    perspective: 1400px;
 }
 
 /* Individual slide */
@@ -126,16 +127,78 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     pointer-events: none;
 }
 
-/* Diagonal clip-path reveal transition */
-.banner-slide.entering {
-    opacity: 1;
-    z-index: 4;
-    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
-    animation: clipReveal 0.85s cubic-bezier(0.77, 0, 0.18, 1) forwards;
+/* =============================================================
+   BANNER — Per-Slide Transition Effects
+   ============================================================= */
+
+/* ── Slide-X: horizontal push ── */
+.banner-slide.entering-slide-x {
+    opacity: 1; z-index: 4;
+    animation: bfxSlideXIn 0.75s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
 }
-@keyframes clipReveal {
+.banner-slide.leaving-slide-x {
+    opacity: 1; z-index: 3;
+    animation: bfxSlideXOut 0.75s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+@keyframes bfxSlideXIn  { from { transform: translateX(100%); } to { transform: translateX(0); } }
+@keyframes bfxSlideXOut { from { transform: translateX(0); }   to { transform: translateX(-100%); } }
+
+/* ── Slide-Y: top to bottom push ── */
+.banner-slide.entering-slide-y {
+    opacity: 1; z-index: 4;
+    animation: bfxSlideYIn 0.75s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+.banner-slide.leaving-slide-y {
+    opacity: 1; z-index: 3;
+    animation: bfxSlideYOut 0.75s cubic-bezier(0.25,0.46,0.45,0.94) forwards;
+}
+@keyframes bfxSlideYIn  { from { transform: translateY(-100%); } to { transform: translateY(0); } }
+@keyframes bfxSlideYOut { from { transform: translateY(0); }    to { transform: translateY(100%); } }
+
+/* ── Cube: 3D rotation left-to-right ── */
+.banner-slide.entering-cube {
+    opacity: 1; z-index: 4;
+    transform-origin: left center;
+    animation: bfxCubeIn 0.85s cubic-bezier(0.33,1,0.68,1) forwards;
+}
+.banner-slide.leaving-cube {
+    opacity: 1; z-index: 3;
+    transform-origin: right center;
+    animation: bfxCubeOut 0.85s cubic-bezier(0.33,1,0.68,1) forwards;
+}
+@keyframes bfxCubeIn  { from { transform: rotateY(90deg);  } to { transform: rotateY(0deg);   } }
+@keyframes bfxCubeOut { from { transform: rotateY(0deg);   } to { transform: rotateY(-90deg); } }
+
+/* ── Zoom-Fade: scale + crossfade ── */
+.banner-slide.entering-zoom-fade {
+    opacity: 0; z-index: 4;
+    animation: bfxZoomFade 0.90s ease forwards;
+}
+@keyframes bfxZoomFade {
+    from { transform: scale(1.14); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
+
+/* ── Iris: circular expand from center ── */
+.banner-slide.entering-iris {
+    opacity: 1; z-index: 4;
+    clip-path: circle(0% at 50% 50%);
+    animation: bfxIris 0.90s cubic-bezier(0.77,0,0.18,1) forwards;
+}
+@keyframes bfxIris {
+    from { clip-path: circle(0%   at 50% 50%); }
+    to   { clip-path: circle(150% at 50% 50%); }
+}
+
+/* ── Diagonal: angled wipe (original, improved) ── */
+.banner-slide.entering-diagonal {
+    opacity: 1; z-index: 4;
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+    animation: bfxDiagonal 0.85s cubic-bezier(0.77,0,0.18,1) forwards;
+}
+@keyframes bfxDiagonal {
     0%   { clip-path: polygon(0 0,  0   0,   0   100%, 0   100%); }
-    40%  { clip-path: polygon(0 0,  55% 0,   35% 100%, 0   100%); }
+    40%  { clip-path: polygon(0 0,  60% 0,   40% 100%, 0   100%); }
     100% { clip-path: polygon(0 0,  100% 0,  100% 100%, 0  100%); }
 }
 
