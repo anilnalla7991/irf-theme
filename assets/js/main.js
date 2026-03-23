@@ -272,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // FX that animate the LEAVING (current) slide too
-        var BFX_HAS_LEAVE = { 'slide-x': true, 'slide-y': true, 'cube': true };
+        var BFX_HAS_LEAVE = { 'slide-x': true, 'slide-y': true, 'cube': true, 'zoom-fade': true };
 
         function bannerGoTo(next) {
             if (bannerBusy || bannerTotal < 2) return;
