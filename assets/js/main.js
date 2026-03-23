@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (track && prevBtn && nextBtn && dotsContainer) {
         var cards    = track.querySelectorAll('.story-card');
-        var cardW    = 360 + 24; // min-width + gap
+        var cardW    = 352 + 24; // card width + gap
         var visible  = Math.max(1, Math.floor(track.parentElement.offsetWidth / cardW));
         var maxIndex = Math.max(0, cards.length - visible);
         var current  = 0;
