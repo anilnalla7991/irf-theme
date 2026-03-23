@@ -96,8 +96,8 @@ function irf_register_post_types() {
         'public'            => true,
         'has_archive'       => true,
         'menu_icon'         => 'dashicons-megaphone',
-        'supports'          => array('title', 'thumbnail'),
-        'show_in_rest'      => true,
+        'supports'          => array('title', 'editor', 'thumbnail'),
+        'show_in_rest'      => false,
         'rewrite'           => array('slug' => 'announcements'),
     ));
 }
