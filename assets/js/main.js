@@ -167,19 +167,33 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ==========================================
-    // Announcement Ticker — Tab Switching
+    // Announcement Ticker — Tab Switching + Color
     // ==========================================
     var tickerTabs   = document.querySelectorAll('.irf-tab');
     var tickerTracks = document.querySelectorAll('.irf-ticker-track');
+    var tickerBar    = document.getElementById('irfTickerBar');
 
     tickerTabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
             var target = this.getAttribute('data-tab');
+            var color  = this.getAttribute('data-color');
+
+            // Switch active tab
             tickerTabs.forEach(function (t) { t.classList.remove('active'); });
-            tickerTracks.forEach(function (tr) { tr.classList.remove('active'); });
             this.classList.add('active');
+
+            // Change bar background color
+            if (tickerBar && color) tickerBar.style.background = color;
+
+            // Switch active track
+            tickerTracks.forEach(function (tr) { tr.classList.remove('active'); });
             var activeTrack = document.querySelector('.irf-ticker-track[data-track="' + target + '"]');
-            if (activeTrack) activeTrack.classList.add('active');
+            if (activeTrack) {
+                activeTrack.classList.add('active');
+                // Restart animation for smooth entry
+                var inner = activeTrack.querySelector('.irf-ticker-inner');
+                if (inner) { inner.style.animation = 'none'; inner.offsetHeight; inner.style.animation = ''; }
+            }
         });
     });
 
