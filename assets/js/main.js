@@ -167,6 +167,23 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ==========================================
+    // Announcement Ticker — Tab Switching
+    // ==========================================
+    var tickerTabs   = document.querySelectorAll('.irf-tab');
+    var tickerTracks = document.querySelectorAll('.irf-ticker-track');
+
+    tickerTabs.forEach(function (tab) {
+        tab.addEventListener('click', function () {
+            var target = this.getAttribute('data-tab');
+            tickerTabs.forEach(function (t) { t.classList.remove('active'); });
+            tickerTracks.forEach(function (tr) { tr.classList.remove('active'); });
+            this.classList.add('active');
+            var activeTrack = document.querySelector('.irf-ticker-track[data-track="' + target + '"]');
+            if (activeTrack) activeTrack.classList.add('active');
+        });
+    });
+
+    // ==========================================
     // Banner Slider — Cinematic Clip-Path Reveal
     // ==========================================
     var bannerTrack = document.getElementById('bannerTrack');

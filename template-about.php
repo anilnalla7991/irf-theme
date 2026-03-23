@@ -185,16 +185,113 @@ function irf_img_alt($field, $fallback = '') {
 
 
 <!-- ============================================================
-     STATS STRIP
+     STATS + ANNOUNCEMENT TICKER
      ============================================================ -->
+<?php
+/* ── Pull announcements from CPT, group by event_type ── */
+$ticker_cats = array(
+    'batches'   => array('label' => 'New Batches',    'icon' => '📚', 'type' => 'New Batch'),
+    'news'      => array('label' => 'Flash News',     'icon' => '⚡', 'type' => 'Flash News'),
+    'results'   => array('label' => 'Our Results',    'icon' => '🏆', 'type' => 'Result'),
+    'schedules' => array('label' => 'Live Schedules', 'icon' => '📅', 'type' => 'Schedule'),
+);
+$ticker_all   = array();
+$ticker_by_cat = array();
+
+$ann_q = new WP_Query(array(
+    'post_type'      => 'announcements',
+    'posts_per_page' => 40,
+    'post_status'    => 'publish',
+    'orderby'        => 'date',
+    'order'          => 'DESC',
+));
+if ($ann_q->have_posts()) {
+    while ($ann_q->have_posts()) {
+        $ann_q->the_post();
+        $etype = function_exists('get_field') ? get_field('event_type') : '';
+        $edate = function_exists('get_field') ? get_field('event_date') : '';
+        $item  = array('title' => get_the_title(), 'type' => $etype, 'date' => $edate);
+        $ticker_all[] = $item;
+        foreach ($ticker_cats as $key => $cat) {
+            if ($etype === $cat['type']) $ticker_by_cat[$key][] = $item;
+        }
+    }
+    wp_reset_postdata();
+}
+/* Dummy fallback when no posts exist */
+if (empty($ticker_all)) {
+    $ticker_all = array(
+        array('title' => 'New IBPS PO Batch starting 1st April 2026 @ Hyderabad (Morning & Evening batches)',  'type' => 'New Batch',  'date' => '01-04-2026'),
+        array('title' => 'SSC CGL 2025 Result declared — 42 IRF students selected!',                          'type' => 'Result',     'date' => '20-03-2026'),
+        array('title' => 'Bank Clerk / PO batches starting 15-Apr-2026 (6:30 am – 9:30 am) @ Hyderabad',     'type' => 'New Batch',  'date' => '15-04-2026'),
+        array('title' => 'RRB NTPC Group-D batch begins 13-Apr-2026 (1:30 pm – 8:00 pm)',                     'type' => 'Schedule',   'date' => '13-04-2026'),
+        array('title' => 'Flash: TS Police SI 2026 notification out — enroll now for dedicated batch',         'type' => 'Flash News', 'date' => ''),
+        array('title' => 'APPSC Group-1 Prelims live schedule released for May 2026 batch',                    'type' => 'Schedule',   'date' => ''),
+        array('title' => 'SBI PO 2025 — 18 IRF students cleared mains! Check full results inside',            'type' => 'Result',     'date' => '15-03-2026'),
+        array('title' => 'New Weekend Batch for working professionals — starts 5th April 2026',                'type' => 'New Batch',  'date' => '05-04-2026'),
+    );
+    foreach ($ticker_cats as $key => $cat) {
+        foreach ($ticker_all as $item) {
+            if ($item['type'] === $cat['type']) $ticker_by_cat[$key][] = $item;
+        }
+    }
+}
+?>
+<div class="irf-ticker-wrap">
+    <!-- ── TAB BAR ── -->
+    <div class="irf-ticker-tabs">
+        <button class="irf-tab active" data-tab="all">
+            <span class="irf-tab-icon">📢</span> All Updates
+        </button>
+        <?php foreach ($ticker_cats as $key => $cat) : ?>
+        <button class="irf-tab" data-tab="<?php echo esc_attr($key); ?>">
+            <span class="irf-tab-icon"><?php echo esc_html($cat['icon']); ?></span>
+            <?php echo esc_html($cat['label']); ?>
+        </button>
+        <?php endforeach; ?>
+        <a href="<?php echo esc_url(home_url('/announcements')); ?>" class="irf-tab-viewall">View All &rarr;</a>
+    </div>
+
+    <!-- ── TICKER TRACKS (one per tab) ── -->
+    <?php
+    $all_tracks = array_merge(array('all' => $ticker_all), $ticker_by_cat);
+    foreach ($all_tracks as $key => $items) :
+        if (empty($items)) $items = $ticker_all; // fallback to all if category empty
+    ?>
+    <div class="irf-ticker-track <?php echo $key === 'all' ? 'active' : ''; ?>" data-track="<?php echo esc_attr($key); ?>">
+        <div class="irf-ticker-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" fill="#FE0000"/><path d="M12 6v6l4 2" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+            LIVE
+        </div>
+        <div class="irf-ticker-overflow">
+            <div class="irf-ticker-inner">
+                <?php
+                // Double the items so the infinite loop is seamless
+                $looped = array_merge($items, $items);
+                foreach ($looped as $n => $item) :
+                    $num = ($n % count($items)) + 1;
+                ?>
+                <span class="irf-tick-item">
+                    <span class="irf-tick-num"><?php echo esc_html($num); ?></span>
+                    <?php echo esc_html($item['title']); ?>
+                    <?php if (!empty($item['date'])) : ?>
+                        <span class="irf-tick-date"><?php echo esc_html($item['date']); ?></span>
+                    <?php endif; ?>
+                </span>
+                <span class="irf-tick-sep" aria-hidden="true">&#9679;</span>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    </div>
+    <?php endforeach; ?>
+</div>
+
+<!-- ── STATS STRIP ── -->
 <section class="ab-stats-strip">
     <div class="container">
         <div class="ab-stats-row">
             <?php foreach ($ab_stats as $stat) : ?>
             <div class="ab-stat-box reveal">
-                <?php if (!empty($stat['icon'])) : ?>
-                <div class="ab-stat-icon"><?php echo esc_html($stat['icon']); ?></div>
-                <?php endif; ?>
                 <div class="ab-stat-num counter"
                      data-target="<?php echo esc_attr($stat['number']); ?>"
                      data-suffix="<?php echo esc_attr($stat['suffix']); ?>">0</div>
