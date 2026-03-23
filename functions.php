@@ -446,21 +446,45 @@ function irf_register_acf_fields() {
             'value'    => 'template-about.php',
         ))),
         'fields' => array(
-            // Banner
-            array('key' => 'field_ab_tab_banner',   'label' => 'Page Banner',         'name' => '',                   'type' => 'tab'),
-            array('key' => 'field_ab_banner_title',  'label' => 'Banner Title',        'name' => 'about_banner_title',  'type' => 'text',  'default_value' => 'About IRF – IACE'),
-            array('key' => 'field_ab_banner_sub',    'label' => 'Banner Subtitle',     'name' => 'about_banner_sub',    'type' => 'text',  'default_value' => "India's #1 Competitive Exam Coaching Institute"),
-            // Intro
-            array('key' => 'field_ab_tab_intro',    'label' => 'Intro Section',       'name' => '',                   'type' => 'tab'),
-            array('key' => 'field_ab_intro_tag',     'label' => 'Section Tag',         'name' => 'about_intro_tag',     'type' => 'text',  'default_value' => 'Who We Are'),
-            array('key' => 'field_ab_intro_title',   'label' => 'Section Title',       'name' => 'about_intro_title',   'type' => 'text',  'default_value' => 'IRF – IACE Result Factory'),
-            array('key' => 'field_ab_intro_text',    'label' => 'About Description',   'name' => 'about_intro_text',    'type' => 'wysiwyg', 'tabs' => 'visual', 'toolbar' => 'basic', 'media_upload' => 0,
-                'default_value' => '<p>IRF – IACE Result Factory is a premier competitive exam coaching institute based in Hyderabad. Since 2014, we have been dedicated to shaping successful government job careers through smart preparation, consistent practice, and expert mentorship.</p><p>Our proven methodology and state-of-the-art infrastructure have helped thousands of students crack SSC, Banking, Railway, and Police exams.</p>'),
-            array('key' => 'field_ab_intro_image',   'label' => 'About Image',         'name' => 'about_intro_image',   'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium'),
-            // Stats
-            array('key' => 'field_ab_tab_stats',    'label' => 'Stats',               'name' => '',                   'type' => 'tab'),
-            array('key' => 'field_ab_stats_tag',     'label' => 'Section Tag',         'name' => 'about_stats_tag',     'type' => 'text',  'default_value' => 'By The Numbers'),
-            array('key' => 'field_ab_stats_title',   'label' => 'Section Title',       'name' => 'about_stats_title',   'type' => 'text',  'default_value' => 'Our Impact'),
+
+            /* ── TAB: Hero Banner ── */
+            array('key' => 'field_ab_tab_banner',    'label' => 'Hero Banner',         'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ab_banner_title',  'label' => 'Banner Title',        'name' => 'about_banner_title', 'type' => 'text',  'default_value' => 'About IRF – IACE'),
+            array('key' => 'field_ab_banner_sub',    'label' => 'Banner Subtitle',     'name' => 'about_banner_sub',   'type' => 'text',  'default_value' => "India's #1 Competitive Exam Coaching Institute"),
+            array('key' => 'field_ab_hero_pill1',    'label' => 'Hero Pill 1',         'name' => 'about_hero_pill1',   'type' => 'text',  'default_value' => '🏛️ Est. 2014',        'instructions' => 'Short badge text, e.g. 🏛️ Est. 2014'),
+            array('key' => 'field_ab_hero_pill2',    'label' => 'Hero Pill 2',         'name' => 'about_hero_pill2',   'type' => 'text',  'default_value' => '📍 Hyderabad',         'instructions' => 'Short badge text'),
+            array('key' => 'field_ab_hero_pill3',    'label' => 'Hero Pill 3',         'name' => 'about_hero_pill3',   'type' => 'text',  'default_value' => '🎓 5000+ Students',    'instructions' => 'Short badge text'),
+            array('key' => 'field_ab_hero_badge_num','label' => 'Hero Badge Number',   'name' => 'about_hero_badge_num','type' => 'text', 'default_value' => '10+',                'instructions' => 'Big number on the image badge, e.g. 10+'),
+            array('key' => 'field_ab_hero_badge_txt','label' => 'Hero Badge Text',     'name' => 'about_hero_badge_txt','type' => 'text', 'default_value' => 'Years of Excellence', 'instructions' => 'Label below badge number'),
+            array('key' => 'field_ab_intro_image',   'label' => 'Hero / About Image',  'name' => 'about_intro_image',  'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium'),
+
+            /* ── TAB: Who We Are ── */
+            array('key' => 'field_ab_tab_intro',     'label' => 'Who We Are',          'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ab_intro_tag',     'label' => 'Section Tag',         'name' => 'about_intro_tag',   'type' => 'text',    'default_value' => 'Who We Are'),
+            array('key' => 'field_ab_intro_title',   'label' => 'Section Title',       'name' => 'about_intro_title', 'type' => 'text',    'default_value' => 'IRF – IACE Result Factory'),
+            array('key' => 'field_ab_intro_text',    'label' => 'About Description',   'name' => 'about_intro_text',  'type' => 'wysiwyg', 'tabs' => 'visual', 'toolbar' => 'basic', 'media_upload' => 0,
+                'default_value' => '<p>IRF – IACE Result Factory is a premier competitive exam coaching institute based in Hyderabad. Since 2014, we have been dedicated to shaping successful government job careers through smart preparation, consistent practice, and expert mentorship.</p><p>Our proven track record of selections across Banking, SSC, Railways and State PSC exams makes us the most trusted name in competitive exam coaching across South India.</p>'),
+            array('key' => 'field_ab_collage_img1',  'label' => 'Collage Image 1 (Main)', 'name' => 'about_collage_img1', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium', 'instructions' => 'Large top image in photo collage'),
+            array('key' => 'field_ab_collage_img2',  'label' => 'Collage Image 2',     'name' => 'about_collage_img2', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail'),
+            array('key' => 'field_ab_collage_img3',  'label' => 'Collage Image 3',     'name' => 'about_collage_img3', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail'),
+            array('key' => 'field_ab_collage_badge', 'label' => 'Collage Badge Text',  'name' => 'about_collage_badge','type' => 'text',  'default_value' => '10+ Years of Trust', 'instructions' => 'Text on collage badge. Use "10+ Years\\nof Trust" format — first word becomes bold number'),
+            array(
+                'key'          => 'field_ab_highlights',
+                'label'        => 'Intro Highlights (Tick list)',
+                'name'         => 'about_intro_highlights',
+                'type'         => 'repeater',
+                'min'          => 1,
+                'layout'       => 'table',
+                'button_label' => 'Add Highlight',
+                'instructions' => 'Short bullet points shown with a red tick under the intro text',
+                'sub_fields'   => array(
+                    array('key' => 'field_ab_hl_text', 'label' => 'Highlight Text', 'name' => 'text', 'type' => 'text',
+                        'default_value' => 'Expert faculty with 10+ years experience'),
+                ),
+            ),
+
+            /* ── TAB: Stats ── */
+            array('key' => 'field_ab_tab_stats',     'label' => 'Stats Strip',         'name' => '', 'type' => 'tab'),
             array(
                 'key'          => 'field_ab_stats_list',
                 'label'        => 'Stats',
@@ -470,23 +494,45 @@ function irf_register_acf_fields() {
                 'layout'       => 'table',
                 'button_label' => 'Add Stat',
                 'sub_fields'   => array(
-                    array('key' => 'field_ab_stat_num',    'label' => 'Number',  'name' => 'number',  'type' => 'number'),
-                    array('key' => 'field_ab_stat_suffix', 'label' => 'Suffix',  'name' => 'suffix',  'type' => 'text',  'placeholder' => '+  or  %'),
-                    array('key' => 'field_ab_stat_label',  'label' => 'Label',   'name' => 'label',   'type' => 'text'),
+                    array('key' => 'field_ab_stat_icon',   'label' => 'Icon (Emoji)', 'name' => 'icon',   'type' => 'text',   'default_value' => '📊'),
+                    array('key' => 'field_ab_stat_num',    'label' => 'Number',       'name' => 'number', 'type' => 'number'),
+                    array('key' => 'field_ab_stat_suffix', 'label' => 'Suffix',       'name' => 'suffix', 'type' => 'text',   'placeholder' => '+  or  %'),
+                    array('key' => 'field_ab_stat_label',  'label' => 'Label',        'name' => 'label',  'type' => 'text'),
                 ),
             ),
-            // Mission & Vision
-            array('key' => 'field_ab_tab_mv',       'label' => 'Mission & Vision',    'name' => '',                   'type' => 'tab'),
-            array('key' => 'field_ab_mission_title', 'label' => 'Mission Title',       'name' => 'about_mission_title', 'type' => 'text',     'default_value' => 'Our Mission'),
-            array('key' => 'field_ab_mission_text',  'label' => 'Mission Text',        'name' => 'about_mission_text',  'type' => 'textarea', 'rows' => 3, 'default_value' => 'To empower every aspiring government job candidate with world-class coaching, tools, and mentorship that maximize their selection probability.'),
-            array('key' => 'field_ab_mission_icon',  'label' => 'Mission Icon (Emoji)','name' => 'about_mission_icon',  'type' => 'text',     'default_value' => '🎯'),
-            array('key' => 'field_ab_vision_title',  'label' => 'Vision Title',        'name' => 'about_vision_title',  'type' => 'text',     'default_value' => 'Our Vision'),
-            array('key' => 'field_ab_vision_text',   'label' => 'Vision Text',         'name' => 'about_vision_text',   'type' => 'textarea', 'rows' => 3, 'default_value' => 'To become the most trusted and results-driven competitive exam institute in South India, producing lakhs of government employees.'),
-            array('key' => 'field_ab_vision_icon',   'label' => 'Vision Icon (Emoji)', 'name' => 'about_vision_icon',   'type' => 'text',     'default_value' => '🏆'),
-            // Values
-            array('key' => 'field_ab_tab_vals',     'label' => 'Core Values',         'name' => '',                   'type' => 'tab'),
-            array('key' => 'field_ab_vals_tag',      'label' => 'Section Tag',         'name' => 'about_values_tag',    'type' => 'text',  'default_value' => 'What We Stand For'),
-            array('key' => 'field_ab_vals_title',    'label' => 'Section Title',       'name' => 'about_values_title',  'type' => 'text',  'default_value' => 'Our Core Values'),
+
+            /* ── TAB: Mission & Vision ── */
+            array('key' => 'field_ab_tab_mv',        'label' => 'Mission & Vision',    'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ab_mission_title',  'label' => 'Mission Card Title',  'name' => 'about_mission_title', 'type' => 'text',     'default_value' => 'Our Mission'),
+            array('key' => 'field_ab_mission_text',   'label' => 'Mission Text',        'name' => 'about_mission_text',  'type' => 'textarea', 'rows' => 3, 'default_value' => 'To empower every aspiring government job candidate with world-class coaching, tools, and mentorship that maximizes their selection probability.'),
+            array('key' => 'field_ab_vision_title',   'label' => 'Vision Card Title',   'name' => 'about_vision_title',  'type' => 'text',     'default_value' => 'Our Vision'),
+            array('key' => 'field_ab_vision_text',    'label' => 'Vision Text',         'name' => 'about_vision_text',   'type' => 'textarea', 'rows' => 3, 'default_value' => 'To become the most trusted and results-driven competitive exam institute in South India, producing lakhs of government employees.'),
+
+            /* ── TAB: Journey / Timeline ── */
+            array('key' => 'field_ab_tab_journey',   'label' => 'Our Journey',         'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ab_journey_tag',   'label' => 'Section Tag',         'name' => 'about_journey_tag',   'type' => 'text', 'default_value' => 'Our Journey'),
+            array('key' => 'field_ab_journey_title', 'label' => 'Section Title',       'name' => 'about_journey_title', 'type' => 'text', 'default_value' => 'A Decade of Transforming Lives'),
+            array('key' => 'field_ab_journey_sub',   'label' => 'Section Subtitle',    'name' => 'about_journey_sub',   'type' => 'text', 'default_value' => "From a single classroom to South India's most trusted coaching brand"),
+            array(
+                'key'          => 'field_ab_timeline',
+                'label'        => 'Timeline Items',
+                'name'         => 'about_timeline',
+                'type'         => 'repeater',
+                'min'          => 1,
+                'layout'       => 'block',
+                'button_label' => 'Add Timeline Item',
+                'sub_fields'   => array(
+                    array('key' => 'field_ab_tl_year',  'label' => 'Year',        'name' => 'year',  'type' => 'text',     'placeholder' => 'e.g. 2014'),
+                    array('key' => 'field_ab_tl_title', 'label' => 'Title',       'name' => 'title', 'type' => 'text'),
+                    array('key' => 'field_ab_tl_desc',  'label' => 'Description', 'name' => 'desc',  'type' => 'textarea', 'rows' => 2),
+                ),
+            ),
+
+            /* ── TAB: Core Values ── */
+            array('key' => 'field_ab_tab_vals',      'label' => 'Core Values',         'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ab_vals_tag',      'label' => 'Section Tag',         'name' => 'about_values_tag',   'type' => 'text', 'default_value' => 'What We Stand For'),
+            array('key' => 'field_ab_vals_title',    'label' => 'Section Title',       'name' => 'about_values_title', 'type' => 'text', 'default_value' => 'Our Core Values'),
+            array('key' => 'field_ab_vals_sub',      'label' => 'Section Subtitle',    'name' => 'about_values_sub',   'type' => 'text', 'default_value' => 'The principles that guide everything we do'),
             array(
                 'key'          => 'field_ab_values',
                 'label'        => 'Values',
@@ -496,16 +542,40 @@ function irf_register_acf_fields() {
                 'layout'       => 'table',
                 'button_label' => 'Add Value',
                 'sub_fields'   => array(
-                    array('key' => 'field_ab_val_icon',  'label' => 'Icon (Emoji)', 'name' => 'icon',  'type' => 'text', 'default_value' => '⭐'),
+                    array('key' => 'field_ab_val_icon',  'label' => 'Icon (Emoji)', 'name' => 'icon',  'type' => 'text',     'default_value' => '⭐'),
                     array('key' => 'field_ab_val_title', 'label' => 'Title',        'name' => 'title', 'type' => 'text'),
                     array('key' => 'field_ab_val_desc',  'label' => 'Description',  'name' => 'desc',  'type' => 'textarea', 'rows' => 2),
                 ),
             ),
-            // Team
-            array('key' => 'field_ab_tab_team',     'label' => 'Team',                'name' => '',                   'type' => 'tab'),
-            array('key' => 'field_ab_team_tag',      'label' => 'Section Tag',         'name' => 'about_team_tag',      'type' => 'text',  'default_value' => 'Our Experts'),
-            array('key' => 'field_ab_team_title',    'label' => 'Section Title',       'name' => 'about_team_title',    'type' => 'text',  'default_value' => 'Meet Our Expert Faculty'),
-            array('key' => 'field_ab_team_subtitle', 'label' => 'Section Subtitle',    'name' => 'about_team_subtitle', 'type' => 'text',  'default_value' => 'Experienced mentors and subject matter experts dedicated to your success.'),
+
+            /* ── TAB: Why Choose Us ── */
+            array('key' => 'field_ab_tab_why',       'label' => 'Why Choose Us',       'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ab_why_tag',       'label' => 'Section Tag',         'name' => 'about_why_tag',   'type' => 'text',  'default_value' => 'Why Choose Us'),
+            array('key' => 'field_ab_why_title',     'label' => 'Section Title',       'name' => 'about_why_title', 'type' => 'text',  'default_value' => 'The IRF Advantage'),
+            array('key' => 'field_ab_why_sub',       'label' => 'Section Subtitle',    'name' => 'about_why_sub',   'type' => 'text',  'default_value' => "We don't just teach — we build toppers. Every element of our program is engineered for maximum selection probability."),
+            array('key' => 'field_ab_why_image',     'label' => 'Why Choose Us Image', 'name' => 'about_why_image', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'medium'),
+            array('key' => 'field_ab_why_badge_num', 'label' => 'Image Badge Number',  'name' => 'about_why_badge_num', 'type' => 'text', 'default_value' => '1200+'),
+            array('key' => 'field_ab_why_badge_txt', 'label' => 'Image Badge Label',   'name' => 'about_why_badge_txt', 'type' => 'text', 'default_value' => 'Selections'),
+            array(
+                'key'          => 'field_ab_why_items',
+                'label'        => 'Advantage Items',
+                'name'         => 'about_why_items',
+                'type'         => 'repeater',
+                'min'          => 1,
+                'layout'       => 'block',
+                'button_label' => 'Add Advantage',
+                'instructions' => 'Each item shows with an auto-numbered red badge',
+                'sub_fields'   => array(
+                    array('key' => 'field_ab_why_item_title', 'label' => 'Title',       'name' => 'title', 'type' => 'text'),
+                    array('key' => 'field_ab_why_item_desc',  'label' => 'Description', 'name' => 'desc',  'type' => 'textarea', 'rows' => 2),
+                ),
+            ),
+
+            /* ── TAB: Team ── */
+            array('key' => 'field_ab_tab_team',      'label' => 'Team',                'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ab_team_tag',      'label' => 'Section Tag',         'name' => 'about_team_tag',      'type' => 'text', 'default_value' => 'Our Experts'),
+            array('key' => 'field_ab_team_title',    'label' => 'Section Title',       'name' => 'about_team_title',    'type' => 'text', 'default_value' => 'Meet Our Expert Faculty'),
+            array('key' => 'field_ab_team_subtitle', 'label' => 'Section Subtitle',    'name' => 'about_team_subtitle', 'type' => 'text', 'default_value' => 'Experienced mentors dedicated to your success'),
             array(
                 'key'          => 'field_ab_team_members',
                 'label'        => 'Team Members',
@@ -521,6 +591,15 @@ function irf_register_acf_fields() {
                     array('key' => 'field_tm_bio',    'label' => 'Short Bio',    'name' => 'bio',        'type' => 'textarea', 'rows' => 2),
                 ),
             ),
+
+            /* ── TAB: CTA Banner ── */
+            array('key' => 'field_ab_tab_cta',       'label' => 'CTA Banner',          'name' => '', 'type' => 'tab'),
+            array('key' => 'field_ab_cta_title',     'label' => 'CTA Title',           'name' => 'about_cta_title',     'type' => 'text',    'default_value' => 'Ready to Start Your Government Job Journey?'),
+            array('key' => 'field_ab_cta_sub',       'label' => 'CTA Subtitle',        'name' => 'about_cta_sub',       'type' => 'text',    'default_value' => 'Join 5000+ students who trusted IRF–IACE to crack their dream exam.'),
+            array('key' => 'field_ab_cta_btn1_text', 'label' => 'Button 1 Text',       'name' => 'about_cta_btn1_text', 'type' => 'text',    'default_value' => 'Explore Courses'),
+            array('key' => 'field_ab_cta_btn1_url',  'label' => 'Button 1 URL',        'name' => 'about_cta_btn1_url',  'type' => 'url',     'default_value' => ''),
+            array('key' => 'field_ab_cta_btn2_text', 'label' => 'Button 2 Text',       'name' => 'about_cta_btn2_text', 'type' => 'text',    'default_value' => 'Talk to Us'),
+            array('key' => 'field_ab_cta_btn2_url',  'label' => 'Button 2 URL',        'name' => 'about_cta_btn2_url',  'type' => 'url',     'default_value' => ''),
         ),
     ));
 
