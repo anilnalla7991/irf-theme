@@ -483,24 +483,6 @@ function irf_register_acf_fields() {
                 ),
             ),
 
-            /* ── TAB: Stats ── */
-            array('key' => 'field_ab_tab_stats',     'label' => 'Stats Strip',         'name' => '', 'type' => 'tab'),
-            array(
-                'key'          => 'field_ab_stats_list',
-                'label'        => 'Stats',
-                'name'         => 'about_stats',
-                'type'         => 'repeater',
-                'min'          => 1,
-                'layout'       => 'table',
-                'button_label' => 'Add Stat',
-                'sub_fields'   => array(
-                    array('key' => 'field_ab_stat_icon',   'label' => 'Icon (Emoji)', 'name' => 'icon',   'type' => 'text',   'default_value' => '📊'),
-                    array('key' => 'field_ab_stat_num',    'label' => 'Number',       'name' => 'number', 'type' => 'number'),
-                    array('key' => 'field_ab_stat_suffix', 'label' => 'Suffix',       'name' => 'suffix', 'type' => 'text',   'placeholder' => '+  or  %'),
-                    array('key' => 'field_ab_stat_label',  'label' => 'Label',        'name' => 'label',  'type' => 'text'),
-                ),
-            ),
-
             /* ── TAB: Mission & Vision ── */
             array('key' => 'field_ab_tab_mv',        'label' => 'Mission & Vision',    'name' => '', 'type' => 'tab'),
             array('key' => 'field_ab_mission_title',  'label' => 'Mission Card Title',  'name' => 'about_mission_title', 'type' => 'text',     'default_value' => 'Our Mission'),

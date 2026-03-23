@@ -172,27 +172,51 @@ document.addEventListener('DOMContentLoaded', function () {
     var tickerTabs   = document.querySelectorAll('.irf-tab');
     var tickerTracks = document.querySelectorAll('.irf-ticker-track');
     var tickerBar    = document.getElementById('irfTickerBar');
+    var PX_PER_SEC   = 130; // pixels per second — same speed across all tabs
+
+    function setTickerSpeed(track) {
+        var inner = track ? track.querySelector('.irf-ticker-inner') : null;
+        if (!inner) return;
+        var w = inner.scrollWidth;
+        if (w <= 0) return;
+        // -50% = one full set width; duration = half-width / speed
+        var dur = Math.max(8, Math.round((w / 2) / PX_PER_SEC));
+        inner.style.animationDuration = dur + 's';
+    }
+
+    // Set speed for all tracks on load (measure while hidden via display:block trick)
+    tickerTracks.forEach(function (track) {
+        var wasActive = track.classList.contains('active');
+        if (!wasActive) {
+            track.style.cssText = 'display:block;visibility:hidden;position:absolute;';
+        }
+        setTickerSpeed(track);
+        if (!wasActive) {
+            track.style.cssText = '';
+        }
+    });
 
     tickerTabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
             var target = this.getAttribute('data-tab');
             var color  = this.getAttribute('data-color');
 
-            // Switch active tab
             tickerTabs.forEach(function (t) { t.classList.remove('active'); });
             this.classList.add('active');
 
-            // Change bar background color
             if (tickerBar && color) tickerBar.style.background = color;
 
-            // Switch active track
             tickerTracks.forEach(function (tr) { tr.classList.remove('active'); });
             var activeTrack = document.querySelector('.irf-ticker-track[data-track="' + target + '"]');
             if (activeTrack) {
                 activeTrack.classList.add('active');
-                // Restart animation for smooth entry
+                // Restart animation cleanly
                 var inner = activeTrack.querySelector('.irf-ticker-inner');
-                if (inner) { inner.style.animation = 'none'; inner.offsetHeight; inner.style.animation = ''; }
+                if (inner) {
+                    inner.style.animation = 'none';
+                    inner.offsetHeight; // reflow
+                    inner.style.animation = '';
+                }
             }
         });
     });

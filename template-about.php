@@ -33,16 +33,6 @@ $ab_highlights_def  = array(
 );
 $ab_highlights = (!empty($ab_highlights_acf) && is_array($ab_highlights_acf)) ? $ab_highlights_acf : $ab_highlights_def;
 
-/* ── Stats ── */
-$ab_stats_acf  = function_exists($gf) ? get_field('about_stats') : array();
-$ab_stats_def  = array(
-    array('icon' => '👨‍🎓', 'number' => 5000,  'suffix' => '+',     'label' => 'Students Enrolled'),
-    array('icon' => '🏅',   'number' => 1200,  'suffix' => '+',     'label' => 'Selections Made'),
-    array('icon' => '📅',   'number' => 10,    'suffix' => '+ Yrs', 'label' => 'Years Experience'),
-    array('icon' => '📈',   'number' => 98,    'suffix' => '%',      'label' => 'Success Rate'),
-);
-$ab_stats = (!empty($ab_stats_acf) && is_array($ab_stats_acf)) ? $ab_stats_acf : $ab_stats_def;
-
 /* ── Mission & Vision ── */
 $ab_mission_title = (function_exists($gf) ? get_field('about_mission_title') : '') ?: 'Our Mission';
 $ab_mission_text  = (function_exists($gf) ? get_field('about_mission_text')  : '') ?: 'To empower every aspiring government job candidate with world-class coaching, tools, and mentorship that maximizes their selection probability.';
