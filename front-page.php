@@ -94,6 +94,107 @@ $home_banners = function_exists('get_field') ? get_field('home_banners') : array
 <?php endif; ?>
 
 <!-- ============================================================
+     ANNOUNCEMENT TICKER
+     ============================================================ -->
+<?php
+$hp_ticker_cats = array(
+    'batches'   => array('label' => 'New Batches',    'color' => '#E07B00', 'types' => array('Batch')),
+    'news'      => array('label' => 'Flash News',     'color' => '#CC1100', 'types' => array('Flash News', 'Notice')),
+    'results'   => array('label' => 'Our Results',    'color' => '#1255A6', 'types' => array('Result')),
+    'schedules' => array('label' => 'Live Schedules', 'color' => '#1A7A4A', 'types' => array('Schedule')),
+);
+$hp_ticker_by_cat = array('batches' => array(), 'news' => array(), 'results' => array(), 'schedules' => array());
+$hp_ann_q = new WP_Query(array('post_type' => 'announcements', 'posts_per_page' => 60, 'post_status' => 'publish', 'orderby' => 'date', 'order' => 'DESC'));
+if ($hp_ann_q->have_posts()) {
+    while ($hp_ann_q->have_posts()) {
+        $hp_ann_q->the_post();
+        $hp_etype = function_exists('get_field') ? (string) get_field('event_type') : '';
+        $hp_edate = function_exists('get_field') ? get_field('event_date') : '';
+        $hp_item  = array('title' => get_the_title(), 'date' => $hp_edate);
+        foreach ($hp_ticker_cats as $hp_key => $hp_cat) {
+            foreach ($hp_cat['types'] as $hp_t) {
+                if (strcasecmp(trim($hp_etype), $hp_t) === 0) { $hp_ticker_by_cat[$hp_key][] = $hp_item; break; }
+            }
+        }
+    }
+    wp_reset_postdata();
+}
+$hp_ticker_dummy = array(
+    'batches'   => array(
+        array('title' => 'New IBPS PO Batch starting 1st April 2026 @ Hyderabad (Morning & Evening)',   'date' => '01 Apr 2026'),
+        array('title' => 'Bank Clerk / PO batch starts 15-Apr-2026 (6:30 am – 9:30 am) @ Hyderabad',   'date' => '15 Apr 2026'),
+        array('title' => 'New Weekend Batch for working professionals — starts 5th April 2026',          'date' => '05 Apr 2026'),
+        array('title' => 'RRB (ALP/TECHNICIAN/NTPC/GROUP-D/JE/RPF) Batch starts 13-Apr-2026',          'date' => '13 Apr 2026'),
+    ),
+    'news'      => array(
+        array('title' => 'TS Police SI 2026 notification out — enroll now for dedicated batch',           'date' => ''),
+        array('title' => 'APPSC Group-1 Prelims 2026 notification released — limited seats available',    'date' => ''),
+        array('title' => 'SSC MTS 2026 exam dates announced — batch registrations open now',              'date' => ''),
+        array('title' => 'Special doubt-clearing sessions every Saturday for all current batch students', 'date' => ''),
+    ),
+    'results'   => array(
+        array('title' => 'SSC CGL 2025 Result — 42 IRF students selected! Congratulations!',             'date' => '20 Mar 2026'),
+        array('title' => 'SBI PO 2025 — 18 IRF students cleared Mains. Full list inside.',               'date' => '15 Mar 2026'),
+        array('title' => 'IBPS RRB-XIV Clerk Final Result — 31 IRF selections confirmed',                 'date' => '10 Mar 2026'),
+        array('title' => 'TS Police SI 2025 Final Result — 27 IRF selections',                            'date' => '08 Mar 2026'),
+    ),
+    'schedules' => array(
+        array('title' => 'IBPS PO Mains mock test schedule — April 2026 batch timetable released',        'date' => 'Apr 2026'),
+        array('title' => 'SSC CPO 2026 live class schedule updated — check your batch calendar',          'date' => 'Apr 2026'),
+        array('title' => 'RRB NTPC Group-D exam schedule released for Hyderabad centre',                  'date' => 'May 2026'),
+        array('title' => 'APPSC Group-1 Prelims live schedule released for May 2026 batch',               'date' => 'May 2026'),
+    ),
+);
+foreach ($hp_ticker_by_cat as $hp_key => $hp_items) {
+    if (empty($hp_items)) $hp_ticker_by_cat[$hp_key] = $hp_ticker_dummy[$hp_key];
+}
+$hp_first_key   = array_key_first($hp_ticker_cats);
+$hp_first_color = $hp_ticker_cats[$hp_first_key]['color'];
+?>
+<div class="irf-ticker-wrap">
+    <div class="irf-ticker-tabs">
+        <?php foreach ($hp_ticker_cats as $hp_key => $hp_cat) :
+            $hp_is_first = ($hp_key === $hp_first_key);
+        ?>
+        <button class="irf-tab <?php echo $hp_is_first ? 'active' : ''; ?>"
+                data-tab="<?php echo esc_attr($hp_key); ?>"
+                data-color="<?php echo esc_attr($hp_cat['color']); ?>"
+                style="--tab-color:<?php echo esc_attr($hp_cat['color']); ?>">
+            <?php echo esc_html($hp_cat['label']); ?>
+        </button>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="irf-ticker-bar" id="irfTickerBar" style="background:<?php echo esc_attr($hp_first_color); ?>">
+        <div class="irf-ticker-live">
+            <span class="irf-live-dot"></span> LIVE
+        </div>
+        <?php foreach ($hp_ticker_by_cat as $hp_key => $hp_items) :
+            $hp_is_first = ($hp_key === $hp_first_key);
+            $hp_looped   = array_merge($hp_items, $hp_items);
+        ?>
+        <div class="irf-ticker-track <?php echo $hp_is_first ? 'active' : ''; ?>" data-track="<?php echo esc_attr($hp_key); ?>">
+            <div class="irf-ticker-inner">
+                <?php foreach ($hp_looped as $hp_n => $hp_item) :
+                    $hp_num = ($hp_n % count($hp_items)) + 1;
+                ?>
+                <span class="irf-tick-item">
+                    <span class="irf-tick-num"><?php echo $hp_num; ?></span>
+                    <?php echo esc_html($hp_item['title']); ?>
+                    <?php if (!empty($hp_item['date'])) : ?>
+                    <span class="irf-tick-date"><?php echo esc_html($hp_item['date']); ?></span>
+                    <?php endif; ?>
+                </span>
+                <span class="irf-tick-sep" aria-hidden="true">|</span>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endforeach; ?>
+        <a href="<?php echo esc_url(home_url('/announcements')); ?>" class="irf-ticker-more">More &rsaquo;</a>
+    </div>
+</div>
+
+<!-- ============================================================
      SECTION 1: HERO
      ============================================================ -->
 <?php
