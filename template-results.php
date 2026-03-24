@@ -67,59 +67,59 @@ if (!empty($reels_acf) && is_array($reels_acf)) {
     }
 }
 
-/* ── Query all published results ────────────────────────────────── */
-$rq = new WP_Query(array(
-    'post_type'      => 'results',
-    'posts_per_page' => -1,
-    'post_status'    => 'publish',
-    'orderby'        => 'date',
-    'order'          => 'DESC',
-));
+/* ── ACF: Student Fields repeater ───────────────────────────────── */
+$rs_rows     = ($has_acf ? get_field('results_students') : null) ?: array();
 $all_results = array();
 $years_set   = array();
 $exams_set   = array();
 
-if ($rq->have_posts()) {
-    while ($rq->have_posts()) : $rq->the_post();
-        $sname     = ($has_acf ? get_field('student_name')  : null) ?: get_the_title();
-        $exam      = $has_acf ? (get_field('exam_name') ?: '')  : '';
-        $year      = $has_acf ? (get_field('year')       ?: '')  : '';
-        $sphoto    = $has_acf ? get_field('student_photo')       : null;
-        $photo_url = '';
-        if ($sphoto)                   $photo_url = is_array($sphoto) ? $sphoto['url'] : $sphoto;
-        elseif (has_post_thumbnail())  $photo_url = get_the_post_thumbnail_url(null, 'medium');
+foreach ($rs_rows as $row) {
+    $sname     = sanitize_text_field($row['rs_student_name']  ?? '');
+    $category  = sanitize_text_field($row['rs_exam_category'] ?? '');  // broad category → filter chips
+    $exam_clr  = sanitize_text_field($row['rs_exam_cleared']  ?? '');  // specific exam → card pill
+    $ht_no     = sanitize_text_field($row['rs_ht_no']         ?? '');
+    $date_raw  = $row['rs_result_date'] ?? '';                         // format: Y-m-d
+    $year      = $date_raw ? date('Y', strtotime($date_raw)) : '';
+    $img_raw   = $row['rs_student_image'] ?? null;
+    $photo_url = $img_raw ? (is_array($img_raw) ? $img_raw['url'] : $img_raw) : '';
 
-        $ht_no     = $has_acf ? (get_field('ht_no') ?: '')  : '';
-        $all_results[] = array('sname' => $sname, 'exam' => $exam, 'year' => $year, 'photo_url' => $photo_url, 'ht_no' => $ht_no);
-        if ($year && !in_array($year, $years_set)) $years_set[] = $year;
-        if ($exam && !in_array($exam, $exams_set)) $exams_set[] = $exam;
-    endwhile;
-    wp_reset_postdata();
+    if (!$sname) continue;
+
+    $all_results[] = array(
+        'sname'        => $sname,
+        'exam'         => $category,   // used for data-exam (filter chips)
+        'exam_display' => $exam_clr,   // shown on card pill
+        'year'         => $year,
+        'photo_url'    => $photo_url,
+        'ht_no'        => $ht_no,
+    );
+    if ($year     && !in_array($year,     $years_set)) $years_set[] = $year;
+    if ($category && !in_array($category, $exams_set)) $exams_set[] = $category;
 }
 rsort($years_set);
 
-/* ── Demo fallback (shown when no CPT data exists) ──────────────── */
+/* ── Demo fallback (shown when no ACF student data entered yet) ─── */
 if (empty($all_results)) {
     $all_results = array(
-        array('sname' => 'Ravi Kumar',    'exam' => 'SSC CGL',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001234'),
-        array('sname' => 'Priya Reddy',   'exam' => 'RBI Grade B', 'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025005678'),
-        array('sname' => 'Kiran Babu',    'exam' => 'SI Police',   'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025009012'),
-        array('sname' => 'Anand Sharma',  'exam' => 'RRB NTPC',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025003456'),
-        array('sname' => 'Deepa Rao',     'exam' => 'IBPS PO',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025007890'),
-        array('sname' => 'Suresh Nair',   'exam' => 'SSC CHSL',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025002345'),
-        array('sname' => 'Lakshmi V',     'exam' => 'SBI PO',      'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025006789'),
-        array('sname' => 'Sneha Mehta',   'exam' => 'SSC CGL',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001111'),
-        array('sname' => 'Raj Mohan',     'exam' => 'RBI Grade B', 'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024004321'),
-        array('sname' => 'Meena Kumari',  'exam' => 'SSC CGL',     'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024008765'),
-        array('sname' => 'Arjun Singh',   'exam' => 'SI Police',   'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024001357'),
-        array('sname' => 'Fatima Khan',   'exam' => 'IBPS PO',     'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024009753'),
-        array('sname' => 'Venkat Rao',    'exam' => 'RRB NTPC',    'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024002468'),
-        array('sname' => 'Sita Devi',     'exam' => 'SSC MTS',     'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023006543'),
-        array('sname' => 'Ramesh Babu',   'exam' => 'SSC CGL',     'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023003217'),
-        array('sname' => 'Geetha Patel',  'exam' => 'SBI Clerk',   'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023007891'),
+        array('sname' => 'Ravi Kumar',   'exam' => 'SSC',     'exam_display' => 'SSC CGL',        'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001234'),
+        array('sname' => 'Priya Reddy',  'exam' => 'Banking', 'exam_display' => 'RBI Grade B',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025005678'),
+        array('sname' => 'Kiran Babu',   'exam' => 'Police',  'exam_display' => 'SI Police',      'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025009012'),
+        array('sname' => 'Anand Sharma', 'exam' => 'RRB',     'exam_display' => 'RRB NTPC',       'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025003456'),
+        array('sname' => 'Deepa Rao',    'exam' => 'Banking', 'exam_display' => 'IBPS PO',        'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025007890'),
+        array('sname' => 'Suresh Nair',  'exam' => 'SSC',     'exam_display' => 'SSC CHSL',       'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025002345'),
+        array('sname' => 'Lakshmi V',    'exam' => 'Banking', 'exam_display' => 'SBI PO',         'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025006789'),
+        array('sname' => 'Sneha Mehta',  'exam' => 'SSC',     'exam_display' => 'SSC CGL',        'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001111'),
+        array('sname' => 'Raj Mohan',    'exam' => 'Banking', 'exam_display' => 'RBI Grade B',    'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024004321'),
+        array('sname' => 'Meena Kumari', 'exam' => 'SSC',     'exam_display' => 'SSC CGL',        'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024008765'),
+        array('sname' => 'Arjun Singh',  'exam' => 'Police',  'exam_display' => 'SI Police',      'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024001357'),
+        array('sname' => 'Fatima Khan',  'exam' => 'Banking', 'exam_display' => 'IBPS PO',        'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024009753'),
+        array('sname' => 'Venkat Rao',   'exam' => 'RRB',     'exam_display' => 'RRB NTPC',       'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024002468'),
+        array('sname' => 'Sita Devi',    'exam' => 'SSC',     'exam_display' => 'SSC MTS',        'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023006543'),
+        array('sname' => 'Ramesh Babu',  'exam' => 'SSC',     'exam_display' => 'SSC CGL',        'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023003217'),
+        array('sname' => 'Geetha Patel', 'exam' => 'Banking', 'exam_display' => 'SBI Clerk',      'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023007891'),
     );
     $years_set = array('2025', '2024', '2023');
-    $exams_set = array('SSC CGL', 'RBI Grade B', 'SI Police', 'RRB NTPC', 'IBPS PO', 'SSC CHSL', 'SBI PO', 'SSC MTS', 'SBI Clerk');
+    $exams_set = array('SSC', 'Banking', 'RRB', 'Police');
 }
 
 /* ── Exam category → colour map (deterministic) ─────────────────── */
@@ -152,15 +152,16 @@ $get_gradient = function($key) use ($cat_gradients) {
 
 /* ── Achievement card render ────────────────────────────────────── */
 $render_card = function($r) use ($get_color, $get_gradient) {
-    $name     = $r['sname'];
-    $exam     = $r['exam'];
-    $year     = $r['year'];
-    $photo    = $r['photo_url'];
-    $ht_no    = $r['ht_no'] ?? '';
-    $parts    = explode(' ', trim($name));
-    $init     = strtoupper(substr($parts[0] ?? '', 0, 1) . substr($parts[1] ?? '', 0, 1));
-    $color    = $get_color($exam);
-    $gradient = $get_gradient($exam);
+    $name         = $r['sname'];
+    $exam         = $r['exam'];                          // broad category (filter key)
+    $exam_display = $r['exam_display'] ?? $exam;         // specific exam (shown on card)
+    $year         = $r['year'];
+    $photo        = $r['photo_url'];
+    $ht_no        = $r['ht_no'] ?? '';
+    $parts        = explode(' ', trim($name));
+    $init         = strtoupper(substr($parts[0] ?? '', 0, 1) . substr($parts[1] ?? '', 0, 1));
+    $color        = $get_color($exam);
+    $gradient     = $get_gradient($exam);
     ob_start();
     ?>
     <div class="rcard reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>">
@@ -180,8 +181,8 @@ $render_card = function($r) use ($get_color, $get_gradient) {
         <!-- Body -->
         <div class="rcard-body">
             <div class="rcard-name"><?php echo esc_html($name); ?></div>
-            <?php if ($exam) : ?>
-            <span class="rcard-exam-pill" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($exam); ?></span>
+            <?php if ($exam_display) : ?>
+            <span class="rcard-exam-pill" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($exam_display); ?></span>
             <?php endif; ?>
             <?php if ($ht_no) : ?>
             <div class="rcard-ht">HT: <strong><?php echo esc_html($ht_no); ?></strong></div>
