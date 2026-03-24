@@ -3,22 +3,6 @@
  * Template Name: Results
  */
 
-/* Force LiteSpeed & all caches to bypass this page */
-add_action( 'send_headers', function () {
-    if ( ! headers_sent() ) {
-        header( 'X-LiteSpeed-Cache-Control: no-cache,no-store' );
-        header( 'Cache-Control: no-store, no-cache, must-revalidate, max-age=0' );
-        header( 'Pragma: no-cache' );
-        header( 'Surrogate-Control: no-store' );
-    }
-} );
-/* Purge LiteSpeed cache for this URL on every load (plugin API) */
-add_action( 'wp', function () {
-    if ( function_exists( 'do_action' ) ) {
-        do_action( 'litespeed_purge_url', home_url( '/results/' ) );
-        do_action( 'litespeed_purge_all' );
-    }
-} );
 
 get_header();
 $fn      = 'get_field';
