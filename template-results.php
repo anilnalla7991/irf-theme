@@ -194,25 +194,14 @@ $render_card = function($r) {
 
     <div class="banner-slides" id="bannerTrack">
     <?php
-    $banner_effects = array('diagonal', 'slide-x', 'slide-y', 'cube', 'zoom-fade', 'iris');
+    /* Each slide gets a unique transition effect */
+    $banner_effects = array('diagonal', 'iris', 'slide-x', 'zoom-fade', 'cube', 'slide-y');
     foreach ($rb_slides as $idx => $sl) :
-        $fx         = esc_attr($sl['rb_fx']          ?: $banner_effects[$idx % count($banner_effects)]);
-        $theme      = esc_attr($sl['rb_theme']        ?: 'dark-red');
-        $deco       = $sl['rb_decoration']            ?: 'none';
-        $img_raw    = $sl['rb_bg_image']              ?? null;
-        $img_url    = $img_raw ? (is_array($img_raw) ? $img_raw['url'] : $img_raw) : '';
-        $badge      = esc_html($sl['rb_badge']        ?: '');
-        $title_raw  = str_replace('\n', "\n", $sl['rb_title'] ?: '');
-        $sub        = esc_html($sl['rb_subtitle']     ?: '');
-        $s1n        = esc_html($sl['rb_stat1_num']    ?? '');
-        $s1s        = esc_html($sl['rb_stat1_sfx']    ?? '');
-        $s1l        = esc_html($sl['rb_stat1_lbl']    ?? '');
-        $s2n        = esc_html($sl['rb_stat2_num']    ?? '');
-        $s2s        = esc_html($sl['rb_stat2_sfx']    ?? '');
-        $s2l        = esc_html($sl['rb_stat2_lbl']    ?? '');
-        $s3n        = esc_html($sl['rb_stat3_num']    ?? '');
-        $s3s        = esc_html($sl['rb_stat3_sfx']    ?? '');
-        $s3l        = esc_html($sl['rb_stat3_lbl']    ?? '');
+        $fx      = esc_attr($sl['rb_fx']    ?: $banner_effects[$idx % count($banner_effects)]);
+        $theme   = esc_attr($sl['rb_theme'] ?: 'dark-red');
+        $deco    = $sl['rb_decoration']     ?: 'none';
+        $img_raw = $sl['rb_bg_image']       ?? null;
+        $img_url = $img_raw ? (is_array($img_raw) ? $img_raw['url'] : $img_raw) : '';
     ?>
         <div class="banner-slide<?php echo $idx === 0 ? ' active' : ''; ?>" data-fx="<?php echo $fx; ?>">
             <div class="rbslide rbslide-theme-<?php echo $theme; ?>">
@@ -227,6 +216,7 @@ $render_card = function($r) {
                     <div class="rbslide-orb rbo1"></div>
                     <div class="rbslide-orb rbo2"></div>
                     <div class="rbslide-orb rbo3"></div>
+                    <div class="rbslide-orb rbo4"></div>
                     <?php if ($deco === 'trophy') : ?>
                     <div class="rbslide-watermark">🏆</div>
                     <?php elseif ($deco === 'year-highlight') : ?>
@@ -240,21 +230,6 @@ $render_card = function($r) {
                 <?php endif; ?>
 
                 <div class="banner-overlay"></div>
-
-                <div class="container rbslide-inner">
-                    <div class="rbslide-content">
-                        <?php if ($badge) : ?><span class="rbslide-badge"><?php echo $badge; ?></span><?php endif; ?>
-                        <h1 class="rbslide-title"><?php echo nl2br(esc_html($title_raw)); ?></h1>
-                        <?php if ($sub) : ?><p class="rbslide-sub"><?php echo $sub; ?></p><?php endif; ?>
-                        <?php if ($s1n) : ?>
-                        <div class="rbslide-stats">
-                            <div class="rbs-stat"><span class="rbs-num"><?php echo $s1n . $s1s; ?></span><span class="rbs-lbl"><?php echo $s1l; ?></span></div>
-                            <?php if ($s2n) : ?><div class="rbs-divider"></div><div class="rbs-stat"><span class="rbs-num"><?php echo $s2n . $s2s; ?></span><span class="rbs-lbl"><?php echo $s2l; ?></span></div><?php endif; ?>
-                            <?php if ($s3n) : ?><div class="rbs-divider"></div><div class="rbs-stat"><span class="rbs-num"><?php echo $s3n . $s3s; ?></span><span class="rbs-lbl"><?php echo $s3l; ?></span></div><?php endif; ?>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
             </div>
         </div>
     <?php endforeach; ?>
