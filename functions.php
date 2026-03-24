@@ -29,9 +29,26 @@ add_action('after_setup_theme', 'irf_theme_setup');
    ============================================================= */
 function irf_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap', array(), null);
-    wp_enqueue_style('irf-main', get_template_directory_uri() . '/assets/css/main.css', array(), '2.6');
-    wp_enqueue_style('irf-style', get_stylesheet_uri(), array('irf-main'), '2.6');
-    wp_enqueue_script('irf-main', get_template_directory_uri() . '/assets/js/main.js', array(), '2.6', true);
+    wp_enqueue_style('irf-main', get_template_directory_uri() . '/assets/css/main.css', array(), '2.7');
+    wp_enqueue_style('irf-style', get_stylesheet_uri(), array('irf-main'), '2.7');
+    wp_enqueue_script('irf-main', get_template_directory_uri() . '/assets/js/main.js', array(), '2.7', true);
+
+    /* ── Results page: load dedicated CSS + JS only when needed ── */
+    if ( is_post_type_archive('results') || is_page_template('template-results.php') ) {
+        wp_enqueue_style(
+            'irf-results',
+            get_template_directory_uri() . '/assets/css/results.css',
+            array('irf-main'),
+            '2.7'
+        );
+        wp_enqueue_script(
+            'irf-results',
+            get_template_directory_uri() . '/assets/js/results.js',
+            array('irf-main'),
+            '2.7',
+            true   /* load in footer */
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'irf_enqueue_scripts');
 
