@@ -1433,11 +1433,11 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 }
 
 /* =============================================================
-   RESULTS PAGE — STATS STRIP
+   RESULTS PAGE — STATS STRIP  (deep-blue edu theme)
    ============================================================= */
 .results-stats-strip {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--charcoal) 100%);
-    padding: 44px 0;
+    background: #0A2463;
+    padding: 48px 0;
     position: relative;
     overflow: hidden;
 }
@@ -1445,14 +1445,15 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0;
-    height: 3px;
-    background: var(--red);
+    height: 4px;
+    background: linear-gradient(90deg,#F59E0B,#FBBF24,#F59E0B);
 }
 .results-stats-strip::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse at 70% 50%, rgba(254,0,0,0.07) 0%, transparent 65%);
+    background: radial-gradient(ellipse at 20% 50%, rgba(245,158,11,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(59,130,246,0.08) 0%, transparent 60%);
     pointer-events: none;
 }
 .results-stats-grid {
@@ -1463,26 +1464,26 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 }
 .rss-item {
     text-align: center;
-    padding: 14px 20px;
-    border-right: 1px solid rgba(255,255,255,0.08);
+    padding: 10px 24px;
+    border-right: 1px solid rgba(255,255,255,0.10);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 6px;
 }
 .rss-item:last-child { border-right: none; }
-.rss-icon { font-size: 26px; line-height: 1; }
+.rss-icon { font-size: 28px; line-height: 1; }
 .rss-num-wrap { line-height: 1; }
 .rss-num {
-    font-size: clamp(26px, 3.5vw, 40px);
+    font-size: clamp(28px, 3.5vw, 42px);
     font-weight: 800;
     font-family: 'Poppins', sans-serif;
-    color: var(--white);
+    color: #F59E0B;
     display: inline;
 }
 .rss-lbl {
     font-size: 12px;
-    color: rgba(255,255,255,0.50);
+    color: rgba(255,255,255,0.60);
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -1491,227 +1492,252 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    RESULTS PAGE — YEAR-WISE SECTION
    ============================================================= */
-.results-yearwise-section { background: var(--light); }
+.results-yearwise-section {
+    background: #F0F5FF;
+}
+.results-yearwise-section .section-title,
+.results-examwise-section .section-title {
+    color: #0A2463;
+}
+.results-yearwise-section .section-tag {
+    background: #F59E0B;
+    color: #1a1a2e;
+}
+.results-examwise-section .section-tag-dark {
+    background: #0A2463;
+    color: #fff;
+}
 
 .yr-tabs {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     margin-bottom: 40px;
 }
 .yr-tab {
-    padding: 10px 26px;
+    padding: 9px 24px;
     border-radius: 50px;
-    border: 2px solid var(--border);
-    background: transparent;
-    color: var(--gray);
+    border: 1.5px solid #CBD5E1;
+    background: #fff;
+    color: #4A5568;
     font-size: 14px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.2s ease;
+    line-height: 1;
 }
-.yr-tab:hover { border-color: var(--red); color: var(--red); }
+.yr-tab:hover {
+    border-color: #0A2463;
+    color: #0A2463;
+    background: #EEF4FF;
+}
 .yr-tab.active {
-    background: var(--red);
-    border-color: var(--red);
-    color: var(--white);
-    box-shadow: 0 4px 16px rgba(254,0,0,0.28);
+    background: #0A2463;
+    border-color: #0A2463;
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(10,36,99,0.30);
 }
 
 /* =============================================================
    RESULTS PAGE — EXAM-WISE SECTION
    ============================================================= */
-.results-examwise-section { background: var(--white); }
-
+.results-examwise-section {
+    background: #fff;
+}
 .exam-chips {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     margin-bottom: 40px;
 }
 .exam-chip {
     padding: 8px 20px;
     border-radius: 50px;
-    border: 1.5px solid var(--border);
-    background: transparent;
-    color: var(--charcoal);
+    border: 1.5px solid #CBD5E1;
+    background: #fff;
+    color: #4A5568;
     font-size: 13px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+.exam-chip:hover {
+    border-color: #0A2463;
+    color: #0A2463;
+    background: #EEF4FF;
+}
+.exam-chip.active {
+    background: #1a1a2e;
+    border-color: #1a1a2e;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(26,26,46,0.25);
+}
+
+/* =============================================================
+   RESULTS PAGE — COMPACT TOPPER CARD (scales to 1000s of entries)
+   ============================================================= */
+.results-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.rcard {
+    background: #fff;
+    border-radius: 12px;
+    border: 1px solid #E8EDF5;
+    box-shadow: 0 1px 8px rgba(10,36,99,0.07);
+    overflow: hidden;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    cursor: pointer;
+    position: relative;
+}
+.rcard::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    opacity: 0;
+    transition: opacity 0.22s;
+}
+.rcard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 28px rgba(10,36,99,0.14);
+}
+.rcard:hover::before { opacity: 1; }
+.rcard.rcard-hidden { display: none; }
+
+/* Coloured accent top bar per card (set via inline style) */
+.rcard-accent-bar {
+    height: 4px;
+    width: 100%;
+}
+
+/* Card inner padding wrapper */
+.rcard-inner {
+    padding: 14px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Avatar + name row */
+.rcard-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.rcard-avatar {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #E8EDF5;
+}
+.rcard-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.rcard-avatar-ph {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    color: #fff;
+}
+.rcard-name-col { min-width: 0; flex: 1; }
+.rcard-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0A2463;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.25;
+    margin-bottom: 2px;
+}
+.rcard-year {
+    font-size: 11px;
+    color: #94A3B8;
+    font-weight: 500;
+}
+
+/* Exam badge */
+.rcard-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    width: fit-content;
+    letter-spacing: 0.2px;
+    color: #fff;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Hall Ticket */
+.rcard-ht {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: #64748B;
+    padding-top: 8px;
+    border-top: 1px solid #F1F5F9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.rcard-ht strong {
+    color: #374151;
+    font-weight: 600;
+}
+
+/* Show-more button */
+.results-show-more-wrap {
+    text-align: center;
+    margin-top: 36px;
+}
+.btn-show-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 32px;
+    border-radius: 50px;
+    border: 2px solid #0A2463;
+    background: transparent;
+    color: #0A2463;
+    font-size: 14px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
     transition: all 0.22s ease;
 }
-.exam-chip:hover {
-    background: var(--charcoal);
-    border-color: var(--charcoal);
-    color: var(--white);
-}
-.exam-chip.active {
-    background: var(--charcoal);
-    border-color: var(--charcoal);
-    color: var(--white);
-    box-shadow: 0 4px 14px rgba(28,28,46,0.22);
-}
-
-/* =============================================================
-   RESULTS PAGE — RESULT CARD (both sections, reference design)
-   ============================================================= */
-.results-cards-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-}
-
-/* The card */
-.rcard {
-    background: var(--white);
-    border-radius: 16px;
-    border: 1px solid #e8e8e8;
-    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-    overflow: hidden;
-    transition: transform 0.28s ease, box-shadow 0.28s ease;
-    cursor: pointer;
-}
-.rcard:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 36px rgba(0,0,0,0.13);
-}
-.rcard.rcard-hidden { display: none; }
-
-/* Top image area */
-.rcard-img-wrap {
-    height: 200px;
-    overflow: hidden;
-    position: relative;
-    background: #f5f5f5;
-}
-.rcard-img-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.35s ease;
-}
-.rcard:hover .rcard-img-wrap img { transform: scale(1.06); }
-
-/* Placeholder when no photo — coloured gradient + big initials */
-.rcard-img-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-}
-.rcard-img-placeholder::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.18) 0%, transparent 65%);
-}
-.rcard-big-initials {
-    font-size: 72px;
-    font-weight: 900;
-    font-family: 'Poppins', sans-serif;
-    color: rgba(255,255,255,0.30);
-    line-height: 1;
-    letter-spacing: -3px;
-    position: relative;
-    z-index: 1;
-}
-
-/* Info bar: avatar + name + date | category badge */
-.rcard-info-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 10px;
-    padding: 12px 14px 0;
-}
-.rcard-meta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 0;
-}
-.rcard-avatar-sm {
-    flex-shrink: 0;
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid #eee;
-}
-.rcard-avatar-sm img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-.rcard-avatar-sm-placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 800;
-    font-family: 'Poppins', sans-serif;
-}
-.rcard-name-wrap { min-width: 0; }
-.rcard-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: #1a1a2e;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2;
-}
-.rcard-date {
-    font-size: 11px;
-    color: #888;
-    margin-top: 1px;
-}
-.rcard-cat-badge {
-    flex-shrink: 0;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 5px 13px;
-    border-radius: 50px;
+.btn-show-more:hover {
+    background: #0A2463;
     color: #fff;
-    letter-spacing: 0.3px;
-    white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(10,36,99,0.25);
 }
-
-/* Footer: exam name + hall ticket */
-.rcard-footer {
-    padding: 10px 14px 16px;
-    border-top: 1px solid #f0f0f0;
-    margin-top: 12px;
-}
-.rcard-exam-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: #1a1a2e;
-    margin-bottom: 4px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.rcard-htno {
-    font-size: 12px;
-    color: #777;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+.btn-show-more.hidden { display: none; }
 
 /* Filter empty state */
 .filter-empty {
@@ -1726,11 +1752,12 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
    RESULTS PAGE — RESPONSIVE
    ============================================================= */
 @media (max-width: 900px) {
-    .results-stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .results-stats-grid    { grid-template-columns: repeat(2, 1fr); }
     .rss-item:nth-child(2) { border-right: none; }
     .rss-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.08); }
-    .rbslide-exam-pills { display: none; }
-    .rbslide-watermark  { opacity: 0.05; }
+    .rbslide-exam-pills    { display: none; }
+    .rbslide-watermark     { opacity: 0.05; }
+    .results-cards-grid    { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 768px) {
     .results-page-banner { height: 56vw; min-height: 320px; max-height: 420px; }
@@ -1739,17 +1766,17 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .rbs-divider         { display: none; }
     .rbslide-title       { font-size: clamp(22px, 6vw, 36px); }
     .rbslide-sub         { font-size: 14px; }
-    .results-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .rcard-img-wrap     { height: 170px; }
+    .results-cards-grid  { grid-template-columns: repeat(2, 1fr); gap: 12px; }
 }
 @media (max-width: 480px) {
     .results-stats-grid  { grid-template-columns: repeat(2, 1fr); }
-    .yr-tabs             { gap: 8px; }
-    .yr-tab              { padding: 8px 18px; font-size: 13px; }
-    .exam-chips          { gap: 8px; }
-    .exam-chip           { padding: 7px 15px; font-size: 12px; }
+    .yr-tabs             { gap: 6px; }
+    .yr-tab              { padding: 8px 16px; font-size: 13px; }
+    .exam-chips          { gap: 6px; }
+    .exam-chip           { padding: 7px 14px; font-size: 12px; }
     .rbslide-stats       { display: none; }
-    .results-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .rcard-img-wrap     { height: 150px; }
-    .rcard-big-initials { font-size: 52px; }
+    .results-cards-grid  { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .rcard-inner         { padding: 10px 10px 12px; }
+    .rcard-avatar        { width: 38px; height: 38px; }
+    .rcard-name          { font-size: 13px; }
 }

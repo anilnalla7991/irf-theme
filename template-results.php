@@ -154,38 +154,23 @@ if (empty($all_results)) {
     $exams_set = array('SSC CGL', 'RBI Grade B', 'SI Police', 'RRB NTPC', 'IBPS PO', 'SSC CHSL', 'SBI PO', 'SSC MTS', 'SBI Clerk');
 }
 
-/* ── Badge colours (deterministic by exam name) ─────────────────── */
-$badge_colors = array(
-    '#E53935', /* red    */
-    '#1E88E5', /* blue   */
-    '#8E24AA', /* purple */
-    '#00897B', /* teal   */
-    '#F4511E', /* deep orange */
-    '#3949AB', /* indigo */
-    '#039BE5', /* light blue */
-    '#43A047', /* green  */
+/* ── Badge / avatar colours (deterministic by exam name) ────────── */
+$edu_colors = array(
+    '#1E3A8A', /* deep blue   — Banking   */
+    '#DC2626', /* red         — Police    */
+    '#7C3AED', /* violet      — RRB       */
+    '#0891B2', /* cyan        — SSC       */
+    '#059669', /* emerald     — SI        */
+    '#D97706', /* amber       — Govt      */
+    '#DB2777', /* pink        — SBI       */
+    '#0A2463', /* navy        — default   */
 );
-$get_badge_color = function($exam) use ($badge_colors) {
-    return $exam ? $badge_colors[abs(crc32($exam)) % count($badge_colors)] : $badge_colors[0];
+$get_color = function($key) use ($edu_colors) {
+    return $edu_colors[abs(crc32((string)$key)) % count($edu_colors)];
 };
 
-/* ── Gradient backgrounds for placeholder ───────────────────────── */
-$placeholder_gradients = array(
-    'linear-gradient(135deg,#667eea,#764ba2)',
-    'linear-gradient(135deg,#f093fb,#f5576c)',
-    'linear-gradient(135deg,#4facfe,#00f2fe)',
-    'linear-gradient(135deg,#43e97b,#38f9d7)',
-    'linear-gradient(135deg,#fa709a,#fee140)',
-    'linear-gradient(135deg,#a18cd1,#fbc2eb)',
-    'linear-gradient(135deg,#ffecd2,#fcb69f)',
-    'linear-gradient(135deg,#30cfd0,#330867)',
-);
-$get_gradient = function($name) use ($placeholder_gradients) {
-    return $placeholder_gradients[abs(crc32($name)) % count($placeholder_gradients)];
-};
-
-/* ── Single card render (same design for both sections) ─────────── */
-$render_card = function($r) use ($get_badge_color, $get_gradient) {
+/* ── Compact card render (works at 1000+ entries) ───────────────── */
+$render_card = function($r) use ($get_color) {
     $name  = $r['sname'];
     $exam  = $r['exam'];
     $year  = $r['year'];
@@ -193,55 +178,45 @@ $render_card = function($r) use ($get_badge_color, $get_gradient) {
     $ht_no = $r['ht_no'] ?? '';
     $parts = explode(' ', trim($name));
     $init  = strtoupper(substr($parts[0] ?? '', 0, 1) . substr($parts[1] ?? '', 0, 1));
-    $color    = $get_badge_color($exam);
-    $gradient = $get_gradient($name);
+    $color = $get_color($exam);
     ob_start();
     ?>
     <div class="rcard reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>">
-
-        <!-- Top image area -->
-        <div class="rcard-img-wrap">
-            <?php if ($photo) : ?>
-            <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
-            <?php else : ?>
-            <div class="rcard-img-placeholder" style="background:<?php echo esc_attr($gradient); ?>;">
-                <span class="rcard-big-initials"><?php echo esc_html($init ?: '?'); ?></span>
-            </div>
-            <?php endif; ?>
-        </div>
-
-        <!-- Info bar -->
-        <div class="rcard-info-bar">
-            <div class="rcard-meta">
-                <div class="rcard-avatar-sm">
+        <div class="rcard-accent-bar" style="background:<?php echo esc_attr($color); ?>;"></div>
+        <div class="rcard-inner">
+            <!-- Avatar + name -->
+            <div class="rcard-top">
+                <div class="rcard-avatar">
                     <?php if ($photo) : ?>
-                    <img src="<?php echo esc_url($photo); ?>" alt="">
+                    <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
                     <?php else : ?>
-                    <div class="rcard-avatar-sm-placeholder" style="background:<?php echo esc_attr($color); ?>22;color:<?php echo esc_attr($color); ?>;"><?php echo esc_html($init ?: '?'); ?></div>
+                    <div class="rcard-avatar-ph" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($init ?: '?'); ?></div>
                     <?php endif; ?>
                 </div>
-                <div class="rcard-name-wrap">
+                <div class="rcard-name-col">
                     <div class="rcard-name"><?php echo esc_html($name); ?></div>
-                    <?php if ($year) : ?><div class="rcard-date"><?php echo esc_html($year); ?></div><?php endif; ?>
+                    <?php if ($year) : ?><div class="rcard-year"><?php echo esc_html($year); ?></div><?php endif; ?>
                 </div>
             </div>
+            <!-- Exam badge -->
             <?php if ($exam) : ?>
-            <span class="rcard-cat-badge" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($exam); ?></span>
+            <span class="rcard-badge" style="background:<?php echo esc_attr($color); ?>15;color:<?php echo esc_attr($color); ?>;">
+                <svg width="10" height="10" viewBox="0 0 10 10" fill="<?php echo esc_attr($color); ?>"><circle cx="5" cy="5" r="5"/></svg>
+                <?php echo esc_html($exam); ?>
+            </span>
+            <?php endif; ?>
+            <!-- Hall Ticket -->
+            <?php if ($ht_no) : ?>
+            <div class="rcard-ht">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+                HT No: <strong><?php echo esc_html($ht_no); ?></strong>
+            </div>
             <?php endif; ?>
         </div>
-
-        <!-- Footer -->
-        <div class="rcard-footer">
-            <div class="rcard-exam-name"><?php echo esc_html($exam ?: $name); ?></div>
-            <?php if ($ht_no) : ?><div class="rcard-htno">Hall Ticket: <?php echo esc_html($ht_no); ?></div><?php endif; ?>
-        </div>
-
     </div>
     <?php
     return ob_get_clean();
 };
-
-/* alias so both sections call same function */
 $render_card_portrait = $render_card;
 ?>
 
@@ -374,6 +349,11 @@ $render_card_portrait = $render_card;
             <?php foreach ($all_results as $r) echo $render_card_portrait($r); ?>
         </div>
         <p class="filter-empty" id="yearNoResults" style="display:none;">No results found for this year.</p>
+        <div class="results-show-more-wrap">
+            <button class="btn-show-more" id="yearShowMore" onclick="showMoreCards('yearGrid','yearShowMore')">
+                Show More &nbsp;&#8595;
+            </button>
+        </div>
     </div>
 </section>
 
@@ -402,6 +382,11 @@ $render_card_portrait = $render_card;
             <?php foreach ($all_results as $r) echo $render_card($r); ?>
         </div>
         <p class="filter-empty" id="examNoResults" style="display:none;">No results found for this exam.</p>
+        <div class="results-show-more-wrap">
+            <button class="btn-show-more" id="examShowMore" onclick="showMoreCards('examGrid','examShowMore')">
+                Show More &nbsp;&#8595;
+            </button>
+        </div>
     </div>
 </section>
 
@@ -474,21 +459,57 @@ $cta_btn2_url = irf_opt('cta_btn2_url',  'tel:+919999999999');
 (function () {
     'use strict';
 
-    function filterGrid(gridId, noMsgId, filterAttr, value) {
+    var PAGE_SIZE = 12; /* initial visible cards per grid */
+
+    /* ── Apply initial limit ─────────────────────────────────── */
+    function applyLimit(gridId, btnId) {
+        var grid = document.getElementById(gridId);
+        var btn  = document.getElementById(btnId);
+        if (!grid) return;
+        var cards = Array.from(grid.querySelectorAll('.rcard'));
+        var shown = 0;
+        cards.forEach(function (c) {
+            if (c.classList.contains('rcard-hidden')) return;
+            shown++;
+            if (shown > PAGE_SIZE) c.classList.add('rcard-overlimit');
+            else                   c.classList.remove('rcard-overlimit');
+        });
+        if (btn) btn.classList.toggle('hidden', shown <= PAGE_SIZE);
+    }
+
+    /* ── Show more ───────────────────────────────────────────── */
+    window.showMoreCards = function(gridId, btnId) {
+        var grid = document.getElementById(gridId);
+        if (!grid) return;
+        var hidden = grid.querySelectorAll('.rcard-overlimit');
+        var count  = 0;
+        hidden.forEach(function (c) {
+            if (count < PAGE_SIZE) { c.classList.remove('rcard-overlimit'); count++; }
+        });
+        if (grid.querySelectorAll('.rcard-overlimit').length === 0) {
+            var btn = document.getElementById(btnId);
+            if (btn) btn.classList.add('hidden');
+        }
+    };
+
+    /* ── Filter grid ─────────────────────────────────────────── */
+    function filterGrid(gridId, noMsgId, btnId, filterAttr, value) {
         var grid  = document.getElementById(gridId);
         var noMsg = document.getElementById(noMsgId);
         if (!grid) return;
         var cards   = grid.querySelectorAll('.rcard');
         var visible = 0;
         cards.forEach(function (c) {
+            c.classList.remove('rcard-overlimit');
             var match = (value === 'all' || c.dataset[filterAttr] === value);
             c.classList.toggle('rcard-hidden', !match);
             if (match) visible++;
         });
         if (noMsg) noMsg.style.display = visible === 0 ? 'block' : 'none';
+        applyLimit(gridId, btnId);
     }
 
-    // Year tabs
+    /* ── Year tabs ───────────────────────────────────────────── */
     document.querySelectorAll('.yr-tab').forEach(function (btn) {
         btn.addEventListener('click', function () {
             document.querySelectorAll('.yr-tab').forEach(function (b) {
@@ -497,19 +518,27 @@ $cta_btn2_url = irf_opt('cta_btn2_url',  'tel:+919999999999');
             });
             this.classList.add('active');
             this.setAttribute('aria-selected', 'true');
-            filterGrid('yearGrid', 'yearNoResults', 'year', this.dataset.year);
+            filterGrid('yearGrid', 'yearNoResults', 'yearShowMore', 'year', this.dataset.year);
         });
     });
 
-    // Exam chips
+    /* ── Exam chips ──────────────────────────────────────────── */
     document.querySelectorAll('.exam-chip').forEach(function (btn) {
         btn.addEventListener('click', function () {
             document.querySelectorAll('.exam-chip').forEach(function (b) { b.classList.remove('active'); });
             this.classList.add('active');
-            filterGrid('examGrid', 'examNoResults', 'exam', this.dataset.exam);
+            filterGrid('examGrid', 'examNoResults', 'examShowMore', 'exam', this.dataset.exam);
         });
     });
+
+    /* ── Initial limits on page load ─────────────────────────── */
+    applyLimit('yearGrid', 'yearShowMore');
+    applyLimit('examGrid', 'examShowMore');
+
 }());
 </script>
+<style>
+.rcard.rcard-overlimit { display: none; }
+</style>
 
 <?php get_footer(); ?>
