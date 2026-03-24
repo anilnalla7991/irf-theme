@@ -404,9 +404,13 @@ $facilities = (!empty($fac_acf) && is_array($fac_acf)) ? $fac_acf : $fac_default
         <div class="facilities-grid">
             <?php foreach ($facilities as $index => $facility) : ?>
             <div class="facility-card reveal reveal-delay-<?php echo esc_attr(($index % 3) + 1); ?>">
-                <div class="facility-icon" aria-hidden="true"><?php echo esc_html($facility['icon']); ?></div>
+                <div class="facility-card-line" aria-hidden="true"></div>
+                <div class="facility-icon-wrap">
+                    <span class="facility-icon" aria-hidden="true"><?php echo esc_html($facility['icon']); ?></span>
+                </div>
                 <h3 class="facility-title"><?php echo esc_html($facility['title']); ?></h3>
                 <p class="facility-desc"><?php echo esc_html($facility['desc']); ?></p>
+                <div class="facility-glow" aria-hidden="true"></div>
             </div>
             <?php endforeach; ?>
         </div>
