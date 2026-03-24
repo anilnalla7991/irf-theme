@@ -2,6 +2,14 @@
 /**
  * Template Name: Results
  */
+
+/* Force LiteSpeed & browser to bypass cache for this page */
+if ( ! headers_sent() ) {
+    header( 'X-LiteSpeed-Cache-Control: no-cache' );
+    header( 'Cache-Control: no-store, no-cache, must-revalidate' );
+    header( 'Pragma: no-cache' );
+}
+
 get_header();
 $fn      = 'get_field';
 $has_acf = function_exists($fn);
