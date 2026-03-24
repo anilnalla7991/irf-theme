@@ -11,43 +11,11 @@ $has_acf = function_exists($fn);
 /* ── ACF: Banner slides ─────────────────────────────────────────── */
 $rb_slides = ($has_acf ? get_field('results_banners') : null) ?: array();
 if (empty($rb_slides)) {
+    // Default demo slides — shown when no ACF banner slides are configured
     $rb_slides = array(
-        array(
-            'rb_badge'       => 'Proven Track Record',
-            'rb_title'       => "Our Toppers.\nProven Results.",
-            'rb_subtitle'    => 'Every rank. Every exam. Every year. IRF students dominate every major competitive exam in the country.',
-            'rb_stat1_num'   => '5000', 'rb_stat1_sfx' => '+', 'rb_stat1_lbl' => 'Selections',
-            'rb_stat2_num'   => '50',   'rb_stat2_sfx' => '+', 'rb_stat2_lbl' => 'Exams Covered',
-            'rb_stat3_num'   => '10',   'rb_stat3_sfx' => '+', 'rb_stat3_lbl' => 'Years',
-            'rb_fx'          => 'diagonal',
-            'rb_theme'       => 'dark-red',
-            'rb_decoration'  => 'trophy',
-            'rb_bg_image'    => null,
-        ),
-        array(
-            'rb_badge'       => 'Latest Highlights',
-            'rb_title'       => "Record Selections\nin 2025",
-            'rb_subtitle'    => 'Our biggest year yet — hundreds of students cleared SSC, Banking, Railway, Police & State exams.',
-            'rb_stat1_num'   => 'All India', 'rb_stat1_sfx' => '', 'rb_stat1_lbl' => 'Toppers',
-            'rb_stat2_num'   => 'Rank #1',   'rb_stat2_sfx' => '', 'rb_stat2_lbl' => 'Multiple Exams',
-            'rb_stat3_num'   => 'State',     'rb_stat3_sfx' => '', 'rb_stat3_lbl' => 'Top 10 Holders',
-            'rb_fx'          => 'iris',
-            'rb_theme'       => 'dark-purple',
-            'rb_decoration'  => 'year-highlight',
-            'rb_bg_image'    => null,
-        ),
-        array(
-            'rb_badge'       => '50+ Exams Covered',
-            'rb_title'       => "Every Major Exam.\nEvery Rank.",
-            'rb_subtitle'    => 'From SSC CGL to RBI Grade B — our students have cracked them all with top ranks and state merit positions.',
-            'rb_stat1_num'   => 'SSC',     'rb_stat1_sfx' => '', 'rb_stat1_lbl' => 'CGL / CHSL / MTS',
-            'rb_stat2_num'   => 'Banking', 'rb_stat2_sfx' => '', 'rb_stat2_lbl' => 'IBPS / SBI / RBI',
-            'rb_stat3_num'   => 'Railway', 'rb_stat3_sfx' => '', 'rb_stat3_lbl' => 'RRB / NTPC',
-            'rb_fx'          => 'slide-x',
-            'rb_theme'       => 'dark-teal',
-            'rb_decoration'  => 'exam-pills',
-            'rb_bg_image'    => null,
-        ),
+        array('rb_bg_image' => null, 'rb_mobile_image' => null),
+        array('rb_bg_image' => null, 'rb_mobile_image' => null),
+        array('rb_bg_image' => null, 'rb_mobile_image' => null),
     );
 }
 $slide_count = count($rb_slides);
@@ -234,21 +202,26 @@ $render_card_portrait = $render_card;
 
     <div class="banner-slides" id="bannerTrack">
     <?php
-    /* Each slide gets a unique transition effect */
+    /* Each slide cycles through transition effects automatically */
     $banner_effects = array('diagonal', 'iris', 'slide-x', 'zoom-fade', 'cube', 'slide-y');
+    $banner_themes  = array('dark-red', 'dark-purple', 'dark-teal');
     foreach ($rb_slides as $idx => $sl) :
-        $fx      = esc_attr($sl['rb_fx']    ?: $banner_effects[$idx % count($banner_effects)]);
-        $theme   = esc_attr($sl['rb_theme'] ?: 'dark-red');
-        $deco    = $sl['rb_decoration']     ?: 'none';
-        $img_raw = $sl['rb_bg_image']       ?? null;
-        $img_url = $img_raw ? (is_array($img_raw) ? $img_raw['url'] : $img_raw) : '';
+        $fx          = esc_attr($banner_effects[$idx % count($banner_effects)]);
+        $theme       = esc_attr($banner_themes[$idx % count($banner_themes)]);
+        $img_raw     = $sl['rb_bg_image']     ?? null;
+        $mob_raw     = $sl['rb_mobile_image'] ?? null;
+        $img_url     = $img_raw ? (is_array($img_raw) ? $img_raw['url'] : $img_raw) : '';
+        $mob_url     = $mob_raw ? (is_array($mob_raw) ? $mob_raw['url'] : $mob_raw) : '';
     ?>
         <div class="banner-slide<?php echo $idx === 0 ? ' active' : ''; ?>" data-fx="<?php echo $fx; ?>">
             <div class="rbslide rbslide-theme-<?php echo $theme; ?>">
 
                 <?php if ($img_url) : ?>
                 <div class="banner-img-wrap">
-                    <img src="<?php echo esc_url($img_url); ?>" alt="" class="banner-bg-img" loading="<?php echo $idx === 0 ? 'eager' : 'lazy'; ?>">
+                    <?php if ($mob_url) : ?>
+                    <img src="<?php echo esc_url($mob_url); ?>" alt="" class="banner-bg-img banner-bg-mobile" loading="<?php echo $idx === 0 ? 'eager' : 'lazy'; ?>">
+                    <?php endif; ?>
+                    <img src="<?php echo esc_url($img_url); ?>" alt="" class="banner-bg-img banner-bg-desktop" loading="<?php echo $idx === 0 ? 'eager' : 'lazy'; ?>">
                 </div>
                 <?php else : ?>
                 <div class="rbslide-bg"></div>
@@ -257,15 +230,6 @@ $render_card_portrait = $render_card;
                     <div class="rbslide-orb rbo2"></div>
                     <div class="rbslide-orb rbo3"></div>
                     <div class="rbslide-orb rbo4"></div>
-                    <?php if ($deco === 'trophy') : ?>
-                    <div class="rbslide-watermark">🏆</div>
-                    <?php elseif ($deco === 'year-highlight') : ?>
-                    <div class="rbslide-watermark rbwm-year">2025</div>
-                    <?php elseif ($deco === 'exam-pills') : ?>
-                    <div class="rbslide-exam-pills">
-                        <span>SSC</span><span>RBI</span><span>SI</span><span>RRB</span><span>IBPS</span><span>Police</span>
-                    </div>
-                    <?php endif; ?>
                 </div>
                 <?php endif; ?>
 

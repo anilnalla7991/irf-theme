@@ -14,6 +14,14 @@
    1. CINEMATIC BANNER SLIDES
    ============================================================= */
 
+/* Mobile / desktop banner image switching */
+.banner-bg-mobile  { display: none; }
+.banner-bg-desktop { display: block; }
+@media (max-width: 767px) {
+    .banner-bg-mobile  { display: block; }
+    .banner-bg-desktop { display: none; }
+}
+
 /* Results page banner height — pure visual, no text content */
 .results-page-banner {
     height: 30vw;
