@@ -154,65 +154,72 @@ if (empty($all_results)) {
     $exams_set = array('SSC CGL', 'RBI Grade B', 'SI Police', 'RRB NTPC', 'IBPS PO', 'SSC CHSL', 'SBI PO', 'SSC MTS', 'SBI Clerk');
 }
 
-/* ── Badge / avatar colours (deterministic by exam name) ────────── */
-$edu_colors = array(
-    '#1E3A8A', /* deep blue   — Banking   */
-    '#DC2626', /* red         — Police    */
-    '#7C3AED', /* violet      — RRB       */
-    '#0891B2', /* cyan        — SSC       */
-    '#059669', /* emerald     — SI        */
-    '#D97706', /* amber       — Govt      */
-    '#DB2777', /* pink        — SBI       */
-    '#0A2463', /* navy        — default   */
+/* ── Exam category → colour map (deterministic) ─────────────────── */
+$cat_colors = array(
+    '#1E3A8A', /* deep blue   */
+    '#DC2626', /* red         */
+    '#7C3AED', /* violet      */
+    '#0891B2', /* cyan        */
+    '#059669', /* emerald     */
+    '#D97706', /* amber       */
+    '#DB2777', /* pink        */
+    '#0F766E', /* teal        */
 );
-$get_color = function($key) use ($edu_colors) {
-    return $edu_colors[abs(crc32((string)$key)) % count($edu_colors)];
+$cat_gradients = array(
+    'linear-gradient(135deg,#1E3A8A,#3B5BDB)',
+    'linear-gradient(135deg,#DC2626,#F87171)',
+    'linear-gradient(135deg,#7C3AED,#A78BFA)',
+    'linear-gradient(135deg,#0891B2,#38BDF8)',
+    'linear-gradient(135deg,#059669,#34D399)',
+    'linear-gradient(135deg,#D97706,#FCD34D)',
+    'linear-gradient(135deg,#DB2777,#F472B6)',
+    'linear-gradient(135deg,#0F766E,#2DD4BF)',
+);
+$get_color = function($key) use ($cat_colors) {
+    return $cat_colors[abs(crc32((string)$key)) % count($cat_colors)];
+};
+$get_gradient = function($key) use ($cat_gradients) {
+    return $cat_gradients[abs(crc32((string)$key)) % count($cat_gradients)];
 };
 
-/* ── Compact card render (works at 1000+ entries) ───────────────── */
-$render_card = function($r) use ($get_color) {
-    $name  = $r['sname'];
-    $exam  = $r['exam'];
-    $year  = $r['year'];
-    $photo = $r['photo_url'];
-    $ht_no = $r['ht_no'] ?? '';
-    $parts = explode(' ', trim($name));
-    $init  = strtoupper(substr($parts[0] ?? '', 0, 1) . substr($parts[1] ?? '', 0, 1));
-    $color = $get_color($exam);
+/* ── Achievement card render ────────────────────────────────────── */
+$render_card = function($r) use ($get_color, $get_gradient) {
+    $name     = $r['sname'];
+    $exam     = $r['exam'];
+    $year     = $r['year'];
+    $photo    = $r['photo_url'];
+    $ht_no    = $r['ht_no'] ?? '';
+    $parts    = explode(' ', trim($name));
+    $init     = strtoupper(substr($parts[0] ?? '', 0, 1) . substr($parts[1] ?? '', 0, 1));
+    $color    = $get_color($exam);
+    $gradient = $get_gradient($exam);
     ob_start();
     ?>
     <div class="rcard reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>">
-        <div class="rcard-accent-bar" style="background:<?php echo esc_attr($color); ?>;"></div>
-        <div class="rcard-inner">
-            <!-- Avatar + name -->
-            <div class="rcard-top">
-                <div class="rcard-avatar">
-                    <?php if ($photo) : ?>
-                    <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
-                    <?php else : ?>
-                    <div class="rcard-avatar-ph" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($init ?: '?'); ?></div>
-                    <?php endif; ?>
-                </div>
-                <div class="rcard-name-col">
-                    <div class="rcard-name"><?php echo esc_html($name); ?></div>
-                    <?php if ($year) : ?><div class="rcard-year"><?php echo esc_html($year); ?></div><?php endif; ?>
-                </div>
-            </div>
-            <!-- Exam badge -->
-            <?php if ($exam) : ?>
-            <span class="rcard-badge" style="background:<?php echo esc_attr($color); ?>15;color:<?php echo esc_attr($color); ?>;">
-                <svg width="10" height="10" viewBox="0 0 10 10" fill="<?php echo esc_attr($color); ?>"><circle cx="5" cy="5" r="5"/></svg>
-                <?php echo esc_html($exam); ?>
-            </span>
-            <?php endif; ?>
-            <!-- Hall Ticket -->
-            <?php if ($ht_no) : ?>
-            <div class="rcard-ht">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#94A3B8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-                HT No: <strong><?php echo esc_html($ht_no); ?></strong>
-            </div>
+
+        <!-- Gradient header -->
+        <div class="rcard-header" style="background:<?php echo esc_attr($gradient); ?>;"></div>
+
+        <!-- Circle photo — overlaps header -->
+        <div class="rcard-photo-ring">
+            <?php if ($photo) : ?>
+            <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
+            <?php else : ?>
+            <div class="rcard-initials-ph" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($init ?: '?'); ?></div>
             <?php endif; ?>
         </div>
+
+        <!-- Body -->
+        <div class="rcard-body">
+            <div class="rcard-name"><?php echo esc_html($name); ?></div>
+            <?php if ($exam) : ?>
+            <span class="rcard-exam-pill" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($exam); ?></span>
+            <?php endif; ?>
+            <?php if ($ht_no) : ?>
+            <div class="rcard-ht">HT: <strong><?php echo esc_html($ht_no); ?></strong></div>
+            <?php endif; ?>
+        </div>
+
     </div>
     <?php
     return ob_get_clean();

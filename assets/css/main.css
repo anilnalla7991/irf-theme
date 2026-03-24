@@ -1490,242 +1490,203 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 }
 
 /* =============================================================
-   RESULTS PAGE — YEAR-WISE SECTION
+   RESULTS PAGE — SECTION COMMON
    ============================================================= */
-.results-yearwise-section {
-    background: #F0F5FF;
+.results-yearwise-section  { background: #F4F7FF; }
+.results-examwise-section  { background: #fff; }
+
+.results-yearwise-section .section-tag,
+.results-examwise-section .section-tag {
+    background: #1E3A8A;
+    color: #fff;
 }
 .results-yearwise-section .section-title,
 .results-examwise-section .section-title {
-    color: #0A2463;
-}
-.results-yearwise-section .section-tag {
-    background: #F59E0B;
-    color: #1a1a2e;
-}
-.results-examwise-section .section-tag-dark {
-    background: #0A2463;
-    color: #fff;
+    color: #0F172A;
 }
 
+/* =============================================================
+   RESULTS PAGE — FILTER TABS (year)
+   ============================================================= */
 .yr-tabs {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
-    margin-bottom: 40px;
+    margin-bottom: 44px;
+    border-bottom: 2px solid #E2E8F0;
+    padding-bottom: 0;
 }
 .yr-tab {
-    padding: 9px 24px;
-    border-radius: 50px;
-    border: 1.5px solid #CBD5E1;
-    background: #fff;
-    color: #4A5568;
+    padding: 10px 28px;
+    border-radius: 0;
+    border: none;
+    border-bottom: 3px solid transparent;
+    background: transparent;
+    color: #64748B;
     font-size: 14px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
-    line-height: 1;
+    margin-bottom: -2px;
 }
-.yr-tab:hover {
-    border-color: #0A2463;
-    color: #0A2463;
-    background: #EEF4FF;
-}
+.yr-tab:hover { color: #1E3A8A; }
 .yr-tab.active {
-    background: #0A2463;
-    border-color: #0A2463;
-    color: #fff;
-    box-shadow: 0 4px 14px rgba(10,36,99,0.30);
+    color: #1E3A8A;
+    border-bottom-color: #1E3A8A;
+    background: transparent;
 }
 
 /* =============================================================
-   RESULTS PAGE — EXAM-WISE SECTION
+   RESULTS PAGE — EXAM CHIPS
    ============================================================= */
-.results-examwise-section {
-    background: #fff;
-}
 .exam-chips {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
     flex-wrap: wrap;
-    margin-bottom: 40px;
+    margin-bottom: 44px;
 }
 .exam-chip {
-    padding: 8px 20px;
+    padding: 9px 22px;
     border-radius: 50px;
     border: 1.5px solid #CBD5E1;
     background: #fff;
-    color: #4A5568;
+    color: #475569;
     font-size: 13px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
-    line-height: 1;
 }
-.exam-chip:hover {
-    border-color: #0A2463;
-    color: #0A2463;
-    background: #EEF4FF;
-}
+.exam-chip:hover { border-color: #1E3A8A; color: #1E3A8A; background: #EEF4FF; }
 .exam-chip.active {
-    background: #1a1a2e;
-    border-color: #1a1a2e;
+    background: #1E3A8A;
+    border-color: #1E3A8A;
     color: #fff;
-    box-shadow: 0 4px 12px rgba(26,26,46,0.25);
+    box-shadow: 0 4px 14px rgba(30,58,138,0.30);
 }
 
 /* =============================================================
-   RESULTS PAGE — COMPACT TOPPER CARD (scales to 1000s of entries)
+   RESULTS PAGE — ACHIEVEMENT CARD GRID
    ============================================================= */
 .results-cards-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+    gap: 20px;
 }
 
+/* ── The card ─────────────────────────────────────────────── */
 .rcard {
     background: #fff;
-    border-radius: 12px;
-    border: 1px solid #E8EDF5;
-    box-shadow: 0 1px 8px rgba(10,36,99,0.07);
+    border-radius: 16px;
     overflow: hidden;
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
-    cursor: pointer;
-    position: relative;
-}
-.rcard::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 3px;
-    opacity: 0;
-    transition: opacity 0.22s;
+    box-shadow: 0 2px 12px rgba(15,23,42,0.08);
+    border: 1px solid #E8EDF5;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    cursor: default;
+    text-align: center;
 }
 .rcard:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 28px rgba(10,36,99,0.14);
+    transform: translateY(-6px);
+    box-shadow: 0 14px 36px rgba(15,23,42,0.14);
 }
-.rcard:hover::before { opacity: 1; }
-.rcard.rcard-hidden { display: none; }
+.rcard.rcard-hidden    { display: none; }
 
-/* Coloured accent top bar per card (set via inline style) */
-.rcard-accent-bar {
-    height: 4px;
-    width: 100%;
-}
-
-/* Card inner padding wrapper */
-.rcard-inner {
-    padding: 14px 14px 16px;
+/* ── Coloured gradient header ─────────────────────────────── */
+.rcard-header {
+    height: 72px;
+    position: relative;
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0;
 }
 
-/* Avatar + name row */
-.rcard-top {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.rcard-avatar {
+/* ── Circular photo — overlaps header/body boundary ──────── */
+.rcard-photo-ring {
+    position: relative;
+    width: 76px;
+    height: 76px;
+    margin: 0 auto;
+    margin-top: -38px;    /* pull up to overlap header */
     flex-shrink: 0;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 2px solid #E8EDF5;
 }
-.rcard-avatar img {
-    width: 100%;
-    height: 100%;
+.rcard-photo-ring img,
+.rcard-photo-ring .rcard-initials-ph {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    box-shadow: 0 4px 14px rgba(15,23,42,0.15);
     object-fit: cover;
     display: block;
 }
-.rcard-avatar-ph {
-    width: 100%;
-    height: 100%;
+.rcard-initials-ph {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: 26px;
     font-weight: 800;
     font-family: 'Poppins', sans-serif;
     color: #fff;
 }
-.rcard-name-col { min-width: 0; flex: 1; }
+
+/* ── Card body ────────────────────────────────────────────── */
+.rcard-body {
+    padding: 10px 14px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+}
 .rcard-name {
     font-size: 14px;
     font-weight: 700;
-    color: #0A2463;
+    color: #0F172A;
+    line-height: 1.2;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    line-height: 1.25;
-    margin-bottom: 2px;
+    max-width: 100%;
 }
-.rcard-year {
-    font-size: 11px;
-    color: #94A3B8;
-    font-weight: 500;
-}
-
-/* Exam badge */
-.rcard-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+.rcard-exam-pill {
+    display: inline-block;
     font-size: 11px;
     font-weight: 700;
-    padding: 4px 10px;
-    border-radius: 6px;
-    width: fit-content;
-    letter-spacing: 0.2px;
+    padding: 4px 12px;
+    border-radius: 50px;
     color: #fff;
+    letter-spacing: 0.3px;
     max-width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
-
-/* Hall Ticket */
 .rcard-ht {
-    display: flex;
-    align-items: center;
-    gap: 5px;
     font-size: 11px;
-    color: #64748B;
-    padding-top: 8px;
-    border-top: 1px solid #F1F5F9;
+    color: #94A3B8;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 100%;
 }
-.rcard-ht strong {
-    color: #374151;
-    font-weight: 600;
-}
+.rcard-ht strong { color: #475569; font-weight: 600; }
 
-/* Show-more button */
-.results-show-more-wrap {
-    text-align: center;
-    margin-top: 36px;
-}
+/* ── Show More button ─────────────────────────────────────── */
+.results-show-more-wrap { text-align: center; margin-top: 40px; }
 .btn-show-more {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    padding: 12px 32px;
+    padding: 13px 36px;
     border-radius: 50px;
-    border: 2px solid #0A2463;
+    border: 2px solid #1E3A8A;
     background: transparent;
-    color: #0A2463;
+    color: #1E3A8A;
     font-size: 14px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
@@ -1733,9 +1694,9 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     transition: all 0.22s ease;
 }
 .btn-show-more:hover {
-    background: #0A2463;
+    background: #1E3A8A;
     color: #fff;
-    box-shadow: 0 6px 20px rgba(10,36,99,0.25);
+    box-shadow: 0 6px 20px rgba(30,58,138,0.28);
 }
 .btn-show-more.hidden { display: none; }
 
@@ -1757,26 +1718,34 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .rss-item:nth-child(3) { border-top: 1px solid rgba(255,255,255,0.08); }
     .rbslide-exam-pills    { display: none; }
     .rbslide-watermark     { opacity: 0.05; }
-    .results-cards-grid    { grid-template-columns: repeat(3, 1fr); }
+    .results-cards-grid    { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
 }
 @media (max-width: 768px) {
-    .results-page-banner { height: 56vw; min-height: 320px; max-height: 420px; }
-    .rbslide-stats       { flex-wrap: wrap; gap: 12px; }
-    .rbs-stat            { padding: 0 12px; }
-    .rbs-divider         { display: none; }
-    .rbslide-title       { font-size: clamp(22px, 6vw, 36px); }
-    .rbslide-sub         { font-size: 14px; }
-    .results-cards-grid  { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .results-page-banner   { height: 56vw; min-height: 320px; max-height: 420px; }
+    .rbslide-stats         { flex-wrap: wrap; gap: 12px; }
+    .rbs-stat              { padding: 0 12px; }
+    .rbs-divider           { display: none; }
+    .rbslide-title         { font-size: clamp(22px, 6vw, 36px); }
+    .rbslide-sub           { font-size: 14px; }
+    .yr-tabs               { gap: 4px; }
+    .yr-tab                { padding: 9px 18px; font-size: 13px; }
+    .results-cards-grid    { grid-template-columns: repeat(auto-fill, minmax(145px, 1fr)); gap: 14px; }
+    .rcard-header          { height: 60px; }
+    .rcard-photo-ring,
+    .rcard-photo-ring img,
+    .rcard-photo-ring .rcard-initials-ph { width: 66px; height: 66px; }
+    .rcard-photo-ring      { margin-top: -33px; }
 }
 @media (max-width: 480px) {
-    .results-stats-grid  { grid-template-columns: repeat(2, 1fr); }
-    .yr-tabs             { gap: 6px; }
-    .yr-tab              { padding: 8px 16px; font-size: 13px; }
-    .exam-chips          { gap: 6px; }
-    .exam-chip           { padding: 7px 14px; font-size: 12px; }
-    .rbslide-stats       { display: none; }
-    .results-cards-grid  { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .rcard-inner         { padding: 10px 10px 12px; }
-    .rcard-avatar        { width: 38px; height: 38px; }
-    .rcard-name          { font-size: 13px; }
+    .results-stats-grid    { grid-template-columns: repeat(2, 1fr); }
+    .exam-chips            { gap: 6px; }
+    .exam-chip             { padding: 7px 14px; font-size: 12px; }
+    .rbslide-stats         { display: none; }
+    .results-cards-grid    { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .rcard-header          { height: 54px; }
+    .rcard-photo-ring,
+    .rcard-photo-ring img,
+    .rcard-photo-ring .rcard-initials-ph { width: 58px; height: 58px; }
+    .rcard-photo-ring      { margin-top: -29px; }
+    .rcard-name            { font-size: 13px; }
 }
