@@ -154,58 +154,38 @@ if (empty($all_results)) {
     $exams_set = array('SSC CGL', 'RBI Grade B', 'SI Police', 'RRB NTPC', 'IBPS PO', 'SSC CHSL', 'SBI PO', 'SSC MTS', 'SBI Clerk');
 }
 
-/* ── Shared colour helper ───────────────────────────────────────── */
+/* ── Badge colours (deterministic by exam name) ─────────────────── */
 $badge_colors = array(
-    '#3B82F6', /* blue   */
-    '#EF4444', /* red    */
-    '#8B5CF6', /* purple */
-    '#10B981', /* green  */
-    '#F59E0B', /* amber  */
-    '#EC4899', /* pink   */
-    '#06B6D4', /* cyan   */
-    '#6366F1', /* indigo */
+    '#E53935', /* red    */
+    '#1E88E5', /* blue   */
+    '#8E24AA', /* purple */
+    '#00897B', /* teal   */
+    '#F4511E', /* deep orange */
+    '#3949AB', /* indigo */
+    '#039BE5', /* light blue */
+    '#43A047', /* green  */
 );
 $get_badge_color = function($exam) use ($badge_colors) {
-    return $exam ? $badge_colors[abs(crc32($exam)) % count($badge_colors)] : $badge_colors[7];
+    return $exam ? $badge_colors[abs(crc32($exam)) % count($badge_colors)] : $badge_colors[0];
 };
 
-/* ── Year-wise card (portrait: photo top, name + exam + year below) ─ */
-$render_card_portrait = function($r) use ($get_badge_color) {
-    $name  = $r['sname'];
-    $exam  = $r['exam'];
-    $year  = $r['year'];
-    $photo = $r['photo_url'];
-    $parts = explode(' ', trim($name));
-    $init  = strtoupper(substr($parts[0] ?? '', 0, 1) . substr($parts[1] ?? '', 0, 1));
-    $color = $get_badge_color($exam);
-    ob_start();
-    ?>
-    <div class="rcp-portrait reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>">
-        <div class="rcpp-photo-wrap">
-            <?php if ($photo) : ?>
-            <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" class="rcpp-photo" loading="lazy">
-            <?php else : ?>
-            <div class="rcpp-photo-placeholder" style="background:linear-gradient(135deg,<?php echo esc_attr($color); ?>33,<?php echo esc_attr($color); ?>11);">
-                <span class="rcpp-initials" style="color:<?php echo esc_attr($color); ?>;"><?php echo esc_html($init ?: '?'); ?></span>
-            </div>
-            <?php endif; ?>
-            <div class="rcpp-overlay">
-                <?php if ($year) : ?><span class="rcpp-year-pill"><?php echo esc_html($year); ?></span><?php endif; ?>
-            </div>
-        </div>
-        <div class="rcpp-body">
-            <div class="rcpp-name"><?php echo esc_html($name); ?></div>
-            <?php if ($exam) : ?>
-            <span class="rcpp-exam-badge" style="background:<?php echo esc_attr($color); ?>18;color:<?php echo esc_attr($color); ?>;border-color:<?php echo esc_attr($color); ?>44;"><?php echo esc_html($exam); ?></span>
-            <?php endif; ?>
-        </div>
-    </div>
-    <?php
-    return ob_get_clean();
+/* ── Gradient backgrounds for placeholder ───────────────────────── */
+$placeholder_gradients = array(
+    'linear-gradient(135deg,#667eea,#764ba2)',
+    'linear-gradient(135deg,#f093fb,#f5576c)',
+    'linear-gradient(135deg,#4facfe,#00f2fe)',
+    'linear-gradient(135deg,#43e97b,#38f9d7)',
+    'linear-gradient(135deg,#fa709a,#fee140)',
+    'linear-gradient(135deg,#a18cd1,#fbc2eb)',
+    'linear-gradient(135deg,#ffecd2,#fcb69f)',
+    'linear-gradient(135deg,#30cfd0,#330867)',
+);
+$get_gradient = function($name) use ($placeholder_gradients) {
+    return $placeholder_gradients[abs(crc32($name)) % count($placeholder_gradients)];
 };
 
-/* ── Exam-wise card (horizontal: avatar + name + badge + HT No) ──── */
-$render_card = function($r) use ($get_badge_color) {
+/* ── Single card render (same design for both sections) ─────────── */
+$render_card = function($r) use ($get_badge_color, $get_gradient) {
     $name  = $r['sname'];
     $exam  = $r['exam'];
     $year  = $r['year'];
@@ -213,32 +193,56 @@ $render_card = function($r) use ($get_badge_color) {
     $ht_no = $r['ht_no'] ?? '';
     $parts = explode(' ', trim($name));
     $init  = strtoupper(substr($parts[0] ?? '', 0, 1) . substr($parts[1] ?? '', 0, 1));
-    $color = $get_badge_color($exam);
+    $color    = $get_badge_color($exam);
+    $gradient = $get_gradient($name);
     ob_start();
     ?>
-    <div class="result-card-pro reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>">
-        <div class="rcp-avatar-wrap">
+    <div class="rcard reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>">
+
+        <!-- Top image area -->
+        <div class="rcard-img-wrap">
             <?php if ($photo) : ?>
-            <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" class="rcp-avatar-img" loading="lazy">
+            <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
             <?php else : ?>
-            <div class="rcp-avatar-placeholder" style="background:<?php echo esc_attr($color); ?>22;">
-                <span class="rcp-initials" style="color:<?php echo esc_attr($color); ?>;"><?php echo esc_html($init ?: '?'); ?></span>
+            <div class="rcard-img-placeholder" style="background:<?php echo esc_attr($gradient); ?>;">
+                <span class="rcard-big-initials"><?php echo esc_html($init ?: '?'); ?></span>
             </div>
             <?php endif; ?>
         </div>
-        <div class="rcp-body">
-            <div class="rcp-name"><?php echo esc_html($name); ?></div>
+
+        <!-- Info bar -->
+        <div class="rcard-info-bar">
+            <div class="rcard-meta">
+                <div class="rcard-avatar-sm">
+                    <?php if ($photo) : ?>
+                    <img src="<?php echo esc_url($photo); ?>" alt="">
+                    <?php else : ?>
+                    <div class="rcard-avatar-sm-placeholder" style="background:<?php echo esc_attr($color); ?>22;color:<?php echo esc_attr($color); ?>;"><?php echo esc_html($init ?: '?'); ?></div>
+                    <?php endif; ?>
+                </div>
+                <div class="rcard-name-wrap">
+                    <div class="rcard-name"><?php echo esc_html($name); ?></div>
+                    <?php if ($year) : ?><div class="rcard-date"><?php echo esc_html($year); ?></div><?php endif; ?>
+                </div>
+            </div>
             <?php if ($exam) : ?>
-            <span class="rcp-exam-badge" style="background:<?php echo esc_attr($color); ?>22;color:<?php echo esc_attr($color); ?>;border-color:<?php echo esc_attr($color); ?>44;"><?php echo esc_html($exam); ?></span>
-            <?php endif; ?>
-            <?php if ($ht_no) : ?>
-            <div class="rcp-htno">HT No: <span><?php echo esc_html($ht_no); ?></span></div>
+            <span class="rcard-cat-badge" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($exam); ?></span>
             <?php endif; ?>
         </div>
+
+        <!-- Footer -->
+        <div class="rcard-footer">
+            <div class="rcard-exam-name"><?php echo esc_html($exam ?: $name); ?></div>
+            <?php if ($ht_no) : ?><div class="rcard-htno">Hall Ticket: <?php echo esc_html($ht_no); ?></div><?php endif; ?>
+        </div>
+
     </div>
     <?php
     return ob_get_clean();
 };
+
+/* alias so both sections call same function */
+$render_card_portrait = $render_card;
 ?>
 
 <!-- ============================================================
@@ -365,8 +369,8 @@ $render_card = function($r) use ($get_badge_color) {
             <?php endforeach; ?>
         </div>
 
-        <!-- Cards grid (portrait) -->
-        <div class="results-portrait-grid" id="yearGrid">
+        <!-- Cards grid -->
+        <div class="results-cards-grid" id="yearGrid">
             <?php foreach ($all_results as $r) echo $render_card_portrait($r); ?>
         </div>
         <p class="filter-empty" id="yearNoResults" style="display:none;">No results found for this year.</p>
@@ -394,7 +398,7 @@ $render_card = function($r) use ($get_badge_color) {
         </div>
 
         <!-- Cards grid -->
-        <div class="results-explorer-grid" id="examGrid">
+        <div class="results-cards-grid" id="examGrid">
             <?php foreach ($all_results as $r) echo $render_card($r); ?>
         </div>
         <p class="filter-empty" id="examNoResults" style="display:none;">No results found for this exam.</p>
@@ -474,11 +478,11 @@ $cta_btn2_url = irf_opt('cta_btn2_url',  'tel:+919999999999');
         var grid  = document.getElementById(gridId);
         var noMsg = document.getElementById(noMsgId);
         if (!grid) return;
-        var cards   = grid.querySelectorAll('.result-card-pro, .rcp-portrait');
+        var cards   = grid.querySelectorAll('.rcard');
         var visible = 0;
         cards.forEach(function (c) {
             var match = (value === 'all' || c.dataset[filterAttr] === value);
-            c.classList.toggle('rcp-hidden', !match);
+            c.classList.toggle('rcard-hidden', !match);
             if (match) visible++;
         });
         if (noMsg) noMsg.style.display = visible === 0 ? 'block' : 'none';

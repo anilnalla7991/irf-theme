@@ -1559,210 +1559,158 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 }
 
 /* =============================================================
-   RESULTS PAGE — PORTRAIT CARD (Year-wise section)
+   RESULTS PAGE — RESULT CARD (both sections, reference design)
    ============================================================= */
-.results-portrait-grid {
+.results-cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 }
-.rcp-portrait {
+
+/* The card */
+.rcard {
     background: var(--white);
     border-radius: 16px;
+    border: 1px solid #e8e8e8;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
     overflow: hidden;
-    box-shadow: 0 2px 14px rgba(0,0,0,0.07);
-    border: 1px solid var(--border);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+    cursor: pointer;
 }
-.rcp-portrait:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 40px rgba(0,0,0,0.14);
-    border-color: transparent;
+.rcard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.13);
 }
-.rcp-portrait.rcp-hidden { display: none; }
-.rcpp-photo-wrap {
-    position: relative;
-    height: 210px;
+.rcard.rcard-hidden { display: none; }
+
+/* Top image area */
+.rcard-img-wrap {
+    height: 200px;
     overflow: hidden;
+    position: relative;
+    background: #f5f5f5;
 }
-.rcpp-photo {
+.rcard-img-wrap img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
     display: block;
+    transition: transform 0.35s ease;
 }
-.rcp-portrait:hover .rcpp-photo { transform: scale(1.07); }
-.rcpp-photo-placeholder {
+.rcard:hover .rcard-img-wrap img { transform: scale(1.06); }
+
+/* Placeholder when no photo — coloured gradient + big initials */
+.rcard-img-placeholder {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.rcpp-initials {
-    font-size: 52px;
-    font-weight: 800;
-    font-family: 'Poppins', sans-serif;
-    opacity: 0.35;
-    line-height: 1;
-}
-.rcpp-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 55%);
-    display: flex;
-    align-items: flex-end;
-    padding: 12px;
-}
-.rcpp-year-pill {
-    background: rgba(255,255,255,0.18);
-    backdrop-filter: blur(6px);
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 12px;
-    border-radius: 50px;
-    border: 1px solid rgba(255,255,255,0.25);
-    letter-spacing: 0.5px;
-}
-.rcpp-body { padding: 14px 16px 16px; }
-.rcpp-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--charcoal);
-    margin-bottom: 7px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.2;
-}
-.rcpp-exam-badge {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
-    border-radius: 50px;
-    border: 1px solid;
-    letter-spacing: 0.2px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-}
-
-/* =============================================================
-   RESULTS PAGE — HORIZONTAL RESULT CARD (Exam-wise section)
-   ============================================================= */
-.results-explorer-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 16px;
-}
-.result-card-pro {
-    background: var(--white);
-    border-radius: 14px;
-    border: 1px solid var(--border);
-    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 16px;
-    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     position: relative;
     overflow: hidden;
 }
-.result-card-pro::before {
+.rcard-img-placeholder::after {
     content: '';
     position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: var(--red);
-    border-radius: 3px 0 0 3px;
-    opacity: 0;
-    transition: opacity 0.25s;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(255,255,255,0.18) 0%, transparent 65%);
 }
-.result-card-pro:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
-    border-color: transparent;
+.rcard-big-initials {
+    font-size: 72px;
+    font-weight: 900;
+    font-family: 'Poppins', sans-serif;
+    color: rgba(255,255,255,0.30);
+    line-height: 1;
+    letter-spacing: -3px;
+    position: relative;
+    z-index: 1;
 }
-.result-card-pro:hover::before { opacity: 1; }
-.result-card-pro.rcp-hidden { display: none; }
 
-/* Circle avatar */
-.rcp-avatar-wrap {
+/* Info bar: avatar + name + date | category badge */
+.rcard-info-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px 14px 0;
+}
+.rcard-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+.rcard-avatar-sm {
     flex-shrink: 0;
-    width: 56px;
-    height: 56px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid var(--border);
+    border: 2px solid #eee;
 }
-.rcp-avatar-img {
+.rcard-avatar-sm img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
 }
-.rcp-avatar-placeholder {
+.rcard-avatar-sm-placeholder {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.rcp-initials {
-    font-size: 20px;
+    font-size: 12px;
     font-weight: 800;
     font-family: 'Poppins', sans-serif;
-    line-height: 1;
 }
-
-/* Card body */
-.rcp-body {
-    flex: 1;
-    min-width: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-.rcp-name {
-    font-size: 15px;
+.rcard-name-wrap { min-width: 0; }
+.rcard-name {
+    font-size: 14px;
     font-weight: 700;
-    color: var(--charcoal);
+    color: #1a1a2e;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.2;
 }
-.rcp-exam-badge {
-    display: inline-block;
+.rcard-date {
     font-size: 11px;
-    font-weight: 600;
-    padding: 3px 10px;
+    color: #888;
+    margin-top: 1px;
+}
+.rcard-cat-badge {
+    flex-shrink: 0;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 13px;
     border-radius: 50px;
-    border: 1px solid;
-    letter-spacing: 0.2px;
+    color: #fff;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+}
+
+/* Footer: exam name + hall ticket */
+.rcard-footer {
+    padding: 10px 14px 16px;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 12px;
+}
+.rcard-exam-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 100%;
-    width: fit-content;
 }
-.rcp-htno {
-    font-size: 11px;
-    color: var(--gray);
-    font-weight: 400;
+.rcard-htno {
+    font-size: 12px;
+    color: #777;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-.rcp-htno span {
-    font-weight: 600;
-    color: var(--charcoal);
-    letter-spacing: 0.5px;
 }
 
 /* Filter empty state */
@@ -1791,9 +1739,8 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .rbs-divider         { display: none; }
     .rbslide-title       { font-size: clamp(22px, 6vw, 36px); }
     .rbslide-sub         { font-size: 14px; }
-    .results-portrait-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
-    .rcpp-photo-wrap       { height: 175px; }
-    .results-explorer-grid { grid-template-columns: 1fr; gap: 12px; }
+    .results-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .rcard-img-wrap     { height: 170px; }
 }
 @media (max-width: 480px) {
     .results-stats-grid  { grid-template-columns: repeat(2, 1fr); }
@@ -1802,7 +1749,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .exam-chips          { gap: 8px; }
     .exam-chip           { padding: 7px 15px; font-size: 12px; }
     .rbslide-stats       { display: none; }
-    .results-portrait-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    .rcpp-photo-wrap       { height: 155px; }
-    .results-explorer-grid { grid-template-columns: 1fr; gap: 10px; }
+    .results-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .rcard-img-wrap     { height: 150px; }
+    .rcard-big-initials { font-size: 52px; }
 }
