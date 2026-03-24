@@ -115,14 +115,14 @@ if ($rq->have_posts()) {
     while ($rq->have_posts()) : $rq->the_post();
         $sname     = ($has_acf ? get_field('student_name')  : null) ?: get_the_title();
         $exam      = $has_acf ? (get_field('exam_name') ?: '')  : '';
-        $rank      = $has_acf ? (get_field('rank')       ?: '')  : '';
         $year      = $has_acf ? (get_field('year')       ?: '')  : '';
         $sphoto    = $has_acf ? get_field('student_photo')       : null;
         $photo_url = '';
         if ($sphoto)                   $photo_url = is_array($sphoto) ? $sphoto['url'] : $sphoto;
         elseif (has_post_thumbnail())  $photo_url = get_the_post_thumbnail_url(null, 'medium');
 
-        $all_results[] = array('sname' => $sname, 'exam' => $exam, 'rank' => $rank, 'year' => $year, 'photo_url' => $photo_url);
+        $ht_no     = $has_acf ? (get_field('ht_no') ?: '')  : '';
+        $all_results[] = array('sname' => $sname, 'exam' => $exam, 'year' => $year, 'photo_url' => $photo_url, 'ht_no' => $ht_no);
         if ($year && !in_array($year, $years_set)) $years_set[] = $year;
         if ($exam && !in_array($exam, $exams_set)) $exams_set[] = $exam;
     endwhile;
@@ -133,22 +133,22 @@ rsort($years_set);
 /* ── Demo fallback (shown when no CPT data exists) ──────────────── */
 if (empty($all_results)) {
     $all_results = array(
-        array('sname' => 'Ravi Kumar',    'exam' => 'SSC CGL',     'rank' => 'AIR 12',  'year' => '2025', 'photo_url' => ''),
-        array('sname' => 'Priya Reddy',   'exam' => 'RBI Grade B', 'rank' => 'AIR 5',   'year' => '2025', 'photo_url' => ''),
-        array('sname' => 'Kiran Babu',    'exam' => 'SI Police',   'rank' => 'State 3', 'year' => '2025', 'photo_url' => ''),
-        array('sname' => 'Anand Sharma',  'exam' => 'RRB NTPC',    'rank' => 'AIR 28',  'year' => '2025', 'photo_url' => ''),
-        array('sname' => 'Deepa Rao',     'exam' => 'IBPS PO',     'rank' => 'State 7', 'year' => '2025', 'photo_url' => ''),
-        array('sname' => 'Suresh Nair',   'exam' => 'SSC CHSL',    'rank' => 'AIR 14',  'year' => '2025', 'photo_url' => ''),
-        array('sname' => 'Lakshmi V',     'exam' => 'SBI PO',      'rank' => 'AIR 22',  'year' => '2025', 'photo_url' => ''),
-        array('sname' => 'Sneha Mehta',   'exam' => 'SSC CGL',     'rank' => 'AIR 7',   'year' => '2025', 'photo_url' => ''),
-        array('sname' => 'Raj Mohan',     'exam' => 'RBI Grade B', 'rank' => 'AIR 9',   'year' => '2024', 'photo_url' => ''),
-        array('sname' => 'Meena Kumari',  'exam' => 'SSC CGL',     'rank' => 'State 1', 'year' => '2024', 'photo_url' => ''),
-        array('sname' => 'Arjun Singh',   'exam' => 'SI Police',   'rank' => 'AIR 6',   'year' => '2024', 'photo_url' => ''),
-        array('sname' => 'Fatima Khan',   'exam' => 'IBPS PO',     'rank' => 'AIR 19',  'year' => '2024', 'photo_url' => ''),
-        array('sname' => 'Venkat Rao',    'exam' => 'RRB NTPC',    'rank' => 'State 4', 'year' => '2024', 'photo_url' => ''),
-        array('sname' => 'Sita Devi',     'exam' => 'SSC MTS',     'rank' => 'AIR 33',  'year' => '2023', 'photo_url' => ''),
-        array('sname' => 'Ramesh Babu',   'exam' => 'SSC CGL',     'rank' => 'AIR 8',   'year' => '2023', 'photo_url' => ''),
-        array('sname' => 'Geetha Patel',  'exam' => 'SBI Clerk',   'rank' => 'State 2', 'year' => '2023', 'photo_url' => ''),
+        array('sname' => 'Ravi Kumar',    'exam' => 'SSC CGL',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001234'),
+        array('sname' => 'Priya Reddy',   'exam' => 'RBI Grade B', 'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025005678'),
+        array('sname' => 'Kiran Babu',    'exam' => 'SI Police',   'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025009012'),
+        array('sname' => 'Anand Sharma',  'exam' => 'RRB NTPC',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025003456'),
+        array('sname' => 'Deepa Rao',     'exam' => 'IBPS PO',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025007890'),
+        array('sname' => 'Suresh Nair',   'exam' => 'SSC CHSL',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025002345'),
+        array('sname' => 'Lakshmi V',     'exam' => 'SBI PO',      'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025006789'),
+        array('sname' => 'Sneha Mehta',   'exam' => 'SSC CGL',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001111'),
+        array('sname' => 'Raj Mohan',     'exam' => 'RBI Grade B', 'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024004321'),
+        array('sname' => 'Meena Kumari',  'exam' => 'SSC CGL',     'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024008765'),
+        array('sname' => 'Arjun Singh',   'exam' => 'SI Police',   'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024001357'),
+        array('sname' => 'Fatima Khan',   'exam' => 'IBPS PO',     'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024009753'),
+        array('sname' => 'Venkat Rao',    'exam' => 'RRB NTPC',    'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024002468'),
+        array('sname' => 'Sita Devi',     'exam' => 'SSC MTS',     'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023006543'),
+        array('sname' => 'Ramesh Babu',   'exam' => 'SSC CGL',     'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023003217'),
+        array('sname' => 'Geetha Patel',  'exam' => 'SBI Clerk',   'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023007891'),
     );
     $years_set = array('2025', '2024', '2023');
     $exams_set = array('SSC CGL', 'RBI Grade B', 'SI Police', 'RRB NTPC', 'IBPS PO', 'SSC CHSL', 'SBI PO', 'SSC MTS', 'SBI Clerk');
@@ -158,28 +158,46 @@ if (empty($all_results)) {
 $render_card = function($r) {
     $name  = $r['sname'];
     $exam  = $r['exam'];
-    $rank  = $r['rank'];
     $year  = $r['year'];
     $photo = $r['photo_url'];
+    $ht_no = $r['ht_no'] ?? '';
     $parts = explode(' ', trim($name));
     $init  = strtoupper(substr($parts[0] ?? '', 0, 1) . substr($parts[1] ?? '', 0, 1));
+
+    /* Deterministic badge colour based on exam name (8 colours) */
+    $badge_colors = array(
+        '#3B82F6', /* blue   — SSC */
+        '#EF4444', /* red    — RBI */
+        '#8B5CF6', /* purple — RRB */
+        '#10B981', /* green  — IBPS */
+        '#F59E0B', /* amber  — SI  */
+        '#EC4899', /* pink   — SBI */
+        '#06B6D4', /* cyan   — MTS */
+        '#6366F1', /* indigo — other */
+    );
+    $color_idx   = $exam ? abs(crc32($exam)) % count($badge_colors) : 7;
+    $badge_color = $badge_colors[$color_idx];
+
     ob_start();
     ?>
     <div class="result-card-pro reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>">
-        <div class="rcp-photo-wrap">
+        <div class="rcp-avatar-wrap">
             <?php if ($photo) : ?>
-            <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" class="rcp-photo" loading="lazy">
+            <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" class="rcp-avatar-img" loading="lazy">
             <?php else : ?>
-            <div class="rcp-photo-placeholder"><span class="rcp-initials"><?php echo esc_html($init ?: '?'); ?></span></div>
-            <?php endif; ?>
-            <div class="rcp-overlay">
-                <?php if ($rank) : ?><span class="rcp-rank-badge"><?php echo esc_html($rank); ?></span><?php endif; ?>
+            <div class="rcp-avatar-placeholder" style="background:<?php echo esc_attr($badge_color); ?>22;">
+                <span class="rcp-initials" style="color:<?php echo esc_attr($badge_color); ?>;"><?php echo esc_html($init ?: '?'); ?></span>
             </div>
+            <?php endif; ?>
         </div>
         <div class="rcp-body">
             <div class="rcp-name"><?php echo esc_html($name); ?></div>
-            <?php if ($exam) : ?><div class="rcp-exam"><?php echo esc_html($exam); ?></div><?php endif; ?>
-            <?php if ($year) : ?><span class="rcp-year-tag"><?php echo esc_html($year); ?></span><?php endif; ?>
+            <?php if ($exam) : ?>
+            <span class="rcp-exam-badge" style="background:<?php echo esc_attr($badge_color); ?>22;color:<?php echo esc_attr($badge_color); ?>;border-color:<?php echo esc_attr($badge_color); ?>44;"><?php echo esc_html($exam); ?></span>
+            <?php endif; ?>
+            <?php if ($ht_no) : ?>
+            <div class="rcp-htno">HT No: <span><?php echo esc_html($ht_no); ?></span></div>
+            <?php endif; ?>
         </div>
     </div>
     <?php

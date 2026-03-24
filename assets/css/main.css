@@ -1559,112 +1559,116 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 }
 
 /* =============================================================
-   RESULTS PAGE — PREMIUM RESULT CARD
+   RESULTS PAGE — HORIZONTAL RESULT CARD
    ============================================================= */
 .results-explorer-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
 }
 .result-card-pro {
     background: var(--white);
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 2px 14px rgba(0,0,0,0.07);
+    border-radius: 14px;
     border: 1px solid var(--border);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     position: relative;
+    overflow: hidden;
+}
+.result-card-pro::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--red);
+    border-radius: 3px 0 0 3px;
+    opacity: 0;
+    transition: opacity 0.25s;
 }
 .result-card-pro:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 14px 40px rgba(0,0,0,0.14);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12);
     border-color: transparent;
 }
+.result-card-pro:hover::before { opacity: 1; }
 .result-card-pro.rcp-hidden { display: none; }
 
-.rcp-photo-wrap {
-    position: relative;
-    height: 220px;
+/* Circle avatar */
+.rcp-avatar-wrap {
+    flex-shrink: 0;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
     overflow: hidden;
+    border: 2px solid var(--border);
 }
-.rcp-photo {
+.rcp-avatar-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.4s ease;
     display: block;
 }
-.result-card-pro:hover .rcp-photo { transform: scale(1.07); }
-.rcp-photo-placeholder {
+.rcp-avatar-placeholder {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, #0D1B2A, #2a1050);
     display: flex;
     align-items: center;
     justify-content: center;
 }
 .rcp-initials {
-    font-size: 48px;
+    font-size: 20px;
     font-weight: 800;
     font-family: 'Poppins', sans-serif;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: -2px;
+    line-height: 1;
 }
-.rcp-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.2) 45%, transparent 100%);
+
+/* Card body */
+.rcp-body {
+    flex: 1;
+    min-width: 0;
     display: flex;
-    align-items: flex-end;
-    padding: 12px;
+    flex-direction: column;
+    gap: 5px;
 }
-.rcp-rank-badge {
-    background: var(--red);
-    color: var(--white);
-    font-size: 11px;
-    font-weight: 700;
-    padding: 5px 14px;
-    border-radius: 50px;
-    letter-spacing: 0.3px;
-    box-shadow: 0 2px 8px rgba(254,0,0,0.40);
-}
-.rcp-body { padding: 14px 16px 16px; }
 .rcp-name {
     font-size: 15px;
     font-weight: 700;
     color: var(--charcoal);
-    margin-bottom: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    line-height: 1.2;
 }
-.rcp-exam {
-    font-size: 12px;
-    color: var(--gray);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-bottom: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.rcp-exam::before {
-    content: '';
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: var(--red);
-    flex-shrink: 0;
-}
-.rcp-year-tag {
+.rcp-exam-badge {
     display: inline-block;
-    background: rgba(0,0,0,0.06);
-    color: var(--gray);
     font-size: 11px;
+    font-weight: 600;
     padding: 3px 10px;
     border-radius: 50px;
-    font-weight: 500;
+    border: 1px solid;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    width: fit-content;
+}
+.rcp-htno {
+    font-size: 11px;
+    color: var(--gray);
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.rcp-htno span {
+    font-weight: 600;
+    color: var(--charcoal);
+    letter-spacing: 0.5px;
 }
 
 /* Filter empty state */
@@ -1693,8 +1697,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .rbs-divider         { display: none; }
     .rbslide-title       { font-size: clamp(22px, 6vw, 36px); }
     .rbslide-sub         { font-size: 14px; }
-    .results-explorer-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 14px; }
-    .rcp-photo-wrap      { height: 180px; }
+    .results-explorer-grid { grid-template-columns: 1fr; gap: 12px; }
 }
 @media (max-width: 480px) {
     .results-stats-grid  { grid-template-columns: repeat(2, 1fr); }
@@ -1703,5 +1706,5 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .exam-chips          { gap: 8px; }
     .exam-chip           { padding: 7px 15px; font-size: 12px; }
     .rbslide-stats       { display: none; }
-    .results-explorer-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .results-explorer-grid { grid-template-columns: 1fr; gap: 10px; }
 }

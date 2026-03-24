@@ -29,9 +29,9 @@ add_action('after_setup_theme', 'irf_theme_setup');
    ============================================================= */
 function irf_enqueue_scripts() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap', array(), null);
-    wp_enqueue_style('irf-main', get_template_directory_uri() . '/assets/css/main.css', array(), '2.3');
-    wp_enqueue_style('irf-style', get_stylesheet_uri(), array('irf-main'), '2.3');
-    wp_enqueue_script('irf-main', get_template_directory_uri() . '/assets/js/main.js', array(), '2.3', true);
+    wp_enqueue_style('irf-main', get_template_directory_uri() . '/assets/css/main.css', array(), '2.4');
+    wp_enqueue_style('irf-style', get_stylesheet_uri(), array('irf-main'), '2.4');
+    wp_enqueue_script('irf-main', get_template_directory_uri() . '/assets/js/main.js', array(), '2.4', true);
 }
 add_action('wp_enqueue_scripts', 'irf_enqueue_scripts');
 
@@ -818,7 +818,7 @@ function irf_register_acf_fields() {
         'fields' => array(
             array('key' => 'field_res_student_name',  'label' => 'Student Name',   'name' => 'student_name',  'type' => 'text',  'required' => 1),
             array('key' => 'field_res_exam_name',     'label' => 'Exam Name',      'name' => 'exam_name',     'type' => 'text',  'required' => 1, 'placeholder' => 'e.g. SSC CGL 2024'),
-            array('key' => 'field_res_rank',          'label' => 'Rank / Roll No', 'name' => 'rank',          'type' => 'text',  'placeholder' => 'e.g. 142'),
+            array('key' => 'field_res_ht_no',         'label' => 'HT No (Hall Ticket)', 'name' => 'ht_no',    'type' => 'text',  'placeholder' => 'e.g. HT2025001234'),
             array('key' => 'field_res_year',          'label' => 'Year',           'name' => 'year',          'type' => 'text',  'placeholder' => 'e.g. 2024'),
             array('key' => 'field_res_student_photo', 'label' => 'Student Photo',  'name' => 'student_photo', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail'),
         ),
