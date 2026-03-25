@@ -80,7 +80,7 @@
 
 /* Dark variant — Head Office */
 .ctc-office-card--dark {
-    background: var(--navy);
+    background: linear-gradient(145deg, #1e3a8a 0%, #1d4ed8 100%);
     border-color: transparent;
 }
 .ctc-office-card--dark .ctc-office-name    { color: var(--white); }
@@ -251,7 +251,7 @@
 
 /* ── Info Panel (left) ── */
 .ctc-form-info {
-    background: linear-gradient(150deg, #0d1b2a 0%, #12121f 100%);
+    background: linear-gradient(150deg, #1e3a8a 0%, #1d4ed8 100%);
     border-radius: var(--radius);
     padding: 44px 38px;
     position: sticky;
