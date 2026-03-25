@@ -130,7 +130,7 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
         <div class="ctc-branches-grid">
             <?php foreach ($branches as $i => $br) :
                 $tel     = preg_replace('/\s+/', '', $br['phone']);
-                $color_n = ($i % 4) + 1;
+                $color_n = ($i % 3) + 1;
             ?>
             <div class="ctc-branch-card ctc-bc-<?php echo $color_n; ?>">
                 <!-- Colored top: icon + notch + name pill -->
