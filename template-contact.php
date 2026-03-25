@@ -136,19 +136,18 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
                 <div class="ctc-branch-icon-circle">
                     <?php echo $ico_pin_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?>
                 </div>
-                <h4 class="ctc-branch-name"><?php echo esc_html($br['name']); ?></h4>
                 <span class="ctc-branch-pill"><?php echo esc_html($br['name']); ?></span>
                 <div class="ctc-branch-details">
                     <div class="ctc-branch-row">
-                        <span class="ctc-branch-chk">&#10003;</span>
+                        <span class="ctc-bi"><?php echo $ico_pin; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
                         <span><?php echo esc_html($br['address']); ?></span>
                     </div>
                     <div class="ctc-branch-row">
-                        <span class="ctc-branch-chk">&#10003;</span>
+                        <span class="ctc-bi"><?php echo $ico_phone; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
                         <a href="tel:<?php echo esc_attr($tel); ?>"><?php echo esc_html($br['phone']); ?></a>
                     </div>
                     <div class="ctc-branch-row">
-                        <span class="ctc-branch-chk">&#10003;</span>
+                        <span class="ctc-bi"><?php echo $ico_mail; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
                         <a href="mailto:<?php echo esc_attr($br['email']); ?>"><?php echo esc_html($br['email']); ?></a>
                     </div>
                 </div>
