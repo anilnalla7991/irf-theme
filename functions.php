@@ -49,8 +49,78 @@ function irf_enqueue_scripts() {
             true   /* load in footer */
         );
     }
+
+    /* ── Contact page: load dedicated CSS + JS only when needed ── */
+    if ( is_page_template('template-contact.php') ) {
+        wp_enqueue_style(
+            'irf-contact',
+            get_template_directory_uri() . '/assets/css/contact.css',
+            array('irf-main'),
+            '1.0'
+        );
+        wp_enqueue_script(
+            'irf-contact',
+            get_template_directory_uri() . '/assets/js/contact.js',
+            array(),
+            '1.0',
+            true   /* load in footer */
+        );
+        wp_localize_script('irf-contact', 'irfContact', array(
+            'ajaxurl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('irf_contact_nonce'),
+        ));
+    }
 }
 add_action('wp_enqueue_scripts', 'irf_enqueue_scripts');
+
+
+/* =============================================================
+   CONTACT FORM — AJAX HANDLER
+   ============================================================= */
+function irf_handle_contact_form() {
+    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'irf_contact_nonce' ) ) {
+        wp_send_json_error( array( 'message' => 'Security check failed.' ) );
+    }
+
+    $name    = sanitize_text_field( wp_unslash( $_POST['name']    ?? '' ) );
+    $phone   = sanitize_text_field( wp_unslash( $_POST['phone']   ?? '' ) );
+    $email   = sanitize_email( wp_unslash( $_POST['email']        ?? '' ) );
+    $course  = sanitize_text_field( wp_unslash( $_POST['course']  ?? '' ) );
+    $branch  = sanitize_text_field( wp_unslash( $_POST['branch']  ?? '' ) );
+    $message = sanitize_textarea_field( wp_unslash( $_POST['message'] ?? '' ) );
+
+    if ( empty( $name ) || empty( $phone ) || empty( $email ) ) {
+        wp_send_json_error( array( 'message' => 'Please fill in all required fields.' ) );
+    }
+    if ( ! is_email( $email ) ) {
+        wp_send_json_error( array( 'message' => 'Invalid email address.' ) );
+    }
+
+    $to      = irf_opt( 'site_email', get_option( 'admin_email' ) );
+    $subject = sprintf( '[IRF IACE] New Inquiry from %s', $name );
+    $body    = sprintf(
+        "New contact inquiry received via the website.\n\n" .
+        "Name    : %s\nPhone   : %s\nEmail   : %s\nCourse  : %s\nBranch  : %s\n\nMessage :\n%s",
+        $name, $phone, $email,
+        $course  ?: '(not specified)',
+        $branch  ?: '(not specified)',
+        $message ?: '(no message)'
+    );
+    $headers = array(
+        'Content-Type: text/plain; charset=UTF-8',
+        sprintf( 'Reply-To: %s <%s>', $name, $email ),
+    );
+
+    $sent = wp_mail( $to, $subject, $body, $headers );
+
+    if ( $sent ) {
+        wp_send_json_success( array( 'message' => 'Inquiry sent successfully.' ) );
+    } else {
+        wp_send_json_error( array( 'message' => 'Mail could not be sent. Please call us directly.' ) );
+    }
+}
+add_action( 'wp_ajax_irf_contact_form',        'irf_handle_contact_form' );
+add_action( 'wp_ajax_nopriv_irf_contact_form', 'irf_handle_contact_form' );
 
 
 /* =============================================================
