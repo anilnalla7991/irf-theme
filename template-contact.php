@@ -133,11 +133,15 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
                 $color_n = ($i % 4) + 1;
             ?>
             <div class="ctc-branch-card ctc-bc-<?php echo $color_n; ?>">
-                <div class="ctc-branch-icon-circle">
-                    <?php echo $ico_pin_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                <!-- Colored top: icon + notch + name pill -->
+                <div class="ctc-branch-top">
+                    <div class="ctc-branch-icon-circle">
+                        <?php echo $ico_pin_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                    </div>
+                    <span class="ctc-branch-pill"><?php echo esc_html($br['name']); ?></span>
                 </div>
-                <span class="ctc-branch-pill"><?php echo esc_html($br['name']); ?></span>
-                <div class="ctc-branch-details">
+                <!-- White bottom: contact details -->
+                <div class="ctc-branch-bottom">
                     <div class="ctc-branch-row">
                         <span class="ctc-bi"><?php echo $ico_pin; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
                         <span><?php echo esc_html($br['address']); ?></span>
