@@ -175,19 +175,17 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
         <div class="ctc-branches-grid">
             <?php foreach ($branches as $br) :
                 $tel     = preg_replace('/\s+/', '', $br['phone']);
-                $map_url = 'https://maps.google.com/maps?q=' . urlencode( $br['address'] ) . '&output=embed&zoom=15';
+                $dir_url = 'https://www.google.com/maps/dir/?api=1&destination=' . urlencode( $br['address'] );
             ?>
             <div class="ctc-branch-card">
-                <!-- Map top + name pill -->
+                <!-- Red top: map-link icon + white pill -->
                 <div class="ctc-branch-top">
-                    <div class="ctc-branch-map-wrap">
-                        <iframe class="ctc-branch-map"
-                            src="<?php echo esc_url( $map_url ); ?>"
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                            title="<?php echo esc_attr( $br['name'] ); ?> branch location">
-                        </iframe>
-                    </div>
+                    <a href="<?php echo esc_url( $dir_url ); ?>"
+                       class="ctc-branch-map-link"
+                       target="_blank" rel="noopener noreferrer"
+                       aria-label="Get directions to <?php echo esc_attr( $br['name'] ); ?>">
+                        <?php echo $ico_pin_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                    </a>
                     <span class="ctc-branch-pill"><?php echo esc_html($br['name']); ?></span>
                 </div>
                 <!-- White bottom: contact details -->
