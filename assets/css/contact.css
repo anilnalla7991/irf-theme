@@ -174,31 +174,31 @@
     box-shadow: 0 8px 28px rgba(238,44,60,0.18);
 }
 
-/* ── Red header — clean top, overflow visible for pill ── */
+/* ── Map top — overflow visible for pill ── */
 .ctc-branch-top {
-    height: 140px;
+    height: 160px;
     position: relative;
     overflow: visible;
-    padding: 22px 18px 0;
     border-radius: 12px 12px 0 0;
-    background: #ee2c3c;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+    background: #ee2c3c; /* fallback while map loads */
 }
 
-/* Semi-transparent white circle icon */
-.ctc-branch-icon-circle {
-    width: 56px; height: 56px;
-    background: rgba(255,255,255,0.18);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.12);
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
+/* Map wrapper — clips iframe to rounded top corners */
+.ctc-branch-map-wrap {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px 12px 0 0;
+    overflow: hidden;
 }
-.ctc-branch-icon-circle svg { color: #fff; }
+
+/* Map iframe — fills the header, non-interactive (decorative) */
+.ctc-branch-map {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    pointer-events: none;
+}
 
 /* Pink pill — half inside header, half outside, bottom-left anchored */
 .ctc-branch-pill {

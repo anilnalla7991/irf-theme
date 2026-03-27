@@ -38,15 +38,60 @@ $offices = array(
 
 /* ── 9 Branches ── */
 $branches = array(
-    array('name' => 'Ameerpet',     'address' => 'Mythrivanam, Beside Harsha Mess Lane, 3rd Floor, Opp. Raghava Super Speciality Hospital, Hyderabad – 500038', 'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 400'),
-    array('name' => 'Dilsukhnagar', 'address' => 'H.No. 15-6/A, 2nd Floor, Beside Cine Planet, Moosarambagh, Dilsukhnagar, Hyderabad – 500036',                'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 401'),
-    array('name' => 'Kukatpally',   'address' => 'Plot No. 123, KPHB Phase 9, Near JNTU Main Gate, Kukatpally, Hyderabad – 500072',                            'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 402'),
-    array('name' => 'LB Nagar',     'address' => '3rd Floor, Sai Arcade, LB Nagar X Roads, Near Metro Station, Hyderabad – 500074',                            'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 403'),
-    array('name' => 'Secunderabad', 'address' => '1st Floor, Above Axis Bank, MG Road, Near Paradise Circle, Secunderabad – 500003',                            'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 404'),
-    array('name' => 'Madhapur',     'address' => 'Plot No. 450, 2nd Floor, Near Cyber Gateway, Hitech City, Madhapur, Hyderabad – 500081',                      'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 405'),
-    array('name' => 'Uppal',        'address' => '2nd Floor, Near Uppal X Roads, Beside HDFC Bank, Uppal, Hyderabad – 500039',                                  'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 406'),
-    array('name' => 'Mehdipatnam',  'address' => 'Plot No. 7, 3rd Floor, Above Reliance Fresh, Mehdipatnam X Roads, Hyderabad – 500028',                        'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 407'),
-    array('name' => 'Nizamabad',    'address' => '2nd Floor, Opp. Civil Hospital, Near Clock Tower, Nizamabad – 503001, Telangana',                             'email' => 'queries@iace.co.in', 'phone' => '+91 9533 200 408'),
+    array(
+        'name'    => 'Ameerpet',
+        'address' => 'Mythrivanam, Beside Harsha Mess Lane, 3rd Floor, Opp. Raghava Super Speciality Hospital, Hyderabad – 500038',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9533 200 400',
+    ),
+    array(
+        'name'    => 'Dilsukhnagar',
+        'address' => '17-109, 2nd Floor, Chaitanyapuri, Dilsukhnagar, Hyderabad',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9533 200 400',
+    ),
+    array(
+        'name'    => 'KPHB',
+        'address' => 'Plot No: 80 & 81 Survey No.166, 4th Floor, Usha Mullapudi Rd, A.S.Raju Nagar, Kukatpally, Hyderabad',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9533 200 400',
+    ),
+    array(
+        'name'    => 'Nellore',
+        'address' => '16-1-650, Trunk Road, Opp. Princes Hotel, Beside 4 Town Police Station, VRC Centre, Nellore, Andhra Pradesh – 524001',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9700 077 433',
+    ),
+    array(
+        'name'    => 'Vizag',
+        'address' => '47-10-24/25, 2nd Floor, 2nd Lane, Sagar Nagar, Dwaraka Nagar, Visakhapatnam',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9533 200 400',
+    ),
+    array(
+        'name'    => 'Vijayawada',
+        'address' => '1st Floor, Above SBI Bank Besant Road Branch, Opp. BIG Bazar, Governor Peta, Vijayawada, Andhra Pradesh – 520002',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9533 200 400',
+    ),
+    array(
+        'name'    => 'Rajamundry',
+        'address' => '1st Floor, Radha Enclave, Somalamma Temple Road, Rajahmundry',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9704 955 833',
+    ),
+    array(
+        'name'    => 'Tirupati',
+        'address' => '1st Floor, Balaji Complex, Prakasam Rd, Balaji Colony, Tirupati',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9533 200 400',
+    ),
+    array(
+        'name'    => 'Anantapur',
+        'address' => '3rd Floor, ANR Centre, 10/315, Subhash Road, above Reliance Digital, near Clock Tower, Gulzarpet, Anantapur, Andhra Pradesh – 515001',
+        'email'   => 'queries@iace.co.in',
+        'phone'   => '+91 9533 200 400',
+    ),
 );
 
 /* ── Inline SVG icons (reused multiple times) ── */
@@ -125,17 +170,23 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
         <div class="section-header">
             <span class="section-tag section-tag-dark">Our Branches</span>
             <h2 class="section-title">Find a Branch Near You</h2>
-            <p class="section-subtitle">With <?php echo count($branches); ?> branches across Telangana, expert coaching is always close to home.</p>
+            <p class="section-subtitle">With <?php echo count($branches); ?> branches across Telangana &amp; Andhra Pradesh, expert coaching is always close to home.</p>
         </div>
         <div class="ctc-branches-grid">
             <?php foreach ($branches as $br) :
-                $tel = preg_replace('/\s+/', '', $br['phone']);
+                $tel     = preg_replace('/\s+/', '', $br['phone']);
+                $map_url = 'https://maps.google.com/maps?q=' . urlencode( $br['address'] ) . '&output=embed&zoom=15';
             ?>
             <div class="ctc-branch-card">
-                <!-- Colored top: icon + notch + name pill -->
+                <!-- Map top + name pill -->
                 <div class="ctc-branch-top">
-                    <div class="ctc-branch-icon-circle">
-                        <?php echo $ico_pin_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?>
+                    <div class="ctc-branch-map-wrap">
+                        <iframe class="ctc-branch-map"
+                            src="<?php echo esc_url( $map_url ); ?>"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="<?php echo esc_attr( $br['name'] ); ?> branch location">
+                        </iframe>
                     </div>
                     <span class="ctc-branch-pill"><?php echo esc_html($br['name']); ?></span>
                 </div>
