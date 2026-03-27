@@ -70,6 +70,23 @@ function irf_enqueue_scripts() {
             'nonce'   => wp_create_nonce('irf_contact_nonce'),
         ));
     }
+
+    /* ── Campus Selection page ── */
+    if ( is_page_template('template-campus.php') ) {
+        wp_enqueue_style(
+            'irf-campus',
+            get_template_directory_uri() . '/assets/css/campus.css',
+            array('irf-main'),
+            '1.0'
+        );
+        wp_enqueue_script(
+            'irf-campus',
+            get_template_directory_uri() . '/assets/js/campus.js',
+            array(),
+            '1.0',
+            true
+        );
+    }
 }
 add_action('wp_enqueue_scripts', 'irf_enqueue_scripts');
 
