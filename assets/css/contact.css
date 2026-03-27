@@ -4,6 +4,10 @@
  * Loaded ONLY on the Contact page template.
  * Depends on: main.css (CSS variables, .container, .section, .btn, etc.)
  * Enqueued in: functions.php → irf_enqueue_scripts()
+ *
+ * Brand palette used throughout:
+ *   #fcf1f5  — light pink (section backgrounds, subtle fills)
+ *   #ee2c3c  — brand red  (headers, accents, icons, CTAs)
  */
 
 
@@ -31,14 +35,14 @@
 }
 .ctc-circle-1 {
     width: 520px; height: 520px;
-    background: var(--red);
-    opacity: 0.05;
+    background: #ee2c3c;
+    opacity: 0.06;
     top: -220px; right: -60px;
 }
 .ctc-circle-2 {
     width: 300px; height: 300px;
-    background: #fff;
-    opacity: 0.03;
+    background: #fcf1f5;
+    opacity: 0.06;
     bottom: -120px; left: 8%;
 }
 
@@ -47,7 +51,7 @@
    2. OFFICES SECTION
    ============================================================= */
 
-.ctc-offices-section { background: var(--white); }
+.ctc-offices-section { background: #fcf1f5; }
 
 .ctc-offices-grid {
     display: grid;
@@ -59,10 +63,10 @@
 .ctc-office-card {
     position: relative;
     background: var(--white);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(238,44,60,0.12);
     border-radius: var(--radius);
     padding: 36px 36px 32px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 16px rgba(238,44,60,0.07);
     transition: var(--tr);
     overflow: hidden;
 }
@@ -71,32 +75,37 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 4px;
-    background: var(--red);
+    background: #ee2c3c;
 }
 .ctc-office-card:hover {
     transform: translateY(-5px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 8px 28px rgba(238,44,60,0.14);
 }
 
 /* Dark variant — Head Office */
 .ctc-office-card--dark {
-    background: linear-gradient(145deg, #1e3a8a 0%, #1d4ed8 100%);
+    background: linear-gradient(145deg, #c81428 0%, #ee2c3c 100%);
     border-color: transparent;
 }
+.ctc-office-card--dark::before { display: none; }
 .ctc-office-card--dark .ctc-office-name    { color: var(--white); }
-.ctc-office-card--dark .ctc-office-address { color: rgba(255,255,255,0.6); }
-.ctc-office-card--dark .ctc-office-details { border-top-color: rgba(255,255,255,0.08); }
-.ctc-office-card--dark .ctc-office-detail  { color: rgba(255,255,255,0.72); }
-.ctc-office-card--dark .ctc-office-detail:hover { color: var(--red); }
+.ctc-office-card--dark .ctc-office-address { color: rgba(255,255,255,0.65); }
+.ctc-office-card--dark .ctc-office-details { border-top-color: rgba(255,255,255,0.15); }
+.ctc-office-card--dark .ctc-office-detail  { color: rgba(255,255,255,0.8); }
+.ctc-office-card--dark .ctc-office-detail:hover { color: #fcf1f5; }
 .ctc-office-card--dark .ctc-office-icon {
-    background: rgba(254,0,0,0.14);
-    color: var(--red);
+    background: rgba(255,255,255,0.18);
+    color: #fff;
 }
-.ctc-office-card--dark .ctc-office-detail svg { color: rgba(255,255,255,0.35); }
+.ctc-office-card--dark .ctc-office-detail svg { color: rgba(255,255,255,0.5); }
+.ctc-office-card--dark .ctc-office-badge {
+    background: rgba(255,255,255,0.2);
+    color: #fff;
+}
 
 .ctc-office-badge {
     display: inline-block;
-    background: var(--red);
+    background: #ee2c3c;
     color: var(--white);
     font-size: 10px;
     font-weight: 700;
@@ -109,8 +118,8 @@
 
 .ctc-office-icon {
     width: 56px; height: 56px;
-    background: rgba(254,0,0,0.07);
-    color: var(--red);
+    background: rgba(238,44,60,0.08);
+    color: #ee2c3c;
     border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 18px;
@@ -145,8 +154,8 @@
     color: var(--text);
     transition: var(--tr);
 }
-.ctc-office-detail:hover { color: var(--red); }
-.ctc-office-detail svg { flex-shrink: 0; color: var(--red); }
+.ctc-office-detail:hover { color: #ee2c3c; }
+.ctc-office-detail svg { flex-shrink: 0; color: #ee2c3c; }
 
 
 /* =============================================================
@@ -250,7 +259,7 @@
    4. CONTACT FORM SECTION
    ============================================================= */
 
-.ctc-form-section { background: var(--white); }
+.ctc-form-section { background: #fcf1f5; }
 
 .ctc-form-wrap {
     display: grid;
@@ -261,7 +270,7 @@
 
 /* ── Info Panel (left) ── */
 .ctc-form-info {
-    background: linear-gradient(150deg, #1e3a8a 0%, #1d4ed8 100%);
+    background: linear-gradient(150deg, #c81428 0%, #ee2c3c 100%);
     border-radius: var(--radius);
     padding: 44px 38px;
     position: sticky;
@@ -273,14 +282,14 @@
     position: absolute;
     top: 0; left: 0; right: 0;
     height: 4px;
-    background: var(--red);
+    background: rgba(255,255,255,0.3);
 }
 .ctc-form-info::after {
     content: '';
     position: absolute;
     bottom: -90px; right: -90px;
     width: 280px; height: 280px;
-    background: radial-gradient(circle, rgba(254,0,0,0.1), transparent 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
     border-radius: 50%;
     pointer-events: none;
 }
@@ -296,7 +305,7 @@
 
 .ctc-form-info-sub {
     font-size: 14px;
-    color: rgba(255,255,255,0.55);
+    color: rgba(255,255,255,0.65);
     line-height: 1.75;
     margin-bottom: 32px;
 }
@@ -307,7 +316,7 @@
     gap: 20px;
     margin-bottom: 28px;
     padding-bottom: 28px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 
 .ctc-form-info-item {
@@ -318,8 +327,8 @@
 
 .ctc-form-info-icon {
     width: 42px; height: 42px;
-    background: rgba(254,0,0,0.12);
-    color: var(--red);
+    background: rgba(255,255,255,0.18);
+    color: #fff;
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
@@ -330,35 +339,35 @@
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.5);
     margin-bottom: 4px;
 }
 
 .ctc-form-info-value {
     font-size: 14px;
-    color: rgba(255,255,255,0.82);
+    color: rgba(255,255,255,0.88);
     transition: var(--tr);
     display: block;
     line-height: 1.5;
 }
-a.ctc-form-info-value:hover { color: var(--red); }
+a.ctc-form-info-value:hover { color: #fcf1f5; }
 
 .ctc-form-social-label {
     font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.35);
+    color: rgba(255,255,255,0.5);
     margin-bottom: 12px;
 }
 
 /* ── Form Card (right) ── */
 .ctc-form-card {
     background: var(--white);
-    border: 1px solid var(--border);
+    border: 1px solid rgba(238,44,60,0.1);
     border-radius: var(--radius);
     padding: 44px 40px;
-    box-shadow: var(--shadow);
+    box-shadow: 0 2px 16px rgba(238,44,60,0.07);
 }
 
 .ctc-form {
@@ -387,7 +396,7 @@ a.ctc-form-info-value:hover { color: var(--red); }
     align-items: center;
     gap: 2px;
 }
-.ctc-req { color: var(--red); font-size: 14px; line-height: 1; }
+.ctc-req { color: #ee2c3c; font-size: 14px; line-height: 1; }
 
 .ctc-input,
 .ctc-select,
@@ -412,12 +421,12 @@ a.ctc-form-info-value:hover { color: var(--red); }
 .ctc-input:focus,
 .ctc-select:focus,
 .ctc-textarea:focus {
-    border-color: var(--red);
-    box-shadow: 0 0 0 3px rgba(254,0,0,0.07);
+    border-color: #ee2c3c;
+    box-shadow: 0 0 0 3px rgba(238,44,60,0.08);
 }
 .ctc-input-err {
-    border-color: #e53935 !important;
-    box-shadow: 0 0 0 3px rgba(229,57,53,0.08) !important;
+    border-color: #ee2c3c !important;
+    box-shadow: 0 0 0 3px rgba(238,44,60,0.1) !important;
 }
 .ctc-select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236C757D' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
@@ -436,7 +445,7 @@ a.ctc-form-info-value:hover { color: var(--red); }
 
 .ctc-error {
     font-size: 12px;
-    color: #e53935;
+    color: #ee2c3c;
     min-height: 16px;
     display: block;
 }
@@ -478,9 +487,9 @@ a.ctc-form-info-value:hover { color: var(--red); }
 .ctc-error-msg {
     align-items: center;
     gap: 10px;
-    background: #ffebee;
-    color: #c62828;
-    border: 1px solid #ef9a9a;
+    background: #fcf1f5;
+    color: #c01828;
+    border: 1px solid rgba(238,44,60,0.25);
     border-radius: 8px;
     padding: 14px 18px;
     font-size: 14px;
@@ -493,7 +502,7 @@ a.ctc-form-info-value:hover { color: var(--red); }
    ============================================================= */
 
 .ctc-map-section {
-    background: var(--light);
+    background: #fcf1f5;
     padding: 70px 0 0;
 }
 .ctc-map-header {
@@ -525,20 +534,20 @@ a.ctc-form-info-value:hover { color: var(--red); }
 .ctc-footer-cta-bg {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #1a0000 0%, #8b0000 55%, #3a0000 100%);
+    background: linear-gradient(135deg, #a01020 0%, #ee2c3c 55%, #c01828 100%);
 }
 .ctc-footer-cta-bg::before {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
 }
 .ctc-footer-cta-bg::after {
     content: '';
     position: absolute;
     right: -100px; top: -100px;
     width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(255,255,255,0.04), transparent 70%);
+    background: radial-gradient(circle, rgba(252,241,245,0.08), transparent 70%);
     border-radius: 50%;
 }
 
@@ -559,7 +568,7 @@ a.ctc-form-info-value:hover { color: var(--red); }
 }
 .ctc-footer-cta-sub {
     font-size: 15px;
-    color: rgba(255,255,255,0.6);
+    color: rgba(255,255,255,0.7);
     line-height: 1.6;
 }
 
@@ -578,10 +587,8 @@ a.ctc-form-info-value:hover { color: var(--red); }
     position: fixed;
     bottom: 0; left: 0; right: 0;
     z-index: 9999;
-    display: flex;
     transform: translateY(100%);
     transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    /* Desktop: hide */
     display: none;
 }
 @media (max-width: 767px) {
@@ -604,7 +611,7 @@ a.ctc-form-info-value:hover { color: var(--red); }
     letter-spacing: 0.3px;
 }
 .ctc-sticky-btn:hover    { opacity: 0.88; }
-.ctc-sticky-call         { background: var(--red); }
+.ctc-sticky-call         { background: #ee2c3c; }
 .ctc-sticky-whatsapp     { background: #25D366; }
 
 
