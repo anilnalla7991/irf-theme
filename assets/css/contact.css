@@ -174,13 +174,13 @@
     box-shadow: 0 10px 32px rgba(238,44,60,0.18);
 }
 
-/* ── Red header — large swoosh bottom-right matches reference ── */
+/* ── Red header — large curve TOP-RIGHT only (matches reference) ── */
 .ctc-branch-top {
     height: 170px;
     position: relative;
     padding: 24px 22px 0;
     background: #ee2c3c;
-    border-radius: 18px 18px 80px 18px;
+    border-radius: 0 80px 0 0;
 }
 
 /* White circle — clickable Google Maps directions link ── */
@@ -210,8 +210,8 @@
     font-size: 14px;
     font-weight: 700;
     padding: 11px 30px 11px 22px;
-    border-radius: 0 25px 0 0;
-    box-shadow: 2px -1px 10px rgba(0,0,0,0.08);
+    border-radius: 0 20px 20px 0;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
     white-space: nowrap;
     line-height: 1;
 }
