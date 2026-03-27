@@ -128,11 +128,10 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
             <p class="section-subtitle">With <?php echo count($branches); ?> branches across Telangana, expert coaching is always close to home.</p>
         </div>
         <div class="ctc-branches-grid">
-            <?php foreach ($branches as $i => $br) :
-                $tel     = preg_replace('/\s+/', '', $br['phone']);
-                $color_n = ($i % 3) + 1;
+            <?php foreach ($branches as $br) :
+                $tel = preg_replace('/\s+/', '', $br['phone']);
             ?>
-            <div class="ctc-branch-card ctc-bc-<?php echo $color_n; ?>">
+            <div class="ctc-branch-card">
                 <!-- Colored top: icon + notch + name pill -->
                 <div class="ctc-branch-top">
                     <div class="ctc-branch-icon-circle">
