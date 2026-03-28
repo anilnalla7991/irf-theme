@@ -380,39 +380,47 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    HEADER
    ============================================================= */
-.site-header { position: sticky; top: 0; left: 0; right: 0; z-index: 1000; padding: 14px 0; background: var(--light); box-shadow: 0 2px 12px rgba(238,44,60,0.10); transition: var(--tr); }
-.site-header.scrolled { background: var(--light); padding: 10px 0; box-shadow: 0 2px 20px rgba(238,44,60,0.14); }
-.nav-wrapper { display: flex; align-items: center; justify-content: space-between; }
+.site-header { position: sticky; top: 0; left: 0; right: 0; z-index: 1000; padding: 16px 0; background: var(--light); box-shadow: 0 2px 16px rgba(238,44,60,0.10); transition: var(--tr); }
+.site-header.scrolled { padding: 12px 0; box-shadow: 0 2px 24px rgba(238,44,60,0.14); }
 
+/* Logo */
+.nav-wrapper { display: flex; align-items: center; gap: 32px; }
+.site-logo { flex-shrink: 0; }
 .logo-text { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: var(--white); }
 .logo-text span { color: var(--red); }
-.site-logo .logo-img { height: 44px; width: auto; max-width: 160px; max-height: 44px; object-fit: contain; display: block; }
+.site-logo .logo-img { height: 46px; width: auto; max-width: 160px; object-fit: contain; display: block; }
 .footer-brand .footer-logo-img,
 .footer-brand img { height: 44px; width: auto; max-width: 160px; max-height: 44px; object-fit: contain; display: block; margin-bottom: 16px; }
 
-.nav-menu { display: flex; align-items: center; gap: 28px; }
+/* Nav links — centred, takes remaining space */
+.nav-menu { display: flex; align-items: center; gap: 30px; flex: 1; justify-content: center; }
 .nav-menu a { color: #181A17; font-size: 14px; font-weight: 500; transition: var(--tr); position: relative; }
 .nav-menu a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red); transition: var(--tr); }
 .nav-menu a:hover { color: var(--red); }
 .nav-menu a:hover::after { width: 100%; }
-.nav-cta { background: var(--red) !important; color: var(--white) !important; padding: 10px 22px !important; border-radius: 50px !important; }
+.nav-cta { background: var(--red) !important; color: var(--white) !important; padding: 9px 20px !important; border-radius: 50px !important; font-weight: 600 !important; }
 .nav-cta::after { display: none !important; }
 .nav-cta:hover { background: var(--red-dark) !important; transform: translateY(-1px); }
+
+/* Right side: Mock Test button + hamburger */
+.nav-right { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 
 .header-mock-btn {
     display: inline-flex;
     align-items: center;
     background: #ee2c3c;
     color: #fff;
+    font-family: 'Poppins', sans-serif;
     font-weight: 700;
-    font-size: 14px;
-    padding: 10px 22px;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    padding: 10px 24px;
     border-radius: 8px;
     white-space: nowrap;
-    flex-shrink: 0;
-    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 14px rgba(238,44,60,0.30);
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
-.header-mock-btn:hover { background: #000; color: #fff; transform: translateY(-1px); }
+.header-mock-btn:hover { background: #000; color: #fff; box-shadow: 0 4px 14px rgba(0,0,0,0.25); transform: translateY(-1px); }
 
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; position: relative; z-index: 1100; }
 .hamburger span { display: block; width: 24px; height: 2px; background: #181A17; transition: var(--tr); }
@@ -1179,9 +1187,11 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     }
     .nav-menu a::after { display: none; }
     .header-mock-btn {
-        font-size: 12px;
-        padding: 8px 14px;
+        font-size: 11px;
+        padding: 8px 13px;
         border-radius: 6px;
+        box-shadow: none;
+        letter-spacing: 0;
     }
     .nav-cta {
         margin: 20px 28px 28px !important;
