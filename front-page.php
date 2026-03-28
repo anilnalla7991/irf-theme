@@ -361,7 +361,7 @@ $learn_steps = (!empty($learn_acf) && is_array($learn_acf)) ? $learn_acf : $lear
         <div class="section-header reveal">
             <span class="section-tag"><?php echo esc_html($learn_tag); ?></span>
             <h2 class="section-title"><?php echo esc_html($learn_title); ?></h2>
-            <p class="section-subtitle" style="color:rgba(255,255,255,0.6)"><?php echo esc_html($learn_subtitle); ?></p>
+            <p class="section-subtitle"><?php echo esc_html($learn_subtitle); ?></p>
         </div>
         <div class="learning-steps">
             <?php foreach ($learn_steps as $i => $step) : ?>
