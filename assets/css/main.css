@@ -401,6 +401,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; }
 .hamburger span { display: block; width: 24px; height: 2px; background: #181A17; transition: var(--tr); }
+.hamburger.active span { background: #181A17; }
 .hamburger.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .hamburger.active span:nth-child(2) { opacity: 0; }
 .hamburger.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
@@ -1136,13 +1137,14 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .hamburger { display: flex; }
     .nav-menu {
         position: fixed; top: 0; right: -100%; width: 270px; height: 100vh;
-        background: var(--light); flex-direction: column; align-items: flex-start;
+        background: #181A17; flex-direction: column; align-items: flex-start;
         padding: 72px 28px 28px; gap: 22px; transition: right 0.3s ease;
-        box-shadow: -4px 0 24px rgba(238,44,60,0.15);
-        border-left: 2px solid var(--border);
+        box-shadow: -4px 0 24px rgba(0,0,0,0.35);
     }
     .nav-menu.open { right: 0; }
-    .nav-menu a { font-size: 15px; color: #181A17; }
+    .nav-menu a { font-size: 15px; color: rgba(255,255,255,0.85); }
+    .nav-menu a:hover { color: var(--white); }
+    .nav-cta { background: var(--red) !important; color: var(--white) !important; }
     .facilities-grid { grid-template-columns: 1fr; }
     .learning-steps  { grid-template-columns: 1fr; }
     .footer-grid     { grid-template-columns: 1fr; gap: 28px; }
