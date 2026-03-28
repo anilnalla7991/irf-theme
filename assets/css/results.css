@@ -220,7 +220,7 @@
 .results-examwise-section .section-tag { background: #ee2c3c; color: #fff; }
 
 .results-yearwise-section .section-title,
-.results-examwise-section .section-title { color: #0F172A; }
+.results-examwise-section .section-title { color: #181A17; }
 
 
 /* =============================================================
@@ -236,7 +236,7 @@
 .yr-tab {
     padding: 10px 28px;
     border: none; border-bottom: 3px solid transparent; border-radius: 0;
-    background: transparent; color: #64748B;
+    background: transparent; color: #181A17;
     font-size: 14px; font-weight: 600; font-family: 'Poppins',sans-serif;
     cursor: pointer; transition: all 0.2s ease;
     margin-bottom: -2px;  /* align with border-bottom of parent */
@@ -254,7 +254,7 @@
 }
 .exam-chip {
     padding: 9px 22px; border-radius: 50px;
-    border: 1.5px solid #CBD5E1; background: #fff; color: #475569;
+    border: 1.5px solid #f0dde2; background: #fff; color: #181A17;
     font-size: 13px; font-weight: 600; font-family: 'Poppins',sans-serif;
     cursor: pointer; transition: all 0.2s ease;
 }
@@ -317,7 +317,7 @@
     display: flex; flex-direction: column; align-items: center; gap: 7px;
 }
 .rcard-name {
-    font-size: 14px; font-weight: 700; color: #0F172A; line-height: 1.2;
+    font-size: 14px; font-weight: 700; color: #181A17; line-height: 1.2;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
 }
 .rcard-exam-pill {
@@ -326,8 +326,8 @@
     padding: 4px 12px; border-radius: 50px; color: #fff;
     max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
-.rcard-ht        { font-size: 11px; color: #94A3B8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
-.rcard-ht strong { color: #475569; font-weight: 600; }
+.rcard-ht        { font-size: 11px; color: #5a5a5a; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.rcard-ht strong { color: #181A17; font-weight: 600; }
 
 
 /* =============================================================
