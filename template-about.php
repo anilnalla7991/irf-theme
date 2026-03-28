@@ -418,8 +418,8 @@ $first_color = $ticker_cats[$first_key]['color'];
     <div class="container">
         <div class="section-header reveal">
             <span class="section-tag"><?php echo esc_html($ab_vals_tag); ?></span>
-            <h2 class="section-title" style="color:var(--white)"><?php echo esc_html($ab_vals_title); ?></h2>
-            <p class="section-subtitle" style="color:rgba(255,255,255,0.6)"><?php echo esc_html($ab_vals_sub); ?></p>
+            <h2 class="section-title"><?php echo esc_html($ab_vals_title); ?></h2>
+            <p class="section-subtitle"><?php echo esc_html($ab_vals_sub); ?></p>
         </div>
         <div class="ab-values-grid">
             <?php foreach ($ab_values as $i => $val) : ?>
