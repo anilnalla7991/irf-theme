@@ -167,42 +167,47 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
      ============================================================ -->
 <section class="section ctc-branches-section">
     <div class="container">
-        <div class="section-header">
-            <span class="section-tag section-tag-dark">Our Branches</span>
+        <div class="section-header reveal">
+            <span class="section-tag">Our Branches</span>
             <h2 class="section-title">Find a Branch Near You</h2>
             <p class="section-subtitle">With <?php echo count($branches); ?> branches across Telangana &amp; Andhra Pradesh, expert coaching is always close to home.</p>
         </div>
         <div class="ctc-branches-grid">
-            <?php foreach ($branches as $br) :
+            <?php foreach ($branches as $idx => $br) :
                 $tel     = preg_replace('/\s+/', '', $br['phone']);
                 $dir_url = 'https://www.google.com/maps/dir/?api=1&destination=' . urlencode( $br['address'] );
+                $num     = str_pad( $idx + 1, 2, '0', STR_PAD_LEFT );
             ?>
-            <div class="ctc-branch-card">
-                <!-- Red top: map-link icon + white pill -->
-                <div class="ctc-branch-top">
-                    <a href="<?php echo esc_url( $dir_url ); ?>"
-                       class="ctc-branch-map-link"
-                       target="_blank" rel="noopener noreferrer"
-                       aria-label="Get directions to <?php echo esc_attr( $br['name'] ); ?>">
-                        <?php echo $ico_pin_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-                    </a>
-                    <span class="ctc-branch-pill"><?php echo esc_html($br['name']); ?></span>
+            <div class="ctc-branch-card reveal">
+
+                <!-- Card header -->
+                <div class="ctc-branch-head">
+                    <span class="ctc-branch-num"><?php echo esc_html($num); ?></span>
+                    <h3 class="ctc-branch-name"><?php echo esc_html($br['name']); ?></h3>
                 </div>
-                <!-- White bottom: contact details -->
-                <div class="ctc-branch-bottom">
+
+                <!-- Contact rows -->
+                <div class="ctc-branch-body">
                     <div class="ctc-branch-row">
-                        <span class="ctc-bi"><?php echo $ico_pin; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+                        <span class="ctc-bi"><?php echo $ico_pin; // phpcs:ignore ?></span>
                         <span><?php echo esc_html($br['address']); ?></span>
                     </div>
                     <div class="ctc-branch-row">
-                        <span class="ctc-bi"><?php echo $ico_phone; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+                        <span class="ctc-bi"><?php echo $ico_phone; // phpcs:ignore ?></span>
                         <a href="tel:<?php echo esc_attr($tel); ?>"><?php echo esc_html($br['phone']); ?></a>
                     </div>
                     <div class="ctc-branch-row">
-                        <span class="ctc-bi"><?php echo $ico_mail; // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
+                        <span class="ctc-bi"><?php echo $ico_mail; // phpcs:ignore ?></span>
                         <a href="mailto:<?php echo esc_attr($br['email']); ?>"><?php echo esc_html($br['email']); ?></a>
                     </div>
                 </div>
+
+                <!-- Direction CTA -->
+                <a href="<?php echo esc_url($dir_url); ?>" class="ctc-branch-dir" target="_blank" rel="noopener noreferrer">
+                    <?php echo $ico_pin_lg; // phpcs:ignore ?>
+                    Get Directions
+                </a>
+
             </div>
             <?php endforeach; ?>
         </div>

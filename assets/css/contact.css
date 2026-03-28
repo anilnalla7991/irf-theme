@@ -153,7 +153,7 @@
    3. BRANCHES SECTION
    ============================================================= */
 
-.ctc-branches-section { background: #fcf1f5; }
+.ctc-branches-section { background: #fff; }
 
 .ctc-branches-grid {
     display: grid;
@@ -161,86 +161,105 @@
     gap: 24px;
 }
 
-/* ── Card wrapper — more rounded corners, overflow hidden ── */
+/* ── Card ── */
 .ctc-branch-card {
-    border-radius: 18px;
     background: #fff;
-    box-shadow: 0 4px 20px rgba(238,44,60,0.1);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    border: 1px solid var(--border);
+    border-radius: 16px;
     overflow: hidden;
-}
-.ctc-branch-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 10px 32px rgba(238,44,60,0.18);
-}
-
-/* ── Red header — large curve TOP-RIGHT only (matches reference) ── */
-.ctc-branch-top {
-    height: 170px;
-    position: relative;
-    padding: 24px 22px 0;
-    background: #ee2c3c;
-    border-radius: 0 80px 0 0;
-}
-
-/* White circle — clickable Google Maps directions link ── */
-.ctc-branch-map-link {
-    width: 68px; height: 68px;
-    background: #fff;
-    border-radius: 50%;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-    color: #ee2c3c;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.ctc-branch-map-link:hover {
-    transform: scale(1.08);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.22);
-}
-
-/* White pill — flush left edge, curved right, at bottom of header ── */
-.ctc-branch-pill {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    background: #fff;
-    color: #181A17;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 11px 30px 11px 22px;
-    border-radius: 0 20px 20px 0;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-    white-space: nowrap;
-    line-height: 1;
-}
-
-/* ── White card body ── */
-.ctc-branch-bottom {
-    background: #fff;
-    padding: 18px 20px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    box-shadow: 0 2px 12px rgba(238,44,60,0.07);
+    position: relative;
+}
+.ctc-branch-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--red);
+    border-radius: 16px 16px 0 0;
+}
+.ctc-branch-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(238,44,60,0.14);
+    border-color: rgba(238,44,60,0.25);
 }
 
+/* ── Card header ── */
+.ctc-branch-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 22px 22px 18px;
+    border-bottom: 1px solid var(--border);
+    background: var(--light);
+}
+.ctc-branch-num {
+    flex-shrink: 0;
+    width: 40px; height: 40px;
+    background: var(--red);
+    color: #fff;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+}
+.ctc-branch-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #181A17;
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* ── Contact rows ── */
+.ctc-branch-body {
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+}
 .ctc-branch-row {
     display: flex;
     align-items: flex-start;
-    gap: 8px;
-    font-size: 12.5px;
-    color: var(--text);
-    line-height: 1.5;
+    gap: 10px;
+    font-size: 13px;
+    color: #181A17;
+    line-height: 1.55;
 }
-.ctc-branch-row a { color: var(--text); transition: color 0.2s ease; }
-.ctc-branch-row a:hover { color: #ee2c3c; }
-
+.ctc-branch-row a { color: #181A17; transition: color 0.2s ease; }
+.ctc-branch-row a:hover { color: var(--red); }
 .ctc-bi {
     flex-shrink: 0;
     margin-top: 2px;
-    color: #ee2c3c;
-    opacity: 0.85;
+    color: var(--red);
+}
+
+/* ── Get Directions button ── */
+.ctc-branch-dir {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 22px 20px;
+    padding: 11px 18px;
+    border-radius: 50px;
+    border: 1.5px solid var(--red);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.22s ease;
+}
+.ctc-branch-dir svg { flex-shrink: 0; width: 15px; height: 15px; }
+.ctc-branch-dir:hover {
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(238,44,60,0.28);
 }
 
 
