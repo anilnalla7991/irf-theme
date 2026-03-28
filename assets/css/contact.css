@@ -92,7 +92,7 @@
     background: #fcf1f5;
     color: #181A17 ;
 }
-.ctc-office-card--dark .ctc-office-detail svg {color: #fff;}
+.ctc-office-card--dark .ctc-office-detail svg {color: #ffffff;}
 
 .ctc-office-badge {
     display: inline-block;
@@ -335,7 +335,7 @@
 
 .ctc-form-info-icon {
     width: 42px; height: 42px;
-    background: #fcf1f5;
+    background: #fff;
     color: var(--red);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
