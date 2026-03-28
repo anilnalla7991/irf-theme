@@ -49,7 +49,10 @@ $ctc_branches_title = _ctc('ctc_branches_title', 'Find a Branch Near You');
 $ctc_form_tag      = _ctc('ctc_form_tag',      'Send a Message');
 $ctc_form_title    = _ctc('ctc_form_title',    "Have a Question?\nWe'd Love to Help!");
 $ctc_form_subtitle = _ctc('ctc_form_subtitle', 'Fill in the form and our admission counselors will get back to you within 24 hours.');
-$ctc_form_hours    = _ctc('ctc_form_hours',    'Mon – Sat &nbsp;|&nbsp; 9:00 AM – 7:00 PM');
+$ctc_form_hours       = _ctc('ctc_form_hours',       'Mon – Sat &nbsp;|&nbsp; 9:00 AM – 7:00 PM');
+$ctc_form_label_phone = _ctc('ctc_form_label_phone', 'Call Us');
+$ctc_form_label_email = _ctc('ctc_form_label_email', 'Email Us');
+$ctc_form_label_hours = _ctc('ctc_form_label_hours', 'Office Hours');
 
 /* ── Map ── */
 $ctc_map_tag      = _ctc('ctc_map_tag',      'Find Us');
@@ -281,21 +284,21 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
                     <div class="ctc-form-info-item">
                         <div class="ctc-form-info-icon"><?php echo $ico_phone_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
                         <div>
-                            <div class="ctc-form-info-label">Call Us</div>
+                            <div class="ctc-form-info-label"><?php echo esc_html($ctc_form_label_phone); ?></div>
                             <a href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $site_phone)); ?>" class="ctc-form-info-value"><?php echo esc_html($site_phone); ?></a>
                         </div>
                     </div>
                     <div class="ctc-form-info-item">
                         <div class="ctc-form-info-icon"><?php echo $ico_mail_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
                         <div>
-                            <div class="ctc-form-info-label">Email Us</div>
+                            <div class="ctc-form-info-label"><?php echo esc_html($ctc_form_label_email); ?></div>
                             <a href="mailto:<?php echo esc_attr($site_email); ?>" class="ctc-form-info-value"><?php echo esc_html($site_email); ?></a>
                         </div>
                     </div>
                     <div class="ctc-form-info-item">
                         <div class="ctc-form-info-icon"><?php echo $ico_clock; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
                         <div>
-                            <div class="ctc-form-info-label">Office Hours</div>
+                            <div class="ctc-form-info-label"><?php echo esc_html($ctc_form_label_hours); ?></div>
                             <div class="ctc-form-info-value"><?php echo wp_kses_post($ctc_form_hours); ?></div>
                         </div>
                     </div>

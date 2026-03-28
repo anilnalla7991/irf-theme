@@ -1319,7 +1319,10 @@ function irf_register_acf_fields() {
             array('key' => 'field_ctc_form_tag',       'label' => 'Section Tag',    'name' => 'ctc_form_tag',       'type' => 'text',     'default_value' => 'Send a Message',                          'wrapper' => array('width' => '30')),
             array('key' => 'field_ctc_form_title',     'label' => 'Info Panel Title','name' => 'ctc_form_title',   'type' => 'text',     'default_value' => "Have a Question?\nWe'd Love to Help!",   'wrapper' => array('width' => '70'), 'instructions' => 'Use \\n for line break (rendered as &lt;br&gt;).'),
             array('key' => 'field_ctc_form_subtitle',  'label' => 'Info Panel Subtitle','name' => 'ctc_form_subtitle','type' => 'textarea','default_value' => 'Fill in the form and our admission counselors will get back to you within 24 hours.', 'rows' => 2),
-            array('key' => 'field_ctc_form_hours',     'label' => 'Office Hours Text', 'name' => 'ctc_form_hours',  'type' => 'text',     'default_value' => 'Mon – Sat &nbsp;|&nbsp; 9:00 AM – 7:00 PM'),
+            array('key' => 'field_ctc_form_hours',          'label' => 'Office Hours Text',        'name' => 'ctc_form_hours',          'type' => 'text', 'default_value' => 'Mon – Sat &nbsp;|&nbsp; 9:00 AM – 7:00 PM'),
+            array('key' => 'field_ctc_form_label_phone',    'label' => '"Call Us" Label',           'name' => 'ctc_form_label_phone',    'type' => 'text', 'default_value' => 'Call Us',        'wrapper' => array('width' => '33')),
+            array('key' => 'field_ctc_form_label_email',    'label' => '"Email Us" Label',          'name' => 'ctc_form_label_email',    'type' => 'text', 'default_value' => 'Email Us',       'wrapper' => array('width' => '33')),
+            array('key' => 'field_ctc_form_label_hours',    'label' => '"Office Hours" Label',      'name' => 'ctc_form_label_hours',    'type' => 'text', 'default_value' => 'Office Hours',   'wrapper' => array('width' => '34')),
 
             /* ── Map ── */
             array('key' => 'field_ctc_tab_map',        'label' => 'Map',       'name' => '',                  'type' => 'tab'),
