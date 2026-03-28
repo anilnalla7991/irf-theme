@@ -17,7 +17,7 @@
     --shadow-lg:  0 8px 40px rgba(238,44,60,0.16);
     --radius:     12px;
     --tr:         all 0.3s ease;
-    --footer-bg:  #ee2c3c;
+    --footer-bg:  #fcf1f5;
     --cta-from:   #c4202f;
     --cta-mid:    #ee2c3c;
 }
@@ -380,8 +380,8 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    HEADER
    ============================================================= */
-.site-header { position: sticky; top: 0; left: 0; right: 0; z-index: 1000; padding: 14px 0; background: var(--white); box-shadow: 0 2px 12px rgba(238,44,60,0.10); transition: var(--tr); }
-.site-header.scrolled { background: var(--white); padding: 10px 0; box-shadow: 0 2px 20px rgba(238,44,60,0.14); }
+.site-header { position: sticky; top: 0; left: 0; right: 0; z-index: 1000; padding: 14px 0; background: var(--light); box-shadow: 0 2px 12px rgba(238,44,60,0.10); transition: var(--tr); }
+.site-header.scrolled { background: var(--light); padding: 10px 0; box-shadow: 0 2px 20px rgba(238,44,60,0.14); }
 .nav-wrapper { display: flex; align-items: center; justify-content: space-between; }
 
 .logo-text { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: var(--white); }
@@ -860,21 +860,21 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    FOOTER
    ============================================================= */
-.site-footer       { background: var(--footer-bg); color: rgba(255,255,255,0.80); padding: 80px 0 0; }
-.footer-grid       { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid rgba(255,255,255,0.15); }
+.site-footer       { background: var(--footer-bg); color: var(--gray); padding: 80px 0 0; }
+.footer-grid       { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 56px; border-bottom: 1px solid var(--border); }
 .footer-brand .logo-text  { font-size: 26px; margin-bottom: 14px; display: block; }
 /* footer logo handled above */
-.footer-desc       { font-size: 14px; line-height: 1.85; margin-bottom: 22px; color: rgba(255,255,255,0.65); }
+.footer-desc       { font-size: 14px; line-height: 1.85; margin-bottom: 22px; color: var(--gray); }
 .social-links      { display: flex; gap: 10px; }
-.social-link       { width: 38px; height: 38px; background: rgba(255,255,255,0.12); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: var(--tr); border: 1px solid rgba(255,255,255,0.20); color: var(--white); }
-.social-link:hover { background: var(--white); color: var(--red); border-color: var(--white); }
-.footer-heading    { font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 22px; }
+.social-link       { width: 38px; height: 38px; background: var(--white); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; transition: var(--tr); border: 1px solid var(--border); color: var(--gray); }
+.social-link:hover { background: var(--red); color: var(--white); border-color: var(--red); }
+.footer-heading    { font-size: 15px; font-weight: 700; color: var(--charcoal); margin-bottom: 22px; }
 .footer-links      { display: flex; flex-direction: column; gap: 11px; }
-.footer-links a    { font-size: 14px; color: rgba(255,255,255,0.65); transition: var(--tr); }
-.footer-links a:hover { color: var(--white); padding-left: 4px; }
-.footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; font-size: 14px; color: rgba(255,255,255,0.65); }
+.footer-links a    { font-size: 14px; color: var(--gray); transition: var(--tr); }
+.footer-links a:hover { color: var(--red); padding-left: 4px; }
+.footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 14px; font-size: 14px; color: var(--gray); }
 .footer-contact-icon { flex-shrink: 0; margin-top: 1px; }
-.footer-bottom     { padding: 22px 0; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: rgba(255,255,255,0.45); }
+.footer-bottom     { padding: 22px 0; display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: var(--gray); }
 
 /* =============================================================
    PAGE BANNER & CONTENT
@@ -1136,7 +1136,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .hamburger { display: flex; }
     .nav-menu {
         position: fixed; top: 0; right: -100%; width: 270px; height: 100vh;
-        background: var(--white); flex-direction: column; align-items: flex-start;
+        background: var(--light); flex-direction: column; align-items: flex-start;
         padding: 72px 28px 28px; gap: 22px; transition: right 0.3s ease;
         box-shadow: -4px 0 24px rgba(238,44,60,0.15);
         border-left: 2px solid var(--border);
