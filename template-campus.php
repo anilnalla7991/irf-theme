@@ -431,8 +431,8 @@ if ( empty( $campuses ) ) {
     <div class="container">
         <div class="section-header" style="margin-bottom:40px">
             <span class="section-tag">Campus Life</span>
-            <h2 class="section-title">Experience Life at IRF</h2>
-            <p class="section-subtitle">Real students. Real environment. Real results. See what a day at IRF looks like.</p>
+            <h2 class="section-title">Experience <span class="cmp-title-accent">Life</span> at IRF</h2>
+            <p class="section-subtitle">Real students. Real routines. Real breakthroughs. Witness the culture that creates government job selections.</p>
         </div>
     </div>
 

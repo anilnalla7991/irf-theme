@@ -278,26 +278,57 @@
 /* =============================================================
    9. CAMPUS LIFE VIDEOS
    ============================================================= */
-.cmp-videos-section {
-    background: #1C1C2E;
-    padding: 80px 0 60px;
-    overflow: hidden;
-}
-.cmp-videos-section .section-header .section-title { color: #fff; }
-.cmp-videos-section .section-header .section-subtitle { color: rgba(255,255,255,.6); }
 
+/* ── Section wrapper — light gradient, depth blobs ── */
+.cmp-videos-section {
+    background: linear-gradient(160deg, #ffffff 0%, #fdf2f5 50%, #ffffff 100%);
+    padding: 80px 0 72px;
+    overflow: hidden;
+    position: relative;
+}
+/* Background depth glow blobs */
+.cmp-videos-section::before {
+    content: '';
+    position: absolute;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, rgba(238,44,60,.07) 0%, transparent 68%);
+    top: -120px; right: -80px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+.cmp-videos-section::after {
+    content: '';
+    position: absolute;
+    width: 340px; height: 340px;
+    background: radial-gradient(circle, rgba(238,44,60,.05) 0%, transparent 68%);
+    bottom: -60px; left: 6%;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* ── Section header text overrides ── */
+.cmp-videos-section .section-header .section-title    { color: #111827; }
+.cmp-videos-section .section-header .section-subtitle { color: #6b7280; }
+
+/* Red highlight on a keyword in the heading */
+.cmp-title-accent { color: #ee2c3c; }
+
+/* ── Viewport — scroll container ── */
 .cmp-video-viewport {
     overflow: hidden;
     width: 100%;
     cursor: grab;
-    margin-top: 20px;
+    margin-top: 16px;
+    position: relative;
+    z-index: 1;
 }
 .cmp-video-viewport:active { cursor: grabbing; }
 
+/* ── Track — auto-scrolling flex row ── */
 .cmp-video-track {
     display: flex;
     gap: 20px;
-    padding: 16px 24px 24px;
+    padding: 20px 24px 32px;
     width: max-content;
     animation: cmpVideoScroll 40s linear infinite;
 }
@@ -308,54 +339,85 @@
     100% { transform: translateX(-50%); }
 }
 
+/* ── Card — white elevated pill ── */
 .cmp-video-card {
-    flex: 0 0 200px;
+    flex: 0 0 190px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0;
     text-decoration: none;
     border-radius: 16px;
-    overflow: hidden;
-    transition: transform .25s ease;
+    overflow: visible;              /* let shadow bleed out */
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0,0,0,.08);
+    border: 1.5px solid rgba(238,44,60,.08);
+    border-top: 3px solid transparent;
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+    position: relative;
 }
-.cmp-video-card:hover { transform: translateY(-6px); }
+.cmp-video-card:hover {
+    transform: scale(1.03) translateY(-5px);
+    box-shadow: 0 16px 40px rgba(238,44,60,.16);
+    border-color: rgba(238,44,60,.30);
+    border-top-color: #ee2c3c;
+}
 
+/* ── Thumbnail ── */
 .cmp-video-thumb {
     position: relative;
     aspect-ratio: 9 / 16;
-    border-radius: 14px;
+    border-radius: 13px 13px 0 0;
     overflow: hidden;
-    background: #2a2a3e;
+    background: #fcf1f5;            /* light pink placeholder */
 }
 .cmp-video-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform .3s ease;
+    transition: transform .35s ease;
 }
-.cmp-video-card:hover .cmp-video-thumb img { transform: scale(1.05); }
+.cmp-video-card:hover .cmp-video-thumb img { transform: scale(1.06); }
 
+/* ── Play button — white circle with red icon ── */
 .cmp-video-play {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0,0,0,.35);
-    color: #fff;
-    transition: background .25s;
+    background: rgba(238,44,60,.06);
+    transition: background .3s ease;
 }
-.cmp-video-play svg { width: 36px; height: 36px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
-.cmp-video-card:hover .cmp-video-play { background: rgba(238,44,60,.6); }
+.cmp-video-play::before {
+    content: '';
+    position: absolute;
+    width: 48px; height: 48px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgba(238,44,60,.25);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+.cmp-video-play svg {
+    position: relative;
+    z-index: 1;
+    width: 20px; height: 20px;
+    color: #ee2c3c;
+    margin-left: 3px;               /* optical centre for play triangle */
+}
+.cmp-video-card:hover .cmp-video-play          { background: rgba(238,44,60,.12); }
+.cmp-video-card:hover .cmp-video-play::before  { transform: scale(1.12); box-shadow: 0 6px 22px rgba(238,44,60,.38); }
 
+/* ── Label ── */
 .cmp-video-label {
     font-size: 12.5px;
     font-weight: 600;
-    color: rgba(255,255,255,.75);
+    color: #374151;
     text-align: center;
-    padding: 0 4px;
+    padding: 10px 12px 12px;
     line-height: 1.4;
+    background: #fff;
+    border-radius: 0 0 13px 13px;
 }
 
 
@@ -671,7 +733,8 @@
     .cmp-fac-grid { grid-template-columns: 1fr; }
 
     /* Videos */
-    .cmp-video-card { flex: 0 0 155px; }
+    .cmp-video-card { flex: 0 0 150px; }
+    .cmp-video-track { gap: 14px; padding: 16px 20px 28px; }
 
     /* Stats */
     .cmp-stats-strip { grid-template-columns: repeat(2, 1fr); }
