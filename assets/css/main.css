@@ -855,7 +855,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    YOUTUBE REELS
    ============================================================= */
-.reels-section { background: var(--white); overflow: hidden; }
+.reels-section { background: #fcf1f5; overflow: hidden; }
 .reels-track-wrapper { overflow: hidden; position: relative; padding: 10px 0; }
 .reels-track-wrapper::before,.reels-track-wrapper::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
 .reels-track-wrapper::before { left: 0; background: linear-gradient(to right, var(--white), transparent); }
