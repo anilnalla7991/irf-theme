@@ -36,6 +36,15 @@
             ) );
             ?>
 
+            <?php
+            $mock_btn_text = irf_opt('header_mock_btn_text', 'Mock Test');
+            $mock_btn_url  = irf_opt('header_mock_btn_url',  '#');
+            if ($mock_btn_text) : ?>
+            <a href="<?php echo esc_url($mock_btn_url); ?>" class="header-mock-btn">
+                <?php echo esc_html($mock_btn_text); ?>
+            </a>
+            <?php endif; ?>
+
             <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
                 <span></span>
                 <span></span>

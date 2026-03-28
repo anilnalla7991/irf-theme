@@ -399,6 +399,21 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 .nav-cta::after { display: none !important; }
 .nav-cta:hover { background: var(--red-dark) !important; transform: translateY(-1px); }
 
+.header-mock-btn {
+    display: inline-flex;
+    align-items: center;
+    background: #ee2c3c;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 10px 22px;
+    border-radius: 8px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+.header-mock-btn:hover { background: #000; color: #fff; transform: translateY(-1px); }
+
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; background: none; border: none; position: relative; z-index: 1100; }
 .hamburger span { display: block; width: 24px; height: 2px; background: #181A17; transition: var(--tr); }
 .hamburger.active span { background: #fff; }
@@ -1163,6 +1178,11 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
         padding-left: 36px;
     }
     .nav-menu a::after { display: none; }
+    .header-mock-btn {
+        font-size: 12px;
+        padding: 8px 14px;
+        border-radius: 6px;
+    }
     .nav-cta {
         margin: 20px 28px 28px !important;
         display: block !important;
