@@ -279,19 +279,19 @@
    9. CAMPUS LIFE VIDEOS
    ============================================================= */
 
-/* ── Section wrapper — light gradient, depth blobs ── */
+/* ── Section wrapper ── */
 .cmp-videos-section {
-    background: linear-gradient(160deg, #ffffff 0%, #fdf2f5 50%, #ffffff 100%);
+    background: #0D1B2A;
     padding: 80px 0 72px;
     overflow: hidden;
     position: relative;
 }
-/* Background depth glow blobs */
+/* Subtle depth glows on dark bg */
 .cmp-videos-section::before {
     content: '';
     position: absolute;
     width: 520px; height: 520px;
-    background: radial-gradient(circle, rgba(238,44,60,.07) 0%, transparent 68%);
+    background: radial-gradient(circle, rgba(238,44,60,.10) 0%, transparent 68%);
     top: -120px; right: -80px;
     border-radius: 50%;
     pointer-events: none;
@@ -300,18 +300,19 @@
     content: '';
     position: absolute;
     width: 340px; height: 340px;
-    background: radial-gradient(circle, rgba(238,44,60,.05) 0%, transparent 68%);
+    background: radial-gradient(circle, rgba(238,44,60,.07) 0%, transparent 68%);
     bottom: -60px; left: 6%;
     border-radius: 50%;
     pointer-events: none;
 }
 
-/* ── Section header text overrides ── */
-.cmp-videos-section .section-header .section-title    { color: #111827; }
-.cmp-videos-section .section-header .section-subtitle { color: #6b7280; }
+/* ── Section header text — light on dark ── */
+.cmp-videos-section .section-header .section-title    { color: #ffffff; }
+.cmp-videos-section .section-header .section-subtitle { color: rgba(255,255,255,.60); }
+.cmp-videos-section .section-header .section-tag      { background: rgba(238,44,60,.85); }
 
-/* Red highlight on a keyword in the heading */
-.cmp-title-accent { color: #ee2c3c; }
+/* Red accent keyword */
+.cmp-title-accent { color: #ff6b7a; }
 
 /* ── Viewport — scroll container ── */
 .cmp-video-viewport {
@@ -408,11 +409,11 @@
 .cmp-video-card:hover .cmp-video-play          { background: rgba(238,44,60,.12); }
 .cmp-video-card:hover .cmp-video-play::before  { transform: scale(1.12); box-shadow: 0 6px 22px rgba(238,44,60,.38); }
 
-/* ── Label ── */
+/* ── Label — white card bottom, dark text ── */
 .cmp-video-label {
     font-size: 12.5px;
     font-weight: 600;
-    color: #374151;
+    color: #111827;
     text-align: center;
     padding: 10px 12px 12px;
     line-height: 1.4;
