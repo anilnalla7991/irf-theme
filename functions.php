@@ -1250,6 +1250,100 @@ function irf_register_acf_fields() {
     ));
 
     /* ----------------------------------------------------------
+       CONTACT US PAGE FIELDS
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_contact',
+        'title'    => 'Contact Us Page',
+        'location' => array(array(array(
+            'param'    => 'page_template',
+            'operator' => '==',
+            'value'    => 'template-contact.php',
+        ))),
+        'menu_order' => 10,
+        'fields' => array(
+
+            /* ── Banner ── */
+            array('key' => 'field_ctc_tab_banner',     'label' => 'Banner',    'name' => '',                  'type' => 'tab'),
+            array('key' => 'field_ctc_banner_tag',     'label' => 'Banner Tag',    'name' => 'ctc_banner_tag',     'type' => 'text',     'default_value' => 'Get In Touch',    'wrapper' => array('width' => '40')),
+            array('key' => 'field_ctc_banner_title',   'label' => 'Banner Title',  'name' => 'ctc_banner_title',   'type' => 'text',     'default_value' => 'Contact Us',       'wrapper' => array('width' => '60')),
+            array('key' => 'field_ctc_banner_subtitle','label' => 'Banner Subtitle','name' => 'ctc_banner_subtitle','type' => 'textarea', 'default_value' => "We're here to help you. Reach out to our nearest branch or send us your query.", 'rows' => 2),
+
+            /* ── Offices ── */
+            array('key' => 'field_ctc_tab_offices',    'label' => 'Offices',   'name' => '',                  'type' => 'tab'),
+            array('key' => 'field_ctc_offices_tag',    'label' => 'Section Tag',    'name' => 'ctc_offices_tag',    'type' => 'text',     'default_value' => 'Important Offices',    'wrapper' => array('width' => '33')),
+            array('key' => 'field_ctc_offices_title',  'label' => 'Section Title',  'name' => 'ctc_offices_title',  'type' => 'text',     'default_value' => 'Our Main Locations',   'wrapper' => array('width' => '33')),
+            array('key' => 'field_ctc_offices_sub',    'label' => 'Section Subtitle','name' => 'ctc_offices_subtitle','type' => 'text',   'default_value' => 'Visit us at our head office or corporate center for admissions, queries, and direct support.', 'wrapper' => array('width' => '34')),
+            array(
+                'key'          => 'field_ctc_offices',
+                'label'        => 'Offices',
+                'name'         => 'ctc_offices',
+                'type'         => 'repeater',
+                'instructions' => 'Add main / key offices. The first office with "Dark Card" enabled will appear as the red gradient card.',
+                'min'          => 1, 'max' => 6,
+                'layout'       => 'block',
+                'button_label' => 'Add Office',
+                'sub_fields'   => array(
+                    array('key' => 'field_ctc_off_badge',   'label' => 'Badge Label',   'name' => 'badge',   'type' => 'text',      'required' => 1, 'placeholder' => 'e.g. Head Office',         'wrapper' => array('width' => '30')),
+                    array('key' => 'field_ctc_off_name',    'label' => 'Office Name',   'name' => 'name',    'type' => 'text',      'required' => 1, 'placeholder' => 'e.g. IRF – IACE Ameerpet', 'wrapper' => array('width' => '40')),
+                    array('key' => 'field_ctc_off_dark',    'label' => 'Dark Card',     'name' => 'dark',    'type' => 'true_false', 'ui' => 1,       'instructions' => 'Enable for red gradient card style.', 'wrapper' => array('width' => '30')),
+                    array('key' => 'field_ctc_off_address', 'label' => 'Address',       'name' => 'address', 'type' => 'textarea',  'required' => 1, 'rows' => 2,                                  'wrapper' => array('width' => '100')),
+                    array('key' => 'field_ctc_off_email',   'label' => 'Email',         'name' => 'email',   'type' => 'email',     'required' => 1,                                                'wrapper' => array('width' => '50')),
+                    array('key' => 'field_ctc_off_phone',   'label' => 'Phone',         'name' => 'phone',   'type' => 'text',      'required' => 1, 'placeholder' => '+91 9533 200 400',          'wrapper' => array('width' => '50')),
+                ),
+            ),
+
+            /* ── Branches ── */
+            array('key' => 'field_ctc_tab_branches',   'label' => 'Branches',  'name' => '',                  'type' => 'tab'),
+            array('key' => 'field_ctc_branches_tag',   'label' => 'Section Tag',    'name' => 'ctc_branches_tag',   'type' => 'text',     'default_value' => 'Our Branches',          'wrapper' => array('width' => '33')),
+            array('key' => 'field_ctc_branches_title', 'label' => 'Section Title',  'name' => 'ctc_branches_title', 'type' => 'text',     'default_value' => 'Find a Branch Near You','wrapper' => array('width' => '67')),
+            array(
+                'key'          => 'field_ctc_branches',
+                'label'        => 'Branches',
+                'name'         => 'ctc_branches',
+                'type'         => 'repeater',
+                'instructions' => 'Add all branch locations. Cards appear in a 3-column grid.',
+                'min'          => 1, 'max' => 30,
+                'layout'       => 'block',
+                'button_label' => 'Add Branch',
+                'sub_fields'   => array(
+                    array('key' => 'field_ctc_br_name',    'label' => 'Branch Name', 'name' => 'name',    'type' => 'text',     'required' => 1, 'placeholder' => 'e.g. Ameerpet',        'wrapper' => array('width' => '30')),
+                    array('key' => 'field_ctc_br_phone',   'label' => 'Phone',       'name' => 'phone',   'type' => 'text',     'required' => 1, 'placeholder' => '+91 9533 200 400',     'wrapper' => array('width' => '35')),
+                    array('key' => 'field_ctc_br_email',   'label' => 'Email',       'name' => 'email',   'type' => 'email',    'required' => 1,                                          'wrapper' => array('width' => '35')),
+                    array('key' => 'field_ctc_br_address', 'label' => 'Address',     'name' => 'address', 'type' => 'textarea', 'required' => 1, 'rows' => 2,                             'wrapper' => array('width' => '100')),
+                ),
+            ),
+
+            /* ── Form / Info Panel ── */
+            array('key' => 'field_ctc_tab_form',       'label' => 'Form',      'name' => '',                  'type' => 'tab'),
+            array('key' => 'field_ctc_form_tag',       'label' => 'Section Tag',    'name' => 'ctc_form_tag',       'type' => 'text',     'default_value' => 'Send a Message',                          'wrapper' => array('width' => '30')),
+            array('key' => 'field_ctc_form_title',     'label' => 'Info Panel Title','name' => 'ctc_form_title',   'type' => 'text',     'default_value' => "Have a Question?\nWe'd Love to Help!",   'wrapper' => array('width' => '70'), 'instructions' => 'Use \\n for line break (rendered as &lt;br&gt;).'),
+            array('key' => 'field_ctc_form_subtitle',  'label' => 'Info Panel Subtitle','name' => 'ctc_form_subtitle','type' => 'textarea','default_value' => 'Fill in the form and our admission counselors will get back to you within 24 hours.', 'rows' => 2),
+            array('key' => 'field_ctc_form_hours',     'label' => 'Office Hours Text', 'name' => 'ctc_form_hours',  'type' => 'text',     'default_value' => 'Mon – Sat &nbsp;|&nbsp; 9:00 AM – 7:00 PM'),
+
+            /* ── Map ── */
+            array('key' => 'field_ctc_tab_map',        'label' => 'Map',       'name' => '',                  'type' => 'tab'),
+            array('key' => 'field_ctc_map_tag',        'label' => 'Section Tag',    'name' => 'ctc_map_tag',        'type' => 'text',     'default_value' => 'Find Us',                                 'wrapper' => array('width' => '25')),
+            array('key' => 'field_ctc_map_title',      'label' => 'Section Title',  'name' => 'ctc_map_title',      'type' => 'text',     'default_value' => 'Visit Our Head Office',                   'wrapper' => array('width' => '75')),
+            array('key' => 'field_ctc_map_subtitle',   'label' => 'Section Subtitle','name' => 'ctc_map_subtitle',  'type' => 'text',     'default_value' => 'Ameerpet, Hyderabad — the heart of competitive exam coaching in Telangana.'),
+            array('key' => 'field_ctc_map_embed',      'label' => 'Google Maps Embed URL', 'name' => 'ctc_map_embed', 'type' => 'textarea', 'rows' => 3,
+                'instructions'  => 'Paste the full iframe src URL from Google Maps → Share → Embed a map → copy only the src="..." value.',
+                'default_value' => 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.742!2d78.4487!3d17.4374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90ce7e764097%3A0x2741ecfb8d3e4e19!2sAmeerpet%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1678000000000!5m2!1sen!2sin',
+            ),
+
+            /* ── Footer CTA ── */
+            array('key' => 'field_ctc_tab_cta',        'label' => 'Footer CTA','name' => '',                  'type' => 'tab'),
+            array('key' => 'field_ctc_cta_title',      'label' => 'CTA Title',      'name' => 'ctc_cta_title',      'type' => 'text',     'default_value' => 'Have Questions? Talk to Our Experts Today!'),
+            array('key' => 'field_ctc_cta_subtitle',   'label' => 'CTA Subtitle',   'name' => 'ctc_cta_subtitle',   'type' => 'text',     'default_value' => 'Our admission counselors are available Mon–Sat, 9 AM to 7 PM to guide you.'),
+            array('key' => 'field_ctc_cta_btn1_text',  'label' => 'Button 1 Text',  'name' => 'ctc_cta_btn1_text',  'type' => 'text',     'default_value' => 'Call Now',     'wrapper' => array('width' => '50')),
+            array('key' => 'field_ctc_cta_btn1_url',   'label' => 'Button 1 URL',   'name' => 'ctc_cta_btn1_url',   'type' => 'text',     'default_value' => '',             'wrapper' => array('width' => '50'), 'instructions' => 'Leave blank to use the global site phone number.'),
+            array('key' => 'field_ctc_cta_btn2_text',  'label' => 'Button 2 Text',  'name' => 'ctc_cta_btn2_text',  'type' => 'text',     'default_value' => 'Enquire Now',  'wrapper' => array('width' => '50')),
+            array('key' => 'field_ctc_cta_btn2_url',   'label' => 'Button 2 URL',   'name' => 'ctc_cta_btn2_url',   'type' => 'text',     'default_value' => '#ctcForm',     'wrapper' => array('width' => '50')),
+
+        ),
+    ));
+
+    /* ----------------------------------------------------------
        ANNOUNCEMENTS CPT FIELDS
     ---------------------------------------------------------- */
     acf_add_local_field_group(array(

@@ -16,8 +16,57 @@ $f_yt = irf_opt('social_youtube',   '');
 $f_ig = irf_opt('social_instagram', '');
 $f_fb = irf_opt('social_facebook',  '');
 
-/* ── Main offices ── */
-$offices = array(
+/* ── ACF helpers (page-level) ── */
+$pid = get_the_ID();
+function _ctc($key, $default = '') {
+    global $pid;
+    if (!function_exists('get_field')) return $default;
+    $v = get_field($key, $pid);
+    return ($v !== null && $v !== false && $v !== '') ? $v : $default;
+}
+function _ctc_rows($key, $default = array()) {
+    global $pid;
+    if (!function_exists('get_field')) return $default;
+    $v = get_field($key, $pid);
+    return (is_array($v) && !empty($v)) ? $v : $default;
+}
+
+/* ── Banner ── */
+$ctc_banner_tag      = _ctc('ctc_banner_tag',      'Get In Touch');
+$ctc_banner_title    = _ctc('ctc_banner_title',    'Contact Us');
+$ctc_banner_subtitle = _ctc('ctc_banner_subtitle', "We're here to help you. Reach out to our nearest branch or send us your query.");
+
+/* ── Offices section header ── */
+$ctc_offices_tag      = _ctc('ctc_offices_tag',      'Important Offices');
+$ctc_offices_title    = _ctc('ctc_offices_title',    'Our Main Locations');
+$ctc_offices_subtitle = _ctc('ctc_offices_subtitle', 'Visit us at our head office or corporate center for admissions, queries, and direct support.');
+
+/* ── Branches section header ── */
+$ctc_branches_tag   = _ctc('ctc_branches_tag',   'Our Branches');
+$ctc_branches_title = _ctc('ctc_branches_title', 'Find a Branch Near You');
+
+/* ── Form info panel ── */
+$ctc_form_tag      = _ctc('ctc_form_tag',      'Send a Message');
+$ctc_form_title    = _ctc('ctc_form_title',    "Have a Question?\nWe'd Love to Help!");
+$ctc_form_subtitle = _ctc('ctc_form_subtitle', 'Fill in the form and our admission counselors will get back to you within 24 hours.');
+$ctc_form_hours    = _ctc('ctc_form_hours',    'Mon – Sat &nbsp;|&nbsp; 9:00 AM – 7:00 PM');
+
+/* ── Map ── */
+$ctc_map_tag      = _ctc('ctc_map_tag',      'Find Us');
+$ctc_map_title    = _ctc('ctc_map_title',    'Visit Our Head Office');
+$ctc_map_subtitle = _ctc('ctc_map_subtitle', 'Ameerpet, Hyderabad — the heart of competitive exam coaching in Telangana.');
+$ctc_map_embed    = _ctc('ctc_map_embed',    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.742!2d78.4487!3d17.4374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90ce7e764097%3A0x2741ecfb8d3e4e19!2sAmeerpet%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1678000000000!5m2!1sen!2sin');
+
+/* ── Footer CTA ── */
+$ctc_cta_title    = _ctc('ctc_cta_title',    'Have Questions? Talk to Our Experts Today!');
+$ctc_cta_subtitle = _ctc('ctc_cta_subtitle', 'Our admission counselors are available Mon–Sat, 9 AM to 7 PM to guide you.');
+$ctc_cta_btn1_text = _ctc('ctc_cta_btn1_text', 'Call Now');
+$ctc_cta_btn1_url  = _ctc('ctc_cta_btn1_url',  '');
+$ctc_cta_btn2_text = _ctc('ctc_cta_btn2_text', 'Enquire Now');
+$ctc_cta_btn2_url  = _ctc('ctc_cta_btn2_url',  '#ctcForm');
+
+/* ── Main offices (ACF repeater → fallback to hardcoded) ── */
+$offices = _ctc_rows('ctc_offices', array(
     array(
         'badge'   => 'Head Office',
         'name'    => 'IRF – IACE Ameerpet',
@@ -34,10 +83,10 @@ $offices = array(
         'phone'   => '+91 9533 300 400',
         'dark'    => false,
     ),
-);
+));
 
-/* ── 9 Branches ── */
-$branches = array(
+/* ── Branches (ACF repeater → fallback to hardcoded) ── */
+$branches = _ctc_rows('ctc_branches', array(
     array(
         'name'    => 'Ameerpet',
         'address' => 'Mythrivanam, Beside Harsha Mess Lane, 3rd Floor, Opp. Raghava Super Speciality Hospital, Hyderabad – 500038',
@@ -92,7 +141,7 @@ $branches = array(
         'email'   => 'queries@iace.co.in',
         'phone'   => '+91 9533 200 400',
     ),
-);
+));
 
 /* ── Inline SVG icons (reused multiple times) ── */
 $ico_pin   = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
@@ -115,9 +164,9 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
     <div class="ctc-banner-circle ctc-circle-2"></div>
     <div class="container">
         <div class="page-banner-content">
-            <span class="section-tag">Get In Touch</span>
-            <h1 class="page-banner-title">Contact Us</h1>
-            <p class="page-banner-subtitle">We're here to help you. Reach out to our nearest branch or send us your query.</p>
+            <span class="section-tag"><?php echo esc_html($ctc_banner_tag); ?></span>
+            <h1 class="page-banner-title"><?php echo esc_html($ctc_banner_title); ?></h1>
+            <p class="page-banner-subtitle"><?php echo esc_html($ctc_banner_subtitle); ?></p>
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
                 <span class="breadcrumb-sep">&#8250;</span>
@@ -134,9 +183,9 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
 <section class="section ctc-offices-section">
     <div class="container">
         <div class="section-header">
-            <span class="section-tag">Important Offices</span>
-            <h2 class="section-title">Our Main Locations</h2>
-            <p class="section-subtitle">Visit us at our head office or corporate center for admissions, queries, and direct support.</p>
+            <span class="section-tag"><?php echo esc_html($ctc_offices_tag); ?></span>
+            <h2 class="section-title"><?php echo esc_html($ctc_offices_title); ?></h2>
+            <p class="section-subtitle"><?php echo esc_html($ctc_offices_subtitle); ?></p>
         </div>
         <div class="ctc-offices-grid">
             <?php foreach ($offices as $off) : ?>
@@ -168,8 +217,8 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
 <section class="section ctc-branches-section">
     <div class="container">
         <div class="section-header reveal">
-            <span class="section-tag">Our Branches</span>
-            <h2 class="section-title">Find a Branch Near You</h2>
+            <span class="section-tag"><?php echo esc_html($ctc_branches_tag); ?></span>
+            <h2 class="section-title"><?php echo esc_html($ctc_branches_title); ?></h2>
             <p class="section-subtitle">With <?php echo count($branches); ?> branches across Telangana &amp; Andhra Pradesh, expert coaching is always close to home.</p>
         </div>
         <div class="ctc-branches-grid">
@@ -224,9 +273,9 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
 
             <!-- Left: Info Panel -->
             <div class="ctc-form-info">
-                <span class="section-tag">Send a Message</span>
-                <h2 class="ctc-form-info-title">Have a Question?<br>We'd Love to Help!</h2>
-                <p class="ctc-form-info-sub">Fill in the form and our admission counselors will get back to you within 24 hours.</p>
+                <span class="section-tag"><?php echo esc_html($ctc_form_tag); ?></span>
+                <h2 class="ctc-form-info-title"><?php echo nl2br(esc_html($ctc_form_title)); ?></h2>
+                <p class="ctc-form-info-sub"><?php echo esc_html($ctc_form_subtitle); ?></p>
 
                 <div class="ctc-form-info-items">
                     <div class="ctc-form-info-item">
@@ -247,7 +296,7 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
                         <div class="ctc-form-info-icon"><?php echo $ico_clock; // phpcs:ignore WordPress.Security.EscapeOutput ?></div>
                         <div>
                             <div class="ctc-form-info-label">Office Hours</div>
-                            <div class="ctc-form-info-value">Mon – Sat &nbsp;|&nbsp; 9:00 AM – 7:00 PM</div>
+                            <div class="ctc-form-info-value"><?php echo wp_kses_post($ctc_form_hours); ?></div>
                         </div>
                     </div>
                 </div>
@@ -356,21 +405,20 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
      ============================================================ -->
 <section class="ctc-map-section">
     <div class="container ctc-map-header">
-        <span class="section-tag">Find Us</span>
-        <h2 class="section-title">Visit Our Head Office</h2>
-        <p class="section-subtitle" style="margin-top:8px;">Ameerpet, Hyderabad — the heart of competitive exam coaching in Telangana.</p>
+        <span class="section-tag"><?php echo esc_html($ctc_map_tag); ?></span>
+        <h2 class="section-title"><?php echo esc_html($ctc_map_title); ?></h2>
+        <p class="section-subtitle" style="margin-top:8px;"><?php echo esc_html($ctc_map_subtitle); ?></p>
     </div>
     <div class="ctc-map-embed">
-        <!-- Replace the src URL with your actual Google Maps Embed URL -->
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3806.742!2d78.4487!3d17.4374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb90ce7e764097%3A0x2741ecfb8d3e4e19!2sAmeerpet%2C%20Hyderabad%2C%20Telangana!5e0!3m2!1sen!2sin!4v1678000000000!5m2!1sen!2sin"
+            src="<?php echo esc_url($ctc_map_embed); ?>"
             width="100%"
             height="440"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
-            title="IRF IACE Head Office – Ameerpet, Hyderabad">
+            title="IRF IACE Head Office">
         </iframe>
     </div>
 </section>
@@ -384,17 +432,20 @@ $ico_send     = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" str
     <div class="container">
         <div class="ctc-footer-cta-inner">
             <div class="ctc-footer-cta-text">
-                <h2 class="ctc-footer-cta-title">Have Questions? Talk to Our Experts Today!</h2>
-                <p class="ctc-footer-cta-sub">Our admission counselors are available Mon–Sat, 9 AM to 7 PM to guide you.</p>
+                <h2 class="ctc-footer-cta-title"><?php echo esc_html($ctc_cta_title); ?></h2>
+                <p class="ctc-footer-cta-sub"><?php echo esc_html($ctc_cta_subtitle); ?></p>
             </div>
             <div class="ctc-footer-cta-btns">
-                <a href="tel:<?php echo esc_attr(preg_replace('/\s+/', '', $site_phone)); ?>" class="btn btn-primary">
+                <?php
+                $btn1_href = $ctc_cta_btn1_url ? $ctc_cta_btn1_url : 'tel:' . preg_replace('/\s+/', '', $site_phone);
+                ?>
+                <a href="<?php echo esc_url($btn1_href); ?>" class="btn btn-primary">
                     <?php echo $ico_phone_lg; // phpcs:ignore WordPress.Security.EscapeOutput ?>
-                    Call Now
+                    <?php echo esc_html($ctc_cta_btn1_text); ?>
                 </a>
-                <a href="#ctcForm" class="btn btn-outline">
+                <a href="<?php echo esc_url($ctc_cta_btn2_url); ?>" class="btn btn-outline">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                    Enquire Now
+                    <?php echo esc_html($ctc_cta_btn2_text); ?>
                 </a>
             </div>
         </div>
