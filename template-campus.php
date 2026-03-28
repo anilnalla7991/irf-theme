@@ -6,45 +6,66 @@
  */
 get_header();
 
-/* ── Campus data — replace values with ACF fields when ready ── */
-$campuses = array(
-    array(
-        'id'          => 'hyderabad',
-        'name'        => 'IRF Hyderabad',
-        'tagline'     => 'Flagship Campus',
-        'location'    => 'Ameerpet, Hyderabad',
-        'image'       => get_template_directory_uri() . '/assets/images/campus-hyderabad.jpg',
-        'description' => 'Our flagship Hyderabad campus at Ameerpet is the heart of IRF–IACE coaching. Equipped with state-of-the-art infrastructure, our expert faculty and proven methodology have helped thousands of students crack SSC, IBPS, RBI, and other competitive exams.',
-        'cta_url'     => '#',
-        'cta_label'   => 'Explore Full Campus',
-        'facilities'  => array(
-            array( 'name' => 'Practice Hall', 'icon' => 'book'      ),
-            array( 'name' => 'CBT Lab',       'icon' => 'monitor'   ),
-            array( 'name' => 'Mentorship',    'icon' => 'users'     ),
-            array( 'name' => 'Mock Tests',    'icon' => 'clipboard' ),
-            array( 'name' => 'Analysis',      'icon' => 'bar-chart' ),
-            array( 'name' => 'Strategy',      'icon' => 'target'    ),
+/* ── Campus data from ACF ── */
+$acf_rows = function_exists('get_field') ? get_field('campuses') : array();
+$campuses = array();
+
+if ( ! empty( $acf_rows ) ) {
+    foreach ( $acf_rows as $row ) {
+        $name  = ! empty( $row['campus_name'] ) ? $row['campus_name'] : '';
+        $image = ! empty( $row['campus_image']['url'] ) ? $row['campus_image']['url'] : '';
+        $alt   = ! empty( $row['campus_image']['alt'] ) ? $row['campus_image']['alt'] : $name;
+
+        /* Build facilities array */
+        $facilities = array();
+        if ( ! empty( $row['campus_facilities'] ) ) {
+            foreach ( $row['campus_facilities'] as $fac ) {
+                $facilities[] = array(
+                    'name' => $fac['facility_name'],
+                    'icon' => $fac['facility_icon'],
+                );
+            }
+        }
+
+        $campuses[] = array(
+            'id'          => sanitize_title( $name ),
+            'name'        => $name,
+            'tagline'     => ! empty( $row['campus_tagline'] )     ? $row['campus_tagline']     : '',
+            'location'    => ! empty( $row['campus_location'] )    ? $row['campus_location']    : '',
+            'image'       => $image,
+            'image_alt'   => $alt,
+            'description' => ! empty( $row['campus_description'] ) ? $row['campus_description'] : '',
+            'cta_url'     => ! empty( $row['campus_cta_url'] )     ? $row['campus_cta_url']     : '#',
+            'cta_label'   => ! empty( $row['campus_cta_label'] )   ? $row['campus_cta_label']   : 'Explore Full Campus',
+            'facilities'  => $facilities,
+        );
+    }
+}
+
+/* Fallback when no ACF data yet — keeps page visible in dev */
+if ( empty( $campuses ) ) {
+    $campuses = array(
+        array(
+            'id'          => 'hyderabad',
+            'name'        => 'IRF Hyderabad',
+            'tagline'     => 'Flagship Campus',
+            'location'    => 'Ameerpet, Hyderabad',
+            'image'       => '',
+            'image_alt'   => 'IRF Hyderabad Campus',
+            'description' => 'Our flagship Hyderabad campus at Ameerpet is the heart of IRF–IACE coaching. Add campus data via the WordPress admin to update this content.',
+            'cta_url'     => '#',
+            'cta_label'   => 'Explore Full Campus',
+            'facilities'  => array(
+                array( 'name' => 'Practice Hall', 'icon' => 'book'      ),
+                array( 'name' => 'CBT Lab',       'icon' => 'monitor'   ),
+                array( 'name' => 'Mentorship',    'icon' => 'users'     ),
+                array( 'name' => 'Mock Tests',    'icon' => 'clipboard' ),
+                array( 'name' => 'Analysis',      'icon' => 'bar-chart' ),
+                array( 'name' => 'Strategy',      'icon' => 'target'    ),
+            ),
         ),
-    ),
-    array(
-        'id'          => 'vizag',
-        'name'        => 'IRF Vizag',
-        'tagline'     => 'Vizag Campus',
-        'location'    => 'Dwaraka Nagar, Visakhapatnam',
-        'image'       => get_template_directory_uri() . '/assets/images/campus-vizag.jpg',
-        'description' => 'IRF Vizag brings the same excellence of our Hyderabad campus to Visakhapatnam. With dedicated faculty, modern CBT labs, and a rigorous preparation environment, we are transforming aspirants into government job holders across Andhra Pradesh.',
-        'cta_url'     => '#',
-        'cta_label'   => 'Explore Full Campus',
-        'facilities'  => array(
-            array( 'name' => 'Practice Hall', 'icon' => 'book'      ),
-            array( 'name' => 'CBT Lab',       'icon' => 'monitor'   ),
-            array( 'name' => 'Mentorship',    'icon' => 'users'     ),
-            array( 'name' => 'Mock Tests',    'icon' => 'clipboard' ),
-            array( 'name' => 'Analysis',      'icon' => 'bar-chart' ),
-            array( 'name' => 'Strategy',      'icon' => 'target'    ),
-        ),
-    ),
-);
+    );
+}
 
 /* ── Inline SVG icon helper ── */
 function cmp_icon( $name ) {
@@ -101,6 +122,7 @@ function cmp_icon( $name ) {
         </div>
 
         <!-- Campus selector cards -->
+        <div class="cmp-selector-track">
         <div class="cmp-selector" role="tablist" aria-label="Campus selector">
             <?php foreach ( $campuses as $i => $campus ) : ?>
             <div class="cmp-selector-card <?php echo 0 === $i ? 'active' : ''; ?>"
@@ -126,7 +148,8 @@ function cmp_icon( $name ) {
 
             </div>
             <?php endforeach; ?>
-        </div>
+        </div><!-- /.cmp-selector -->
+        </div><!-- /.cmp-selector-track -->
 
         <!-- Campus content panels -->
         <?php foreach ( $campuses as $i => $campus ) : ?>
@@ -141,7 +164,7 @@ function cmp_icon( $name ) {
                 <div class="cmp-panel-image-wrap">
                     <img class="cmp-panel-image"
                          src="<?php echo esc_url( $campus['image'] ); ?>"
-                         alt="<?php echo esc_attr( $campus['name'] ); ?> campus"
+                         alt="<?php echo esc_attr( $campus['image_alt'] ); ?>"
                          loading="lazy"
                          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
                     <!-- Fallback placeholder when image not found -->

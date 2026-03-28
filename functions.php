@@ -994,6 +994,154 @@ function irf_register_acf_fields() {
     ));
 
     /* ----------------------------------------------------------
+       CAMPUS SELECTION PAGE FIELDS
+    ---------------------------------------------------------- */
+    acf_add_local_field_group(array(
+        'key'      => 'group_irf_campus',
+        'title'    => 'Campus Settings',
+        'location' => array(array(array(
+            'param'    => 'page_template',
+            'operator' => '==',
+            'value'    => 'template-campus.php',
+        ))),
+        'menu_order'  => 0,
+        'fields' => array(
+
+            /* Repeater — one row per campus */
+            array(
+                'key'          => 'field_cmp_campuses',
+                'label'        => 'Campuses',
+                'name'         => 'campuses',
+                'type'         => 'repeater',
+                'instructions' => 'Add one row per campus. Order rows to control display order.',
+                'required'     => 0,
+                'min'          => 0,
+                'max'          => 0,
+                'layout'       => 'block',
+                'button_label' => 'Add Campus',
+                'sub_fields'   => array(
+
+                    /* ── Identity ── */
+                    array(
+                        'key'           => 'field_cmp_name',
+                        'label'         => 'Campus Name',
+                        'name'          => 'campus_name',
+                        'type'          => 'text',
+                        'required'      => 1,
+                        'placeholder'   => 'e.g. IRF Hyderabad',
+                        'wrapper'       => array( 'width' => '50' ),
+                    ),
+                    array(
+                        'key'           => 'field_cmp_tagline',
+                        'label'         => 'Tagline / Badge',
+                        'name'          => 'campus_tagline',
+                        'type'          => 'text',
+                        'required'      => 0,
+                        'placeholder'   => 'e.g. Flagship Campus',
+                        'wrapper'       => array( 'width' => '50' ),
+                    ),
+                    array(
+                        'key'           => 'field_cmp_location',
+                        'label'         => 'Location',
+                        'name'          => 'campus_location',
+                        'type'          => 'text',
+                        'required'      => 1,
+                        'placeholder'   => 'e.g. Ameerpet, Hyderabad',
+                        'instructions'  => 'Shown below campus name in the selector card.',
+                        'wrapper'       => array( 'width' => '50' ),
+                    ),
+
+                    /* ── Image ── */
+                    array(
+                        'key'           => 'field_cmp_image',
+                        'label'         => 'Campus Photo',
+                        'name'          => 'campus_image',
+                        'type'          => 'image',
+                        'required'      => 0,
+                        'return_format' => 'array',
+                        'preview_size'  => 'medium',
+                        'instructions'  => 'Recommended: 800×600px or wider. Shown on the left panel.',
+                        'wrapper'       => array( 'width' => '50' ),
+                    ),
+
+                    /* ── Description ── */
+                    array(
+                        'key'           => 'field_cmp_description',
+                        'label'         => 'Campus Description',
+                        'name'          => 'campus_description',
+                        'type'          => 'textarea',
+                        'required'      => 1,
+                        'rows'          => 4,
+                        'instructions'  => 'Short paragraph about this campus. Keep it 2–3 sentences.',
+                    ),
+
+                    /* ── CTA ── */
+                    array(
+                        'key'           => 'field_cmp_cta_label',
+                        'label'         => 'Button Label',
+                        'name'          => 'campus_cta_label',
+                        'type'          => 'text',
+                        'default_value' => 'Explore Full Campus',
+                        'wrapper'       => array( 'width' => '40' ),
+                    ),
+                    array(
+                        'key'           => 'field_cmp_cta_url',
+                        'label'         => 'Button URL',
+                        'name'          => 'campus_cta_url',
+                        'type'          => 'url',
+                        'placeholder'   => 'https://',
+                        'wrapper'       => array( 'width' => '60' ),
+                    ),
+
+                    /* ── Facilities repeater (nested) ── */
+                    array(
+                        'key'          => 'field_cmp_facilities',
+                        'label'        => 'Facilities',
+                        'name'         => 'campus_facilities',
+                        'type'         => 'repeater',
+                        'instructions' => 'Add up to 6 facilities displayed as icon cards.',
+                        'min'          => 0,
+                        'max'          => 6,
+                        'layout'       => 'table',
+                        'button_label' => 'Add Facility',
+                        'sub_fields'   => array(
+                            array(
+                                'key'         => 'field_cmp_fac_name',
+                                'label'       => 'Facility Name',
+                                'name'        => 'facility_name',
+                                'type'        => 'text',
+                                'required'    => 1,
+                                'placeholder' => 'e.g. CBT Lab',
+                                'wrapper'     => array( 'width' => '60' ),
+                            ),
+                            array(
+                                'key'           => 'field_cmp_fac_icon',
+                                'label'         => 'Icon',
+                                'name'          => 'facility_icon',
+                                'type'          => 'select',
+                                'required'      => 1,
+                                'choices'       => array(
+                                    'book'      => 'Book (Practice Hall)',
+                                    'monitor'   => 'Monitor (CBT Lab)',
+                                    'users'     => 'Users (Mentorship)',
+                                    'clipboard' => 'Clipboard (Mock Tests)',
+                                    'bar-chart' => 'Bar Chart (Analysis)',
+                                    'target'    => 'Target (Strategy)',
+                                ),
+                                'default_value' => 'book',
+                                'ui'            => 1,
+                                'wrapper'       => array( 'width' => '40' ),
+                            ),
+                        ),
+                    ),
+
+                ), /* end sub_fields */
+            ), /* end campuses repeater */
+
+        ),
+    ));
+
+    /* ----------------------------------------------------------
        ANNOUNCEMENTS CPT FIELDS
     ---------------------------------------------------------- */
     acf_add_local_field_group(array(
