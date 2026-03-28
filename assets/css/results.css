@@ -40,8 +40,8 @@
 .rbslide-bg { position: absolute; inset: 0; }
 
 .rbslide-theme-dark-red    .rbslide-bg { background: linear-gradient(135deg,#050d14 0%,#1a0505 48%,#6b0000 100%); }
-.rbslide-theme-dark-purple .rbslide-bg { background: linear-gradient(135deg,#050814 0%,#0f0520 48%,#2a0960 100%); }
-.rbslide-theme-dark-teal   .rbslide-bg { background: linear-gradient(135deg,#030d10 0%,#041a20 48%,#073a4a 100%); }
+.rbslide-theme-dark-purple .rbslide-bg { background: linear-gradient(135deg,#0a0508 0%,#1a0508 48%,#5c0018 100%); }
+.rbslide-theme-dark-teal   .rbslide-bg { background: linear-gradient(135deg,#080508 0%,#180510 48%,#4a0018 100%); }
 
 /* Ken Burns subtle zoom on active slide */
 .banner-slide.active .rbslide-bg { animation: kenBurns 7s ease-out forwards; }
@@ -60,15 +60,15 @@
 .rbslide-theme-dark-red  .rbo3 { background: radial-gradient(circle,rgba(255,80,80,0.10) 0%,transparent 65%); }
 .rbslide-theme-dark-red  .rbo4 { background: radial-gradient(circle,rgba(180,0,0,0.20)   0%,transparent 65%); }
 
-.rbslide-theme-dark-purple .rbo1 { background: radial-gradient(circle,rgba(140,60,255,0.30)  0%,transparent 65%); }
-.rbslide-theme-dark-purple .rbo2 { background: radial-gradient(circle,rgba(100,20,200,0.18)  0%,transparent 65%); }
-.rbslide-theme-dark-purple .rbo3 { background: radial-gradient(circle,rgba(200,100,255,0.12) 0%,transparent 65%); }
-.rbslide-theme-dark-purple .rbo4 { background: radial-gradient(circle,rgba(60,0,160,0.22)    0%,transparent 65%); }
+.rbslide-theme-dark-purple .rbo1 { background: radial-gradient(circle,rgba(238,44,60,0.28)  0%,transparent 65%); }
+.rbslide-theme-dark-purple .rbo2 { background: radial-gradient(circle,rgba(196,32,47,0.18)  0%,transparent 65%); }
+.rbslide-theme-dark-purple .rbo3 { background: radial-gradient(circle,rgba(238,80,100,0.12) 0%,transparent 65%); }
+.rbslide-theme-dark-purple .rbo4 { background: radial-gradient(circle,rgba(160,20,30,0.22)   0%,transparent 65%); }
 
-.rbslide-theme-dark-teal .rbo1 { background: radial-gradient(circle,rgba(0,210,220,0.26) 0%,transparent 65%); }
-.rbslide-theme-dark-teal .rbo2 { background: radial-gradient(circle,rgba(0,160,180,0.16) 0%,transparent 65%); }
-.rbslide-theme-dark-teal .rbo3 { background: radial-gradient(circle,rgba(0,240,200,0.12) 0%,transparent 65%); }
-.rbslide-theme-dark-teal .rbo4 { background: radial-gradient(circle,rgba(0,80,120,0.22)  0%,transparent 65%); }
+.rbslide-theme-dark-teal .rbo1 { background: radial-gradient(circle,rgba(238,44,60,0.26) 0%,transparent 65%); }
+.rbslide-theme-dark-teal .rbo2 { background: radial-gradient(circle,rgba(196,32,47,0.16) 0%,transparent 65%); }
+.rbslide-theme-dark-teal .rbo3 { background: radial-gradient(circle,rgba(238,80,100,0.12) 0%,transparent 65%); }
+.rbslide-theme-dark-teal .rbo4 { background: radial-gradient(circle,rgba(140,20,30,0.22)  0%,transparent 65%); }
 
 @keyframes rbOrbFloat {
     0%, 100% { transform: translateY(0)    scale(1);    }
@@ -175,23 +175,23 @@
    2. STATS STRIP
    ============================================================= */
 .results-stats-strip {
-    background: #0A2463;
+    background: #ee2c3c;
     padding: 48px 0;
     position: relative;
     overflow: hidden;
 }
-/* Gold top border */
+/* White top border */
 .results-stats-strip::before {
     content: '';
     position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg,#F59E0B,#FBBF24,#F59E0B);
+    background: rgba(255,255,255,0.25);
 }
 /* Subtle radial tint */
 .results-stats-strip::after {
     content: '';
     position: absolute; inset: 0; pointer-events: none;
-    background: radial-gradient(ellipse at 20% 50%,rgba(245,158,11,0.08) 0%,transparent 60%),
-                radial-gradient(ellipse at 80% 50%,rgba(59,130,246,0.08) 0%,transparent 60%);
+    background: radial-gradient(ellipse at 20% 50%,rgba(255,255,255,0.08) 0%,transparent 60%),
+                radial-gradient(ellipse at 80% 50%,rgba(255,255,255,0.05) 0%,transparent 60%);
 }
 .results-stats-grid {
     display: grid;
@@ -206,18 +206,18 @@
 .rss-item:last-child { border-right: none; }
 .rss-icon    { font-size: 28px; line-height: 1; }
 .rss-num-wrap{ line-height: 1; }
-.rss-num     { font-size: clamp(28px,3.5vw,42px); font-weight: 800; font-family: 'Poppins',sans-serif; color: #F59E0B; display: inline; }
+.rss-num     { font-size: clamp(28px,3.5vw,42px); font-weight: 800; font-family: 'Poppins',sans-serif; color: #fff; display: inline; }
 .rss-lbl     { font-size: 12px; color: rgba(255,255,255,0.60); font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
 
 
 /* =============================================================
    3. SECTION BACKGROUNDS & HEADINGS
    ============================================================= */
-.results-yearwise-section { background: #F4F7FF; }
+.results-yearwise-section { background: #fcf1f5; }
 .results-examwise-section { background: #fff; }
 
 .results-yearwise-section .section-tag,
-.results-examwise-section .section-tag { background: #1E3A8A; color: #fff; }
+.results-examwise-section .section-tag { background: #ee2c3c; color: #fff; }
 
 .results-yearwise-section .section-title,
 .results-examwise-section .section-title { color: #0F172A; }
@@ -241,8 +241,8 @@
     cursor: pointer; transition: all 0.2s ease;
     margin-bottom: -2px;  /* align with border-bottom of parent */
 }
-.yr-tab:hover              { color: #1E3A8A; }
-.yr-tab.active             { color: #1E3A8A; border-bottom-color: #1E3A8A; }
+.yr-tab:hover              { color: #ee2c3c; }
+.yr-tab.active             { color: #ee2c3c; border-bottom-color: #ee2c3c; }
 
 
 /* =============================================================
@@ -258,8 +258,8 @@
     font-size: 13px; font-weight: 600; font-family: 'Poppins',sans-serif;
     cursor: pointer; transition: all 0.2s ease;
 }
-.exam-chip:hover  { border-color: #1E3A8A; color: #1E3A8A; background: #EEF4FF; }
-.exam-chip.active { background: #1E3A8A; border-color: #1E3A8A; color: #fff; box-shadow: 0 4px 14px rgba(30,58,138,0.30); }
+.exam-chip:hover  { border-color: #ee2c3c; color: #ee2c3c; background: #fcf1f5; }
+.exam-chip.active { background: #ee2c3c; border-color: #ee2c3c; color: #fff; box-shadow: 0 4px 14px rgba(238,44,60,0.28); }
 
 
 /* =============================================================
@@ -337,11 +337,11 @@
 .btn-show-more {
     display: inline-flex; align-items: center; gap: 8px;
     padding: 13px 36px; border-radius: 50px;
-    border: 2px solid #1E3A8A; background: transparent; color: #1E3A8A;
+    border: 2px solid #ee2c3c; background: transparent; color: #ee2c3c;
     font-size: 14px; font-weight: 600; font-family: 'Poppins',sans-serif;
     cursor: pointer; transition: all 0.22s ease;
 }
-.btn-show-more:hover { background: #1E3A8A; color: #fff; box-shadow: 0 6px 20px rgba(30,58,138,0.28); }
+.btn-show-more:hover { background: #ee2c3c; color: #fff; box-shadow: 0 6px 20px rgba(238,44,60,0.28); }
 .btn-show-more.hidden { display: none; }
 
 

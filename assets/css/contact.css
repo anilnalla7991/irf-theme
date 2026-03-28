@@ -80,7 +80,7 @@
 
 /* Dark variant — Head Office */
 .ctc-office-card--dark {
-    background: linear-gradient(145deg, #1e3a8a 0%, #1d4ed8 100%);
+    background: linear-gradient(145deg, #c4202f 0%, #ee2c3c 100%);
     border-color: transparent;
 }
 .ctc-office-card--dark .ctc-office-name    { color: var(--white); }
@@ -259,7 +259,7 @@
 
 /* ── Info Panel (left) ── */
 .ctc-form-info {
-    background: linear-gradient(150deg, #1e3a8a 0%, #1d4ed8 100%);
+    background: linear-gradient(150deg, #c4202f 0%, #ee2c3c 100%);
     border-radius: var(--radius);
     padding: 44px 38px;
     position: sticky;
@@ -411,7 +411,7 @@ a.ctc-form-info-value:hover { color: var(--red); }
 .ctc-select:focus,
 .ctc-textarea:focus {
     border-color: var(--red);
-    box-shadow: 0 0 0 3px rgba(254,0,0,0.07);
+    box-shadow: 0 0 0 3px rgba(238,44,60,0.08);
 }
 .ctc-input-err {
     border-color: #e53935 !important;
@@ -491,7 +491,7 @@ a.ctc-form-info-value:hover { color: var(--red); }
    ============================================================= */
 
 .ctc-map-section {
-    background: var(--light);
+    background: #fcf1f5;
     padding: 70px 0 0;
 }
 .ctc-map-header {
@@ -605,7 +605,7 @@ a.ctc-form-info-value:hover { color: var(--red); }
 }
 .ctc-sticky-btn:hover    { opacity: 0.88; }
 .ctc-sticky-call         { background: var(--red); }
-.ctc-sticky-whatsapp     { background: #25D366; }
+.ctc-sticky-whatsapp     { background: var(--red-dark); }
 
 
 /* =============================================================
