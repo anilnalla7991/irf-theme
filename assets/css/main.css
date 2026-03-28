@@ -1158,6 +1158,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 
 @media (max-width: 768px) {
     .section { padding: 60px 0; }
+    .nav-wrapper { justify-content: space-between; }
     .hamburger { display: flex; }
     .nav-menu {
         position: fixed; top: 0; right: -100%; width: 270px; height: 100vh;
