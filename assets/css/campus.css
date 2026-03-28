@@ -70,24 +70,6 @@
     /* fade hints on left / right edges */
     --gutter: max(24px, calc((100vw - 1200px) / 2 + 24px));
 }
-.cmp-selector-track::before,
-.cmp-selector-track::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 16px; /* above scrollbar */
-    width: 60px;
-    pointer-events: none;
-    z-index: 2;
-}
-.cmp-selector-track::before {
-    left: 0;
-    background: linear-gradient(to right, #fcf1f5 30%, transparent 100%);
-}
-.cmp-selector-track::after {
-    right: 0;
-    background: linear-gradient(to left, #fcf1f5 30%, transparent 100%);
-}
 
 .cmp-selector {
     display: flex;
