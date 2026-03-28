@@ -1,19 +1,13 @@
 /*
  * Campus Selection Page — Stylesheet
- * =====================================
- * Loaded ONLY on template-campus.php
- * Depends on: main.css (CSS variables, .container, .section, .btn, etc.)
- *
- * Brand palette:
- *   #fcf1f5  — light pink (section bg, inactive cards, placeholders)
- *   #ee2c3c  — brand red  (active state, icons, accents, CTA)
+ * Depends on: main.css (CSS variables, .container, .section, .btn)
+ * Brand: #fcf1f5 light-pink | #ee2c3c brand-red | #1C1C2E charcoal
  */
 
 
 /* =============================================================
    1. BANNER
    ============================================================= */
-
 .cmp-banner {
     min-height: 300px;
     padding: 150px 0 80px;
@@ -26,186 +20,81 @@
     max-width: 540px;
     line-height: 1.65;
 }
-.cmp-banner-circle {
-    position: absolute;
-    border-radius: 50%;
-    pointer-events: none;
-}
-.cmp-circle-1 {
-    width: 480px; height: 480px;
-    background: #ee2c3c;
-    opacity: 0.06;
-    top: -200px; right: -40px;
-}
-.cmp-circle-2 {
-    width: 260px; height: 260px;
-    background: #fcf1f5;
-    opacity: 0.06;
-    bottom: -100px; left: 10%;
-}
+.cmp-banner-circle { position: absolute; border-radius: 50%; pointer-events: none; }
+.cmp-circle-1 { width: 480px; height: 480px; background: #ee2c3c; opacity: .06; top: -200px; right: -40px; }
+.cmp-circle-2 { width: 260px; height: 260px; background: #fcf1f5;  opacity: .06; bottom: -100px; left: 10%; }
 
 
 /* =============================================================
-   2. SECTION WRAPPER
+   2. CAMPUS SELECTOR SECTION BG
    ============================================================= */
-
-.cmp-section {
-    background: #fcf1f5;
-}
+.cmp-section { background: #fcf1f5; }
 
 
 /* =============================================================
-   3. CAMPUS SELECTOR CARDS
+   3. SELECTOR STRIP
    ============================================================= */
-
-/*
- * Track sits OUTSIDE .container — full viewport width.
- * Padding mirrors the container gutter so cards align with
- * content above/below. On large screens we offset to match
- * the centred container.
- */
 .cmp-selector-track {
     position: relative;
     margin-bottom: 48px;
-    /* fade hints on left / right edges */
     --gutter: max(24px, calc((100vw - 1200px) / 2 + 24px));
 }
-
 .cmp-selector {
     display: flex;
-    flex-wrap: nowrap;           /* never wrap — scroll instead */
+    flex-wrap: nowrap;
     gap: 14px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    /* indent to match container gutter */
     padding: 8px var(--gutter) 16px;
-    /* thin branded scrollbar */
     scrollbar-width: thin;
-    scrollbar-color: rgba(238,44,60,0.3) transparent;
+    scrollbar-color: rgba(238,44,60,.3) transparent;
 }
 .cmp-selector::-webkit-scrollbar        { height: 4px; }
 .cmp-selector::-webkit-scrollbar-track  { background: transparent; }
-.cmp-selector::-webkit-scrollbar-thumb  { background: rgba(238,44,60,0.3); border-radius: 4px; }
+.cmp-selector::-webkit-scrollbar-thumb  { background: rgba(238,44,60,.3); border-radius: 4px; }
 
-/* ── Selector card ── */
 .cmp-selector-card {
     display: flex;
     align-items: center;
     gap: 14px;
     padding: 14px 20px;
     background: #fff;
-    border: 2px solid rgba(238,44,60,0.15);
+    border: 2px solid rgba(238,44,60,.15);
     border-radius: 14px;
     cursor: pointer;
-    /* fixed size — never shrink, never grow */
     flex: 0 0 270px;
     scroll-snap-align: start;
     position: relative;
-    transition: transform 0.2s ease, box-shadow 0.2s ease,
-                background 0.25s ease, border-color 0.25s ease;
-    box-shadow: 0 2px 12px rgba(238,44,60,0.07);
+    transition: transform .2s ease, box-shadow .2s ease, background .25s ease, border-color .25s ease;
+    box-shadow: 0 2px 12px rgba(238,44,60,.07);
     outline: none;
     user-select: none;
 }
-.cmp-selector-card:focus-visible {
-    outline: 2px solid #ee2c3c;
-    outline-offset: 3px;
-}
-.cmp-selector-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 24px rgba(238,44,60,0.14);
-    border-color: rgba(238,44,60,0.35);
-}
-.cmp-selector-card.active {
-    background: #ee2c3c;
-    border-color: #ee2c3c;
-    box-shadow: 0 8px 28px rgba(238,44,60,0.3);
-    transform: translateY(-3px);
-}
+.cmp-selector-card:focus-visible { outline: 2px solid #ee2c3c; outline-offset: 3px; }
+.cmp-selector-card:hover          { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(238,44,60,.14); border-color: rgba(238,44,60,.35); }
+.cmp-selector-card.active         { background: #ee2c3c; border-color: #ee2c3c; box-shadow: 0 8px 28px rgba(238,44,60,.3); transform: translateY(-3px); }
 
-/* Icon circle */
-.cmp-selector-icon {
-    width: 44px; height: 44px;
-    border-radius: 10px;
-    background: #fcf1f5;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    color: #ee2c3c;
-    transition: background 0.25s ease, color 0.25s ease;
-}
-.cmp-selector-card.active .cmp-selector-icon {
-    background: rgba(255,255,255,0.2);
-    color: #fff;
-}
+.cmp-selector-icon { width: 44px; height: 44px; border-radius: 10px; background: #fcf1f5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #ee2c3c; transition: background .25s, color .25s; }
+.cmp-selector-card.active .cmp-selector-icon { background: rgba(255,255,255,.2); color: #fff; }
 
-/* Text meta */
-.cmp-selector-meta {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    flex: 1;
-}
-.cmp-selector-name {
-    font-size: 15px;
-    font-weight: 700;
-    color: #111827;
-    transition: color 0.25s ease;
-    line-height: 1.2;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-.cmp-selector-loc {
-    font-size: 12px;
-    color: #6b7280;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: color 0.25s ease;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+.cmp-selector-meta { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+.cmp-selector-name { font-size: 15px; font-weight: 700; color: #111827; transition: color .25s; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmp-selector-loc  { font-size: 12px; color: #6b7280; display: flex; align-items: center; gap: 4px; transition: color .25s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cmp-selector-card.active .cmp-selector-name,
-.cmp-selector-card.active .cmp-selector-loc { color: rgba(255,255,255,0.92); }
-.cmp-selector-card.active .cmp-selector-loc svg { color: rgba(255,255,255,0.7); }
+.cmp-selector-card.active .cmp-selector-loc  { color: rgba(255,255,255,.92); }
+.cmp-selector-card.active .cmp-selector-loc svg { color: rgba(255,255,255,.7); }
 
-/* Check badge */
-.cmp-selector-check {
-    width: 26px; height: 26px;
-    border-radius: 50%;
-    background: rgba(238,44,60,0.1);
-    color: #ee2c3c;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    opacity: 0;
-    transform: scale(0.6);
-    transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease, color 0.25s ease;
-}
-.cmp-selector-card.active .cmp-selector-check {
-    opacity: 1;
-    transform: scale(1);
-    background: rgba(255,255,255,0.25);
-    color: #fff;
-}
+.cmp-selector-check { width: 26px; height: 26px; border-radius: 50%; background: rgba(238,44,60,.1); color: #ee2c3c; display: flex; align-items: center; justify-content: center; flex-shrink: 0; opacity: 0; transform: scale(.6); transition: opacity .25s, transform .25s, background .25s, color .25s; }
+.cmp-selector-card.active .cmp-selector-check { opacity: 1; transform: scale(1); background: rgba(255,255,255,.25); color: #fff; }
 
 
 /* =============================================================
-   4. CAMPUS CONTENT PANEL
+   4. CAMPUS OVERVIEW PANEL
    ============================================================= */
-
-.cmp-panel {
-    display: none;
-}
-.cmp-panel.active {
-    display: block;
-    animation: cmpFadeUp 0.38s ease;
-}
-@keyframes cmpFadeUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
+.cmp-panel { display: none; }
+.cmp-panel.active { display: block; animation: cmpFadeUp .38s ease; }
+@keyframes cmpFadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
 
 .cmp-panel-inner {
     display: grid;
@@ -215,183 +104,584 @@
     background: #fff;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 4px 32px rgba(238,44,60,0.09);
+    box-shadow: 0 4px 32px rgba(238,44,60,.09);
+}
+.cmp-panel-image-wrap { position: relative; height: 100%; min-height: 460px; overflow: hidden; }
+.cmp-panel-image      { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.cmp-panel-image-placeholder { width:100%; height:100%; min-height:460px; background:linear-gradient(145deg,#ee2c3c 0%,#c01828 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; color:rgba(255,255,255,.85); font-size:18px; font-weight:600; }
+.cmp-panel-image-placeholder svg { width:64px; height:64px; opacity:.6; }
+
+.cmp-panel-badge { position:absolute; top:20px; left:20px; background:#ee2c3c; color:#fff; font-size:11px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; padding:5px 14px; border-radius:50px; }
+
+.cmp-panel-info { padding: 44px 40px 44px 0; }
+.cmp-panel-title { font-size: clamp(22px, 2.5vw, 30px); color: #111827; margin-bottom: 14px; line-height: 1.2; }
+.cmp-panel-desc  { font-size: 14.5px; color: #4b5563; line-height: 1.75; margin-bottom: 28px; }
+
+.cmp-facilities-heading { display:flex; align-items:center; gap:12px; font-size:13px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:#ee2c3c; margin-bottom:18px; }
+.cmp-facilities-line    { flex:none; width:28px; height:2px; background:#ee2c3c; border-radius:2px; }
+
+.cmp-facilities-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:32px; }
+.cmp-facility-card   { background:#fcf1f5; border:1px solid rgba(238,44,60,.1); border-radius:10px; padding:14px 12px; display:flex; flex-direction:column; align-items:center; gap:8px; text-align:center; transition:transform .2s, box-shadow .2s, background .2s; }
+.cmp-facility-card:hover { transform:translateY(-3px); box-shadow:0 6px 18px rgba(238,44,60,.12); background:#fff; }
+.cmp-facility-icon { width:44px; height:44px; background:#fff; border-radius:10px; display:flex; align-items:center; justify-content:center; color:#ee2c3c; box-shadow:0 2px 8px rgba(238,44,60,.1); }
+.cmp-facility-name { font-size:12px; font-weight:600; color:#374151; line-height:1.3; }
+
+.cmp-cta { display:inline-flex; align-items:center; gap:10px; padding:14px 30px; font-size:15px; border-radius:8px; }
+
+
+/* =============================================================
+   5. DATA SECTION TOGGLE (all campus-specific sections)
+   ============================================================= */
+.cmp-data-section          { display: none; }
+.cmp-data-section.active   { display: block; animation: cmpFadeUp .38s ease; }
+
+
+/* =============================================================
+   6. WHY CHOOSE IRF
+   ============================================================= */
+.cmp-why-section { background: #fff; }
+
+.cmp-why-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
 }
 
-
-/* ── Image side ── */
-.cmp-panel-image-wrap {
+.cmp-why-card {
+    background: #fff;
+    border: 1.5px solid rgba(238,44,60,.1);
+    border-radius: 20px;
+    padding: 36px 28px;
     position: relative;
-    height: 100%;
-    min-height: 460px;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.cmp-why-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #ee2c3c, #ff6b7a);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform .35s ease;
+}
+.cmp-why-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(238,44,60,.12); border-color: rgba(238,44,60,.25); }
+.cmp-why-card:hover::before { transform: scaleX(1); }
+
+.cmp-why-icon-wrap { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 20px; }
+.cmp-why-icon      { width: 60px; height: 60px; background: #fcf1f5; border-radius: 16px; display: flex; align-items: center; justify-content: center; color: #ee2c3c; }
+.cmp-why-number    { font-size: 48px; font-weight: 800; color: rgba(238,44,60,.08); font-family: 'Poppins', sans-serif; line-height: 1; }
+.cmp-why-title     { font-size: 18px; font-weight: 700; color: #111827; margin-bottom: 12px; line-height: 1.3; }
+.cmp-why-desc      { font-size: 14px; color: #6b7280; line-height: 1.75; }
+
+
+/* =============================================================
+   7. FACILITIES DETAIL
+   ============================================================= */
+.cmp-fac-section { background: #fcf1f5; }
+
+.cmp-fac-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.cmp-fac-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 32px 24px 28px;
+    text-align: center;
+    transition: transform .25s, box-shadow .25s;
+    box-shadow: 0 2px 16px rgba(238,44,60,.05);
+}
+.cmp-fac-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(238,44,60,.13); }
+
+.cmp-fac-icon-wrap { margin: 0 auto 20px; width: 72px; height: 72px; background: #fcf1f5; border-radius: 20px; display: flex; align-items: center; justify-content: center; }
+.cmp-fac-icon      { color: #ee2c3c; }
+.cmp-fac-name      { font-size: 16px; font-weight: 700; color: #111827; margin-bottom: 10px; }
+.cmp-fac-desc      { font-size: 13.5px; color: #6b7280; line-height: 1.7; }
+
+
+/* =============================================================
+   8. DAILY ROUTINE TIMELINE
+   ============================================================= */
+.cmp-routine-section { background: #fff; }
+
+.cmp-timeline {
+    position: relative;
+    max-width: 860px;
+    margin: 0 auto;
+}
+.cmp-timeline-line {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 50%;
+    width: 2px;
+    background: linear-gradient(to bottom, #ee2c3c, rgba(238,44,60,.1));
+    transform: translateX(-50%);
+    z-index: 0;
+}
+.cmp-timeline-item {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 36px;
+    z-index: 1;
+}
+.cmp-tl-left  { flex-direction: row; padding-right: calc(50% + 32px); }
+.cmp-tl-right { flex-direction: row-reverse; padding-left: calc(50% + 32px); }
+
+.cmp-timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 18px;
+    transform: translateX(-50%);
+    width: 18px; height: 18px;
+    background: #fff;
+    border: 3px solid #ee2c3c;
+    border-radius: 50%;
+    z-index: 2;
+    display: flex; align-items: center; justify-content: center;
+}
+.cmp-timeline-dot-inner { width: 6px; height: 6px; background: #ee2c3c; border-radius: 50%; }
+
+.cmp-timeline-card {
+    background: #fff;
+    border: 1.5px solid rgba(238,44,60,.12);
+    border-radius: 16px;
+    padding: 20px 24px;
+    flex: 1;
+    box-shadow: 0 2px 14px rgba(238,44,60,.07);
+    transition: transform .2s, box-shadow .2s;
+}
+.cmp-timeline-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(238,44,60,.13); }
+
+.cmp-timeline-time {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fcf1f5;
+    color: #ee2c3c;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 50px;
+    margin-bottom: 10px;
+}
+.cmp-timeline-time svg { width: 13px; height: 13px; }
+.cmp-timeline-title { font-size: 15px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.cmp-timeline-desc  { font-size: 13px; color: #6b7280; line-height: 1.65; }
+
+
+/* =============================================================
+   9. CAMPUS LIFE VIDEOS
+   ============================================================= */
+.cmp-videos-section {
+    background: #1C1C2E;
+    padding: 80px 0 60px;
     overflow: hidden;
 }
-.cmp-panel-image {
+.cmp-videos-section .section-header .section-title { color: #fff; }
+.cmp-videos-section .section-header .section-subtitle { color: rgba(255,255,255,.6); }
+
+.cmp-video-viewport {
+    overflow: hidden;
+    width: 100%;
+    cursor: grab;
+    margin-top: 20px;
+}
+.cmp-video-viewport:active { cursor: grabbing; }
+
+.cmp-video-track {
+    display: flex;
+    gap: 20px;
+    padding: 16px 24px 24px;
+    width: max-content;
+    animation: cmpVideoScroll 40s linear infinite;
+}
+.cmp-video-viewport:hover .cmp-video-track { animation-play-state: paused; }
+
+@keyframes cmpVideoScroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.cmp-video-card {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-decoration: none;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform .25s ease;
+}
+.cmp-video-card:hover { transform: translateY(-6px); }
+
+.cmp-video-thumb {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #2a2a3e;
+}
+.cmp-video-thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform .3s ease;
 }
+.cmp-video-card:hover .cmp-video-thumb img { transform: scale(1.05); }
 
-/* Placeholder shown when image file not found */
-.cmp-panel-image-placeholder {
-    width: 100%;
-    height: 100%;
-    min-height: 460px;
-    background: linear-gradient(145deg, #ee2c3c 0%, #c01828 100%);
+.cmp-video-play {
+    position: absolute;
+    inset: 0;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 16px;
-    color: rgba(255,255,255,0.85);
-    font-size: 18px;
-    font-weight: 600;
-}
-.cmp-panel-image-placeholder svg {
-    width: 64px; height: 64px;
-    opacity: 0.6;
-}
-
-.cmp-panel-badge {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: #ee2c3c;
+    background: rgba(0,0,0,.35);
     color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    padding: 5px 14px;
-    border-radius: 50px;
+    transition: background .25s;
 }
+.cmp-video-play svg { width: 36px; height: 36px; filter: drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
+.cmp-video-card:hover .cmp-video-play { background: rgba(238,44,60,.6); }
 
-
-/* ── Info side ── */
-.cmp-panel-info {
-    padding: 44px 40px 44px 0;
-}
-
-.cmp-panel-title {
-    font-size: clamp(22px, 2.5vw, 30px);
-    color: #111827;
-    margin-bottom: 14px;
-    line-height: 1.2;
-}
-
-.cmp-panel-desc {
-    font-size: 14.5px;
-    color: #4b5563;
-    line-height: 1.75;
-    margin-bottom: 28px;
-}
-
-
-/* ── Facilities heading ── */
-.cmp-facilities-heading {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #ee2c3c;
-    margin-bottom: 18px;
-}
-.cmp-facilities-line {
-    flex: none;
-    width: 28px;
-    height: 2px;
-    background: #ee2c3c;
-    border-radius: 2px;
-}
-
-
-/* ── Facilities grid ── */
-.cmp-facilities-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 32px;
-}
-
-.cmp-facility-card {
-    background: #fcf1f5;
-    border: 1px solid rgba(238,44,60,0.1);
-    border-radius: 10px;
-    padding: 14px 12px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    text-align: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-}
-.cmp-facility-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 18px rgba(238,44,60,0.12);
-    background: #fff;
-}
-
-.cmp-facility-icon {
-    width: 44px; height: 44px;
-    background: #fff;
-    border-radius: 10px;
-    display: flex; align-items: center; justify-content: center;
-    color: #ee2c3c;
-    box-shadow: 0 2px 8px rgba(238,44,60,0.1);
-}
-
-.cmp-facility-name {
-    font-size: 12px;
+.cmp-video-label {
+    font-size: 12.5px;
     font-weight: 600;
-    color: #374151;
-    line-height: 1.3;
-}
-
-
-/* ── CTA button ── */
-.cmp-cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 14px 30px;
-    font-size: 15px;
-    border-radius: 8px;
+    color: rgba(255,255,255,.75);
+    text-align: center;
+    padding: 0 4px;
+    line-height: 1.4;
 }
 
 
 /* =============================================================
-   5. RESPONSIVE
+   10. RESULTS & ACHIEVEMENTS
    ============================================================= */
+.cmp-results-section { background: #fcf1f5; }
 
-/* ── Tablet ≤ 900px ── */
-@media (max-width: 900px) {
-    .cmp-panel-inner {
-        grid-template-columns: 1fr;
-    }
-    .cmp-panel-image-wrap {
-        min-height: 280px;
-    }
-    .cmp-panel-info {
-        padding: 32px 32px 36px;
-    }
+/* Stats strip */
+.cmp-stats-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 24px rgba(238,44,60,.09);
+    margin-bottom: 48px;
+}
+.cmp-stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 36px 20px;
+    border-right: 1px solid rgba(238,44,60,.1);
+    position: relative;
+    transition: background .25s;
+}
+.cmp-stat-item:last-child { border-right: none; }
+.cmp-stat-item::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:#ee2c3c; opacity:0; transition:opacity .25s; }
+.cmp-stat-item:hover { background: #fcf1f5; }
+.cmp-stat-item:hover::before { opacity: 1; }
+
+.cmp-stat-number { font-size: clamp(28px,3.5vw,44px); font-weight: 800; color: #ee2c3c; font-family: 'Poppins', sans-serif; line-height: 1; margin-bottom: 8px; }
+.cmp-stat-label  { font-size: 13px; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: .8px; text-align: center; }
+
+/* Achievement cards */
+.cmp-ach-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.cmp-ach-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 28px 20px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(238,44,60,.07);
+    transition: transform .25s, box-shadow .25s;
+}
+.cmp-ach-card:hover { transform: translateY(-5px); box-shadow: 0 12px 32px rgba(238,44,60,.14); }
+
+.cmp-ach-avatar {
+    position: relative;
+    width: 72px; height: 72px;
+    margin: 0 auto 12px;
+}
+.cmp-ach-avatar img { width:100%; height:100%; border-radius:50%; object-fit:cover; }
+.cmp-ach-initials {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ee2c3c, #c01828);
+    color: #fff;
+    font-size: 22px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Poppins', sans-serif;
+}
+.cmp-ach-badge {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 24px; height: 24px;
+    background: #ee2c3c;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+}
+.cmp-ach-badge svg { width: 12px; height: 12px; }
+
+.cmp-ach-stars { display:flex; justify-content:center; gap:2px; margin-bottom:10px; color:#f59e0b; }
+.cmp-ach-stars svg { width:14px; height:14px; }
+.cmp-ach-name  { font-size:15px; font-weight:700; color:#111827; margin-bottom:4px; }
+.cmp-ach-exam  { font-size:12.5px; color:#6b7280; margin-bottom:8px; }
+.cmp-ach-rank  { display:inline-block; background:#fcf1f5; color:#ee2c3c; font-size:12px; font-weight:700; padding:4px 12px; border-radius:50px; }
+
+
+/* =============================================================
+   11. ENQUIRY / FINAL CTA
+   ============================================================= */
+.cmp-enquiry-section {
+    background: linear-gradient(135deg, #1a0000 0%, #8B0000 40%, #ee2c3c 100%);
+    position: relative;
+    overflow: hidden;
+}
+.cmp-enquiry-section::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: rgba(255,255,255,.03);
+    border-radius: 50%;
+    top: -200px; right: -150px;
+    pointer-events: none;
+}
+.cmp-enquiry-section::after {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: rgba(255,255,255,.04);
+    border-radius: 50%;
+    bottom: -100px; left: 5%;
+    pointer-events: none;
 }
 
-/* ── Mobile ≤ 640px ── */
+.cmp-enquiry-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+}
+
+/* Left */
+.cmp-enq-tag {
+    display: inline-block;
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,.2);
+    margin-bottom: 20px;
+}
+.cmp-enq-heading {
+    font-size: clamp(26px, 3.5vw, 42px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 16px;
+}
+.cmp-enq-heading span { color: #ffd6da; }
+.cmp-enq-sub   { font-size: 15px; color: rgba(255,255,255,.75); line-height: 1.7; margin-bottom: 32px; }
+
+.cmp-enq-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 32px; }
+
+.btn-wa {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 26px;
+    border-radius: 50px;
+    transition: all .25s;
+    text-decoration: none;
+}
+.btn-wa:hover { background: #1ebe5a; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,211,102,.4); }
+
+.btn-call {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,.15);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 14px 26px;
+    border-radius: 50px;
+    border: 1.5px solid rgba(255,255,255,.3);
+    transition: all .25s;
+    text-decoration: none;
+}
+.btn-call:hover { background: #fff; color: #ee2c3c; border-color: #fff; }
+
+.cmp-enq-contact-info { display: flex; flex-direction: column; gap: 12px; }
+.cmp-enq-contact-row  { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: rgba(255,255,255,.7); line-height: 1.5; }
+.cmp-enq-contact-row svg { flex-shrink: 0; margin-top: 2px; }
+
+/* Right — Form */
+.cmp-enq-form-wrap {
+    background: #fff;
+    border-radius: 24px;
+    padding: 36px 32px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.25);
+}
+.cmp-enq-form-title { font-size: 22px; font-weight: 700; color: #111827; margin-bottom: 6px; }
+.cmp-enq-form-sub   { font-size: 13.5px; color: #6b7280; margin-bottom: 24px; }
+
+.cmp-form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.cmp-form-group { margin-bottom: 16px; display: flex; flex-direction: column; gap: 6px; }
+.cmp-form-group label { font-size: 13px; font-weight: 600; color: #374151; }
+.cmp-form-group label span { font-weight: 400; color: #9ca3af; }
+
+.cmp-form-group input,
+.cmp-form-group select,
+.cmp-form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #111827;
+    background: #f9fafb;
+    outline: none;
+    transition: border-color .2s, background .2s;
+    font-family: inherit;
+}
+.cmp-form-group input:focus,
+.cmp-form-group select:focus,
+.cmp-form-group textarea:focus { border-color: #ee2c3c; background: #fff; }
+.cmp-form-group textarea { resize: vertical; min-height: 80px; }
+
+.cmp-form-submit {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: #ee2c3c;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .25s, transform .2s, box-shadow .25s;
+    font-family: inherit;
+    margin-top: 4px;
+}
+.cmp-form-submit:hover { background: #c01828; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(238,44,60,.35); }
+
+.cmp-form-success {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    background: #d1fae5;
+    color: #065f46;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+
+/* =============================================================
+   12. RESPONSIVE — Tablet ≤ 900px
+   ============================================================= */
+@media (max-width: 900px) {
+    /* Overview panel */
+    .cmp-panel-inner          { grid-template-columns: 1fr; }
+    .cmp-panel-image-wrap     { min-height: 280px; }
+    .cmp-panel-info           { padding: 32px 32px 36px; }
+
+    /* Why */
+    .cmp-why-grid  { grid-template-columns: 1fr; gap: 20px; }
+
+    /* Facilities */
+    .cmp-fac-grid  { grid-template-columns: repeat(2, 1fr); }
+
+    /* Timeline */
+    .cmp-timeline-line               { left: 20px; transform: none; }
+    .cmp-timeline-item               { flex-direction: column; padding: 0 0 0 52px !important; }
+    .cmp-timeline-dot                { left: 12px; top: 16px; transform: none; }
+    .cmp-tl-right                    { flex-direction: column; }
+
+    /* Stats */
+    .cmp-stats-strip { grid-template-columns: repeat(2, 1fr); }
+    .cmp-stat-item   { border-right: none; border-bottom: 1px solid rgba(238,44,60,.1); }
+    .cmp-stat-item:nth-child(even) { border-right: none; }
+
+    /* Achievements */
+    .cmp-ach-grid { grid-template-columns: repeat(2, 1fr); }
+
+    /* Enquiry */
+    .cmp-enquiry-inner { grid-template-columns: 1fr; gap: 40px; }
+}
+
+
+/* =============================================================
+   13. RESPONSIVE — Mobile ≤ 640px
+   ============================================================= */
 @media (max-width: 640px) {
     .cmp-banner { padding: 130px 0 64px; }
 
+    /* Selector */
     .cmp-selector-track { --gutter: 20px; }
-    .cmp-selector { gap: 12px; }
-    /* 82vw so the next card peeks — clear scroll affordance */
-    .cmp-selector-card { flex: 0 0 82vw; max-width: 300px; padding: 13px 16px; }
+    .cmp-selector       { gap: 12px; }
+    .cmp-selector-card  { flex: 0 0 82vw; max-width: 300px; padding: 13px 16px; }
 
+    /* Panel */
     .cmp-facilities-grid { grid-template-columns: repeat(2, 1fr); }
+    .cmp-panel-info      { padding: 24px 20px 28px; }
+    .cmp-panel-image-wrap{ min-height: 220px; }
 
-    .cmp-panel-info { padding: 24px 20px 28px; }
+    /* Why */
+    .cmp-why-card { padding: 24px 20px; }
+    .cmp-why-number { font-size: 36px; }
 
-    .cmp-panel-image-wrap { min-height: 220px; }
+    /* Facilities */
+    .cmp-fac-grid { grid-template-columns: 1fr; }
+
+    /* Videos */
+    .cmp-video-card { flex: 0 0 155px; }
+
+    /* Stats */
+    .cmp-stats-strip { grid-template-columns: repeat(2, 1fr); }
+
+    /* Achievements */
+    .cmp-ach-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+
+    /* Enquiry */
+    .cmp-enquiry-inner   { padding: 56px 20px; }
+    .cmp-form-row-2      { grid-template-columns: 1fr; }
+    .cmp-enq-form-wrap   { padding: 28px 20px; }
+    .cmp-enq-heading     { font-size: 26px; }
 }

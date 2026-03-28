@@ -1135,6 +1135,114 @@ function irf_register_acf_fields() {
                         ),
                     ),
 
+                    /* ── Why Choose Points repeater ── */
+                    array(
+                        'key'          => 'field_cmp_why_points',
+                        'label'        => 'Why Choose Points',
+                        'name'         => 'campus_why_points',
+                        'type'         => 'repeater',
+                        'instructions' => 'Add exactly 3 key differentiators for this campus.',
+                        'min'          => 0, 'max' => 3,
+                        'layout'       => 'block',
+                        'button_label' => 'Add Point',
+                        'sub_fields'   => array(
+                            array( 'key' => 'field_cmp_why_icon',  'label' => 'Icon',        'name' => 'why_icon',  'type' => 'select', 'choices' => array( 'shield' => 'Shield (Environment)', 'users' => 'Users (Mentorship)', 'trending-up' => 'Trending Up (Results)', 'trophy' => 'Trophy (Achievement)', 'zap' => 'Zap (Energy)', 'target' => 'Target (Focus)' ), 'ui' => 1, 'wrapper' => array('width'=>'25') ),
+                            array( 'key' => 'field_cmp_why_title', 'label' => 'Title',       'name' => 'why_title', 'type' => 'text',   'required' => 1, 'wrapper' => array('width'=>'35') ),
+                            array( 'key' => 'field_cmp_why_desc',  'label' => 'Description', 'name' => 'why_desc',  'type' => 'textarea', 'rows' => 3, 'wrapper' => array('width'=>'40') ),
+                        ),
+                    ),
+
+                    /* ── Facilities Detail repeater ── */
+                    array(
+                        'key'          => 'field_cmp_fac_detail',
+                        'label'        => 'Facilities (Detail Cards)',
+                        'name'         => 'campus_fac_detail',
+                        'type'         => 'repeater',
+                        'instructions' => 'Up to 6 facilities shown as full cards with description.',
+                        'min'          => 0, 'max' => 6,
+                        'layout'       => 'block',
+                        'button_label' => 'Add Facility',
+                        'sub_fields'   => array(
+                            array( 'key' => 'field_cmp_fac_d_icon', 'label' => 'Icon', 'name' => 'fac_icon', 'type' => 'select', 'choices' => array( 'book' => 'Book', 'monitor' => 'Monitor', 'clock' => 'Clock', 'home' => 'Home/Hostel', 'coffee' => 'Coffee/Cafeteria', 'book-open' => 'Library', 'users' => 'Users', 'target' => 'Target' ), 'ui' => 1, 'wrapper' => array('width'=>'20') ),
+                            array( 'key' => 'field_cmp_fac_d_name', 'label' => 'Name', 'name' => 'fac_name', 'type' => 'text', 'required' => 1, 'wrapper' => array('width'=>'35') ),
+                            array( 'key' => 'field_cmp_fac_d_desc', 'label' => 'Description', 'name' => 'fac_desc', 'type' => 'textarea', 'rows' => 2, 'wrapper' => array('width'=>'45') ),
+                        ),
+                    ),
+
+                    /* ── Daily Routine repeater ── */
+                    array(
+                        'key'          => 'field_cmp_routine',
+                        'label'        => 'Daily Routine',
+                        'name'         => 'campus_routine',
+                        'type'         => 'repeater',
+                        'instructions' => 'Add each step of the daily schedule in chronological order.',
+                        'min'          => 0, 'max' => 12,
+                        'layout'       => 'table',
+                        'button_label' => 'Add Step',
+                        'sub_fields'   => array(
+                            array( 'key' => 'field_cmp_rt_time',  'label' => 'Time',        'name' => 'routine_time',  'type' => 'text',     'placeholder' => '6:00 AM', 'wrapper' => array('width'=>'20') ),
+                            array( 'key' => 'field_cmp_rt_title', 'label' => 'Activity',    'name' => 'routine_title', 'type' => 'text',     'required' => 1,            'wrapper' => array('width'=>'35') ),
+                            array( 'key' => 'field_cmp_rt_desc',  'label' => 'Description', 'name' => 'routine_desc',  'type' => 'textarea', 'rows' => 2,                'wrapper' => array('width'=>'45') ),
+                        ),
+                    ),
+
+                    /* ── Campus Videos repeater ── */
+                    array(
+                        'key'          => 'field_cmp_videos',
+                        'label'        => 'Campus Life Videos',
+                        'name'         => 'campus_videos',
+                        'type'         => 'repeater',
+                        'instructions' => 'Add YouTube video IDs (the part after ?v=). Use Shorts for best vertical display. Minimum 4 for seamless scroll loop.',
+                        'min'          => 0, 'max' => 12,
+                        'layout'       => 'table',
+                        'button_label' => 'Add Video',
+                        'sub_fields'   => array(
+                            array( 'key' => 'field_cmp_vid_id',    'label' => 'YouTube Video ID', 'name' => 'video_id',    'type' => 'text', 'required' => 1, 'placeholder' => 'e.g. dQw4w9WgXcQ', 'instructions' => 'Just the ID, not the full URL.', 'wrapper' => array('width'=>'50') ),
+                            array( 'key' => 'field_cmp_vid_title', 'label' => 'Caption',          'name' => 'video_title', 'type' => 'text', 'required' => 1, 'placeholder' => 'e.g. Morning Assembly', 'wrapper' => array('width'=>'50') ),
+                        ),
+                    ),
+
+                    /* ── Stats repeater ── */
+                    array(
+                        'key'          => 'field_cmp_stats',
+                        'label'        => 'Result Stats',
+                        'name'         => 'campus_stats',
+                        'type'         => 'repeater',
+                        'instructions' => 'Add 4 key achievement numbers shown in the results strip.',
+                        'min'          => 0, 'max' => 4,
+                        'layout'       => 'table',
+                        'button_label' => 'Add Stat',
+                        'sub_fields'   => array(
+                            array( 'key' => 'field_cmp_st_number', 'label' => 'Number', 'name' => 'stat_number', 'type' => 'text', 'required' => 1, 'placeholder' => '5,000+', 'wrapper' => array('width'=>'40') ),
+                            array( 'key' => 'field_cmp_st_label',  'label' => 'Label',  'name' => 'stat_label',  'type' => 'text', 'required' => 1, 'placeholder' => 'Students Selected', 'wrapper' => array('width'=>'60') ),
+                        ),
+                    ),
+
+                    /* ── Achievements repeater ── */
+                    array(
+                        'key'          => 'field_cmp_achievements',
+                        'label'        => 'Student Achievements',
+                        'name'         => 'campus_achievements',
+                        'type'         => 'repeater',
+                        'instructions' => 'Add selected student achievements. Shown as cards in the results section.',
+                        'min'          => 0, 'max' => 8,
+                        'layout'       => 'block',
+                        'button_label' => 'Add Achievement',
+                        'sub_fields'   => array(
+                            array( 'key' => 'field_cmp_ach_name',  'label' => 'Student Name', 'name' => 'ach_name',  'type' => 'text',  'required' => 1, 'wrapper' => array('width'=>'30') ),
+                            array( 'key' => 'field_cmp_ach_exam',  'label' => 'Exam Cleared', 'name' => 'ach_exam',  'type' => 'text',  'required' => 1, 'placeholder' => 'e.g. IBPS PO 2024', 'wrapper' => array('width'=>'35') ),
+                            array( 'key' => 'field_cmp_ach_rank',  'label' => 'Rank / Score', 'name' => 'ach_rank',  'type' => 'text',  'required' => 1, 'placeholder' => 'e.g. AIR 47', 'wrapper' => array('width'=>'20') ),
+                            array( 'key' => 'field_cmp_ach_photo', 'label' => 'Photo',        'name' => 'ach_photo', 'type' => 'image', 'return_format' => 'array', 'preview_size' => 'thumbnail', 'wrapper' => array('width'=>'15') ),
+                        ),
+                    ),
+
+                    /* ── Contact Details ── */
+                    array( 'key' => 'field_cmp_phone',    'label' => 'Phone Number',    'name' => 'campus_phone',    'type' => 'text', 'placeholder' => '+91 98765 43210', 'wrapper' => array('width'=>'50') ),
+                    array( 'key' => 'field_cmp_whatsapp', 'label' => 'WhatsApp Number', 'name' => 'campus_whatsapp', 'type' => 'text', 'placeholder' => '919876543210 (no + or spaces)', 'wrapper' => array('width'=>'50') ),
+                    array( 'key' => 'field_cmp_email',    'label' => 'Email Address',   'name' => 'campus_email',    'type' => 'email', 'wrapper' => array('width'=>'50') ),
+                    array( 'key' => 'field_cmp_address',  'label' => 'Campus Address',  'name' => 'campus_address',  'type' => 'textarea', 'rows' => 2, 'wrapper' => array('width'=>'50') ),
+                    array( 'key' => 'field_cmp_maps_url', 'label' => 'Google Maps URL', 'name' => 'campus_maps_url', 'type' => 'url', 'wrapper' => array('width'=>'100') ),
+
                 ), /* end sub_fields */
             ), /* end campuses repeater */
 
