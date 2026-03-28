@@ -15,16 +15,26 @@
                 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="IRF IACE" class="logo-img">
             </a>
 
-            <ul class="nav-menu" id="nav-menu">
-                <li><a href="<?php echo esc_url(home_url('/')); ?>">Home</a></li>
-                <li><a href="<?php echo esc_url(home_url('/about-irf')); ?>">About</a></li>
-                <li><a href="<?php echo esc_url(home_url('/facilities')); ?>">Facilities</a></li>
-                <li><a href="<?php echo esc_url(home_url('/results')); ?>">Results</a></li>
-                <li><a href="<?php echo esc_url(home_url('/success-stories')); ?>">Success Stories</a></li>
-                <li><a href="<?php echo esc_url(home_url('/announcements')); ?>">Events</a></li>
-                <li><a href="<?php echo esc_url(home_url('/blog')); ?>">Blog</a></li>
-                <li><a href="<?php echo esc_url(home_url('/contact')); ?>" class="nav-cta">Contact Us</a></li>
-            </ul>
+            <?php
+            wp_nav_menu( array(
+                'theme_location'  => 'primary',
+                'menu_id'         => 'nav-menu',
+                'menu_class'      => 'nav-menu',
+                'container'       => false,
+                'fallback_cb'     => function() { ?>
+                <ul class="nav-menu" id="nav-menu">
+                    <li><a href="<?php echo esc_url(home_url('/')); ?>">Home</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/about-irf')); ?>">About</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/facilities')); ?>">Facilities</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/results')); ?>">Results</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/success-stories')); ?>">Success Stories</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/announcements')); ?>">Events</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/blog')); ?>">Blog</a></li>
+                    <li><a href="<?php echo esc_url(home_url('/contact')); ?>" class="nav-cta">Contact Us</a></li>
+                </ul>
+                <?php },
+            ) );
+            ?>
 
             <button class="hamburger" id="hamburger" aria-label="Toggle Menu">
                 <span></span>
