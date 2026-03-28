@@ -43,7 +43,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 
 /* Buttons */
 .btn         { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 50px; font-weight: 600; font-size: 15px; transition: var(--tr); cursor: pointer; border: none; }
-.btn-primary { background: var(--red); color: var(--white); }
+.btn-primary {background: #fff;color: #0c0d0e;}
 .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(238,44,60,0.35); }
 .btn-outline  { background: transparent; color: #181A17; border: 2px solid #181A17; }
 .btn-outline:hover { background: #181A17; color: var(--white); border-color: #181A17; }
@@ -881,7 +881,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
    PAGE BANNER & CONTENT
    ============================================================= */
 .page-banner         { position: relative; padding: 140px 0 70px; overflow: hidden; min-height: 260px; display: flex; align-items: flex-end; }
-.page-banner-bg      { position: absolute; inset: 0; background: linear-gradient(135deg, #c4202f 0%, #ee2c3c 100%); }
+.page-banner-bg      { position: absolute; inset: 0; background: linear-gradient(135deg, #c4202f 0%, #1c1c2e 100%); }
 .page-banner-bg::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 5px; background: rgba(255,255,255,0.25); }
 .page-banner-bg::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 40%; background: radial-gradient(ellipse at right, rgba(255,255,255,0.10), transparent); }
 .page-banner-content { position: relative; z-index: 1; }

@@ -89,10 +89,10 @@
 .ctc-office-card--dark .ctc-office-detail  { color: rgba(255,255,255,0.72); }
 .ctc-office-card--dark .ctc-office-detail:hover { color: var(--red); }
 .ctc-office-card--dark .ctc-office-icon {
-    background: rgba(254,0,0,0.14);
-    color: var(--red);
+    background: #fcf1f5;
+    color: #181A17 ;
 }
-.ctc-office-card--dark .ctc-office-detail svg { color: rgba(255,255,255,0.35); }
+.ctc-office-card--dark .ctc-office-detail svg {color: #fff;}
 
 .ctc-office-badge {
     display: inline-block;
@@ -335,7 +335,7 @@
 
 .ctc-form-info-icon {
     width: 42px; height: 42px;
-    background: rgba(254,0,0,0.12);
+    background: #fcf1f5;
     color: var(--red);
     border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
