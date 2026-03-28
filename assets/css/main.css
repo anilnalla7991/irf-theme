@@ -384,21 +384,21 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 .site-header.scrolled { padding: 12px 0; box-shadow: 0 2px 24px rgba(238,44,60,0.14); }
 
 /* Logo */
-.nav-wrapper { display: flex; align-items: center; gap: 32px; }
+.nav-wrapper { display: flex; align-items: center; gap: 20px; }
 .site-logo { flex-shrink: 0; }
 .logo-text { font-family: 'Poppins', sans-serif; font-size: 22px; font-weight: 800; color: var(--white); }
 .logo-text span { color: var(--red); }
-.site-logo .logo-img { height: 46px; width: auto; max-width: 160px; object-fit: contain; display: block; }
+.site-logo .logo-img { height: 44px; width: auto; max-width: 150px; object-fit: contain; display: block; }
 .footer-brand .footer-logo-img,
 .footer-brand img { height: 44px; width: auto; max-width: 160px; max-height: 44px; object-fit: contain; display: block; margin-bottom: 16px; }
 
 /* Nav links — centred, takes remaining space */
-.nav-menu { display: flex; align-items: center; gap: 30px; flex: 1; justify-content: center; }
-.nav-menu a { color: #181A17; font-size: 14px; font-weight: 500; transition: var(--tr); position: relative; }
+.nav-menu { display: flex; align-items: center; gap: 20px; flex: 1; justify-content: center; flex-wrap: nowrap; }
+.nav-menu a { color: #181A17; font-size: 13px; font-weight: 500; white-space: nowrap; transition: var(--tr); position: relative; }
 .nav-menu a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--red); transition: var(--tr); }
 .nav-menu a:hover { color: var(--red); }
 .nav-menu a:hover::after { width: 100%; }
-.nav-cta { background: var(--red) !important; color: var(--white) !important; padding: 9px 20px !important; border-radius: 50px !important; font-weight: 600 !important; }
+.nav-cta { background: var(--red) !important; color: var(--white) !important; padding: 8px 18px !important; border-radius: 50px !important; font-weight: 600 !important; font-size: 13px !important; }
 .nav-cta::after { display: none !important; }
 .nav-cta:hover { background: var(--red-dark) !important; transform: translateY(-1px); }
 
@@ -1186,13 +1186,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
         padding-left: 36px;
     }
     .nav-menu a::after { display: none; }
-    .header-mock-btn {
-        font-size: 11px;
-        padding: 8px 13px;
-        border-radius: 6px;
-        box-shadow: none;
-        letter-spacing: 0;
-    }
+    .header-mock-btn { display: none; }
     .nav-cta {
         margin: 20px 28px 28px !important;
         display: block !important;
