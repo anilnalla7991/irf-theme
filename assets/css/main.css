@@ -533,9 +533,9 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    EXAMS
    ============================================================= */
-.exams-section { background: var(--light); }
+.exams-section { background: var(--white); }
 .exams-grid    { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; }
-.exam-card     { background: var(--white); border-radius: var(--radius); padding: 28px 18px; text-align: center; transition: var(--tr); border: 2px solid transparent; cursor: default; }
+.exam-card     { background: var(--light); border-radius: var(--radius); padding: 28px 18px; text-align: center; transition: var(--tr); border: 2px solid transparent; cursor: default; }
 .exam-card:hover { border-color: var(--red); transform: translateY(-4px); box-shadow: var(--shadow-lg); }
 .exam-icon     { width: 54px; height: 54px; background: rgba(254,0,0,0.07); border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; font-size: 24px; transition: var(--tr); }
 .exam-card:hover .exam-icon { background: var(--red); }
@@ -813,7 +813,7 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    ANNOUNCEMENTS
    ============================================================= */
-.announcements-section { background: var(--white); }
+.announcements-section { background: var(--light); }
 .announcements-grid    { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px; }
 .announcement-card     { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--tr); display: flex; flex-direction: column; }
 .announcement-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
@@ -831,11 +831,11 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
 /* =============================================================
    YOUTUBE REELS
    ============================================================= */
-.reels-section { background: var(--light); overflow: hidden; }
+.reels-section { background: var(--white); overflow: hidden; }
 .reels-track-wrapper { overflow: hidden; position: relative; padding: 10px 0; }
 .reels-track-wrapper::before,.reels-track-wrapper::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
-.reels-track-wrapper::before { left: 0; background: linear-gradient(to right, var(--light), transparent); }
-.reels-track-wrapper::after  { right: 0; background: linear-gradient(to left, var(--light), transparent); }
+.reels-track-wrapper::before { left: 0; background: linear-gradient(to right, var(--white), transparent); }
+.reels-track-wrapper::after  { right: 0; background: linear-gradient(to left, var(--white), transparent); }
 .reels-track      { display: flex; gap: 18px; animation: slideReels 35s linear infinite; width: max-content; padding: 0 24px; }
 .reels-track:hover{ animation-play-state: paused; }
 @keyframes slideReels { from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
