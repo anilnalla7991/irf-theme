@@ -112,17 +112,18 @@ function cmp_icon( $name ) {
      CAMPUS SELECTOR + CONTENT
      ============================================================ -->
 <section class="section cmp-section">
-    <div class="container">
 
-        <!-- Section header -->
+    <!-- Section header — inside container -->
+    <div class="container">
         <div class="section-header">
             <span class="section-tag section-tag-dark">Select Campus</span>
             <h2 class="section-title">Explore Our Campuses</h2>
             <p class="section-subtitle">Two premier campuses. One proven result. Choose the one closest to you.</p>
         </div>
+    </div>
 
-        <!-- Campus selector cards -->
-        <div class="cmp-selector-track">
+    <!-- Selector strip — OUTSIDE container so it can scroll full-width -->
+    <div class="cmp-selector-track">
         <div class="cmp-selector" role="tablist" aria-label="Campus selector">
             <?php foreach ( $campuses as $i => $campus ) : ?>
             <div class="cmp-selector-card <?php echo 0 === $i ? 'active' : ''; ?>"
@@ -149,7 +150,10 @@ function cmp_icon( $name ) {
             </div>
             <?php endforeach; ?>
         </div><!-- /.cmp-selector -->
-        </div><!-- /.cmp-selector-track -->
+    </div><!-- /.cmp-selector-track -->
+
+    <!-- Campus content panels — back inside container -->
+    <div class="container">
 
         <!-- Campus content panels -->
         <?php foreach ( $campuses as $i => $campus ) : ?>
@@ -207,7 +211,7 @@ function cmp_icon( $name ) {
         </div>
         <?php endforeach; ?>
 
-    </div>
+    </div><!-- /.container (panels) -->
 </section>
 
 

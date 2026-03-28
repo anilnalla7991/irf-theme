@@ -58,69 +58,73 @@
    3. CAMPUS SELECTOR CARDS
    ============================================================= */
 
-/* Scroll track wrapper — handles fade edges */
+/*
+ * Track sits OUTSIDE .container — full viewport width.
+ * Padding mirrors the container gutter so cards align with
+ * content above/below. On large screens we offset to match
+ * the centred container.
+ */
 .cmp-selector-track {
     position: relative;
     margin-bottom: 48px;
+    /* fade hints on left / right edges */
+    --gutter: max(24px, calc((100vw - 1200px) / 2 + 24px));
 }
 .cmp-selector-track::before,
 .cmp-selector-track::after {
     content: '';
     position: absolute;
     top: 0;
-    bottom: 0;
-    width: 48px;
+    bottom: 16px; /* above scrollbar */
+    width: 60px;
     pointer-events: none;
     z-index: 2;
 }
 .cmp-selector-track::before {
     left: 0;
-    background: linear-gradient(to right, #fcf1f5 0%, transparent 100%);
+    background: linear-gradient(to right, #fcf1f5 30%, transparent 100%);
 }
 .cmp-selector-track::after {
     right: 0;
-    background: linear-gradient(to left, #fcf1f5 0%, transparent 100%);
+    background: linear-gradient(to left, #fcf1f5 30%, transparent 100%);
 }
 
 .cmp-selector {
     display: flex;
-    gap: 16px;
+    flex-wrap: nowrap;           /* never wrap — scroll instead */
+    gap: 14px;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-    padding: 8px 4px 16px;
-    /* hide scrollbar — scroll still works */
+    /* indent to match container gutter */
+    padding: 8px var(--gutter) 16px;
+    /* thin branded scrollbar */
     scrollbar-width: thin;
-    scrollbar-color: rgba(238,44,60,0.25) transparent;
+    scrollbar-color: rgba(238,44,60,0.3) transparent;
 }
+.cmp-selector::-webkit-scrollbar        { height: 4px; }
+.cmp-selector::-webkit-scrollbar-track  { background: transparent; }
+.cmp-selector::-webkit-scrollbar-thumb  { background: rgba(238,44,60,0.3); border-radius: 4px; }
 
-.cmp-selector::-webkit-scrollbar {
-    height: 4px;
-}
-.cmp-selector::-webkit-scrollbar-track {
-    background: transparent;
-}
-.cmp-selector::-webkit-scrollbar-thumb {
-    background: rgba(238,44,60,0.25);
-    border-radius: 4px;
-}
-
+/* ── Selector card ── */
 .cmp-selector-card {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 18px 24px;
+    gap: 14px;
+    padding: 14px 20px;
     background: #fff;
     border: 2px solid rgba(238,44,60,0.15);
     border-radius: 14px;
     cursor: pointer;
-    /* fixed width — never shrink, never grow */
-    flex: 0 0 260px;
+    /* fixed size — never shrink, never grow */
+    flex: 0 0 270px;
     scroll-snap-align: start;
     position: relative;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.25s ease, border-color 0.25s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease,
+                background 0.25s ease, border-color 0.25s ease;
     box-shadow: 0 2px 12px rgba(238,44,60,0.07);
     outline: none;
+    user-select: none;
 }
 .cmp-selector-card:focus-visible {
     outline: 2px solid #ee2c3c;
@@ -140,8 +144,8 @@
 
 /* Icon circle */
 .cmp-selector-icon {
-    width: 52px; height: 52px;
-    border-radius: 12px;
+    width: 44px; height: 44px;
+    border-radius: 10px;
     background: #fcf1f5;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
@@ -161,19 +165,25 @@
     flex: 1;
 }
 .cmp-selector-name {
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     color: #111827;
     transition: color 0.25s ease;
     line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .cmp-selector-loc {
-    font-size: 12.5px;
+    font-size: 12px;
     color: #6b7280;
     display: flex;
     align-items: center;
     gap: 4px;
     transition: color 0.25s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 .cmp-selector-card.active .cmp-selector-name,
 .cmp-selector-card.active .cmp-selector-loc { color: rgba(255,255,255,0.92); }
@@ -392,9 +402,10 @@
 @media (max-width: 640px) {
     .cmp-banner { padding: 130px 0 64px; }
 
+    .cmp-selector-track { --gutter: 20px; }
     .cmp-selector { gap: 12px; }
-    /* cards slightly narrower on mobile so you can see the next one — hinting scroll */
-    .cmp-selector-card { flex: 0 0 230px; padding: 14px 18px; }
+    /* 82vw so the next card peeks — clear scroll affordance */
+    .cmp-selector-card { flex: 0 0 82vw; max-width: 300px; padding: 13px 16px; }
 
     .cmp-facilities-grid { grid-template-columns: repeat(2, 1fr); }
 
