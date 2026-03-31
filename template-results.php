@@ -56,26 +56,22 @@ if (!empty($reels_acf) && is_array($reels_acf)) {
 }
 
 /* ── ACF: Student Fields repeater ───────────────────────────────── */
-$rs_rows     = ($has_acf ? get_field('student_fields') : null) ?: array();
+$rs_rows     = ($has_acf ? get_field('results_students') : null) ?: array();
 $all_results = array();
 $years_set   = array();
 $exams_set   = array();
 
 foreach ($rs_rows as $row) {
-    $sname       = sanitize_text_field($row['student_name']   ?? '');
-    $category    = sanitize_text_field($row['exam_category']  ?? '');  // broad category → filter chips
-    $exam_clr    = sanitize_text_field($row['exam_name']      ?? '');  // specific exam → card pill
-    $ht_no       = sanitize_text_field($row['hall_ticket_no'] ?? '');
-    // year field is stored as a number (e.g. 2025) or a date string — handle both
-    $year_raw    = $row['year'] ?? '';
-    $year        = '';
-    if ($year_raw) {
-        $year = is_numeric($year_raw) ? (string)(int)$year_raw : date('Y', strtotime((string)$year_raw));
-    }
-    $img_raw     = $row['student_photo'] ?? null;
+    $sname       = sanitize_text_field($row['rs_student_name']  ?? '');
+    $category    = sanitize_text_field($row['rs_exam_category'] ?? '');  // broad category → filter chips
+    $exam_clr    = sanitize_text_field($row['rs_exam_cleared']  ?? '');  // specific exam → card pill
+    $ht_no       = sanitize_text_field($row['rs_ht_no']         ?? '');
+    $date_raw    = $row['rs_result_date'] ?? '';                          // format: Y-m-d
+    $year        = $date_raw ? date('Y', strtotime($date_raw)) : '';
+    $img_raw     = $row['rs_student_image'] ?? null;
     $photo_url   = $img_raw ? (is_array($img_raw) ? $img_raw['url'] : $img_raw) : '';
     // Extra exams: comma-separated text field e.g. "IBPS PO, SBI Clerk"
-    $extra_raw   = sanitize_text_field($row['extra_exams'] ?? '');
+    $extra_raw   = sanitize_text_field($row['rs_extra_exams'] ?? '');
     $extra_exams = $extra_raw ? array_filter(array_map('trim', explode(',', $extra_raw))) : array();
 
     if (!$sname) continue;
