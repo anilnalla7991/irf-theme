@@ -42,11 +42,22 @@
     }
 
 
-    /* ── Show More: reveal next PAGE_SIZE overlimit cards ─────── */
+    /* ── Show More / Show Less toggle ───────────────────────────── */
     window.showMoreCards = function (gridId, btnId) {
         var grid = document.getElementById(gridId);
-        if (!grid) return;
+        var btn  = document.getElementById(btnId);
+        if (!grid || !btn) return;
 
+        // If currently in "show less" mode, collapse back
+        if (btn.dataset.mode === 'less') {
+            applyLimit(grid);
+            btn.dataset.mode = 'more';
+            btn.innerHTML = 'Show More &nbsp;&#8595;';
+            grid.closest('.section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            return;
+        }
+
+        // Show More: reveal next PAGE_SIZE overlimit cards
         var overlimit = grid.querySelectorAll('.rcard-overlimit');
         var shown = 0;
         overlimit.forEach(function (card) {
@@ -56,10 +67,10 @@
             }
         });
 
-        // Hide button once no overlimit cards remain
+        // All shown → switch to "Show Less"
         if (grid.querySelectorAll('.rcard-overlimit').length === 0) {
-            var btn = document.getElementById(btnId);
-            if (btn) btn.classList.add('hidden');
+            btn.dataset.mode = 'less';
+            btn.innerHTML = 'Show Less &nbsp;&#8593;';
         }
     };
 

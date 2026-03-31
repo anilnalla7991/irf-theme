@@ -168,20 +168,20 @@ $render_card = function($r) use ($get_color, $get_gradient) {
             <?php else : ?>
             <div class="rcard-initials-ph" style="background:<?php echo esc_attr($gradient); ?>;"><?php echo esc_html($init ?: '?'); ?></div>
             <?php endif; ?>
-
-            <?php if ($total > 1) : ?>
-            <!-- Multi-selection badge + tooltip -->
-            <div class="rcard-multi-wrap">
-                <span class="rcard-multi-badge"><?php echo esc_html($total); ?>x</span>
-                <div class="rcard-tooltip">
-                    <div class="rcard-tooltip-title">All Selections</div>
-                    <?php foreach ($all_exams as $ex) : ?>
-                    <div class="rcard-tooltip-item"><?php echo esc_html($ex); ?></div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-            <?php endif; ?>
         </div>
+
+        <?php if ($total > 1) : ?>
+        <!-- Multi-selection badge + tooltip — outside photo-area so overflow:hidden doesn't clip tooltip -->
+        <div class="rcard-multi-wrap">
+            <span class="rcard-multi-badge"><?php echo esc_html($total); ?>x</span>
+            <div class="rcard-tooltip">
+                <div class="rcard-tooltip-title">All Selections</div>
+                <?php foreach ($all_exams as $ex) : ?>
+                <div class="rcard-tooltip-item"><?php echo esc_html($ex); ?></div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+        <?php endif; ?>
 
         <!-- Body -->
         <div class="rcard-body">
