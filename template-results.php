@@ -8,18 +8,6 @@ get_header();
 $fn      = 'get_field';
 $has_acf = function_exists($fn);
 
-/* ── ACF: Banner slides ─────────────────────────────────────────── */
-$rb_slides = ($has_acf ? get_field('results_banners') : null) ?: array();
-if (empty($rb_slides)) {
-    // Default demo slides — shown when no ACF banner slides are configured
-    $rb_slides = array(
-        array('rb_bg_image' => null, 'rb_mobile_image' => null),
-        array('rb_bg_image' => null, 'rb_mobile_image' => null),
-        array('rb_bg_image' => null, 'rb_mobile_image' => null),
-    );
-}
-$slide_count = count($rb_slides);
-
 /* ── ACF: Stats strip ───────────────────────────────────────────── */
 $stats = array(
     array(
@@ -194,83 +182,7 @@ $render_card_portrait = $render_card;
 ?>
 
 <!-- ============================================================
-     SECTION 1: CINEMATIC BANNER SLIDER
-     ============================================================ -->
-<section class="banner-slider results-page-banner" id="resultsSlider" aria-label="Results Page Banner">
-
-    <div class="banner-slides" id="bannerTrack">
-    <?php
-    /* Each slide cycles through transition effects automatically */
-    $banner_effects = array('diagonal', 'iris', 'slide-x', 'zoom-fade', 'cube', 'slide-y');
-    $banner_themes  = array('dark-red', 'dark-purple', 'dark-teal');
-    foreach ($rb_slides as $idx => $sl) :
-        $fx          = esc_attr($banner_effects[$idx % count($banner_effects)]);
-        $theme       = esc_attr($banner_themes[$idx % count($banner_themes)]);
-        $img_raw     = $sl['rb_bg_image']     ?? null;
-        $mob_raw     = $sl['rb_mobile_image'] ?? null;
-        $img_url     = $img_raw ? (is_array($img_raw) ? $img_raw['url'] : $img_raw) : '';
-        $mob_url     = $mob_raw ? (is_array($mob_raw) ? $mob_raw['url'] : $mob_raw) : '';
-    ?>
-        <div class="banner-slide<?php echo $idx === 0 ? ' active' : ''; ?>" data-fx="<?php echo $fx; ?>">
-            <div class="rbslide rbslide-theme-<?php echo $theme; ?>">
-
-                <?php if ($img_url) : ?>
-                <div class="banner-img-wrap">
-                    <?php if ($mob_url) : ?>
-                    <img src="<?php echo esc_url($mob_url); ?>" alt="" class="banner-bg-img banner-bg-mobile" loading="<?php echo $idx === 0 ? 'eager' : 'lazy'; ?>">
-                    <?php endif; ?>
-                    <img src="<?php echo esc_url($img_url); ?>" alt="" class="banner-bg-img banner-bg-desktop" loading="<?php echo $idx === 0 ? 'eager' : 'lazy'; ?>">
-                </div>
-                <?php else : ?>
-                <div class="rbslide-bg"></div>
-                <div class="rbslide-deco" aria-hidden="true">
-                    <div class="rbslide-orb rbo1"></div>
-                    <div class="rbslide-orb rbo2"></div>
-                    <div class="rbslide-orb rbo3"></div>
-                    <div class="rbslide-orb rbo4"></div>
-                </div>
-                <?php endif; ?>
-
-                <div class="banner-overlay"></div>
-            </div>
-        </div>
-    <?php endforeach; ?>
-    </div><!-- /#bannerTrack -->
-
-    <!-- Progress bar -->
-    <div class="banner-progress-track">
-        <div class="banner-progress-fill" id="bannerProgress"></div>
-    </div>
-
-    <?php if ($slide_count > 1) : ?>
-    <!-- Prev / Next -->
-    <button class="banner-nav banner-prev" aria-label="Previous slide">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
-    <button class="banner-nav banner-next" aria-label="Next slide">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-    </button>
-
-    <!-- Counter + dots -->
-    <div class="banner-footer">
-        <div class="banner-counter">
-            <span class="banner-curr" id="bannerCurrNum">01</span>
-            <span class="banner-slash">/</span>
-            <span class="banner-total"><?php echo esc_html(str_pad($slide_count, 2, '0', STR_PAD_LEFT)); ?></span>
-        </div>
-        <div class="banner-dots" id="bannerDots">
-            <?php for ($d = 0; $d < $slide_count; $d++) : ?>
-            <button class="banner-dot<?php echo $d === 0 ? ' active' : ''; ?>" aria-label="Slide <?php echo $d + 1; ?>"></button>
-            <?php endfor; ?>
-        </div>
-    </div>
-    <?php endif; ?>
-
-</section>
-
-
-<!-- ============================================================
-     SECTION 2: ANIMATED STATS STRIP
+     SECTION 1: ANIMATED STATS STRIP
      ============================================================ -->
 <div class="results-stats-strip">
     <div class="container">
