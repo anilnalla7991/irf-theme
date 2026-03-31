@@ -307,6 +307,62 @@
     font-size: 40px; font-weight: 800; font-family: 'Poppins',sans-serif; color: #fff;
 }
 
+/* --- Multi-selection badge + tooltip --- */
+.rcard-multi-wrap {
+    position: absolute;
+    top: 8px; right: 8px;
+    z-index: 3;
+}
+.rcard-multi-badge {
+    display: inline-block;
+    background: #f59e0b;
+    color: #fff;
+    font-size: 10px; font-weight: 800; font-family: 'Poppins', sans-serif;
+    padding: 3px 8px;
+    border-radius: 50px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.22);
+    cursor: default;
+    letter-spacing: 0.3px;
+}
+.rcard-tooltip {
+    position: absolute;
+    top: calc(100% + 8px); right: 0;
+    background: #1e293b;
+    color: #fff;
+    font-size: 11px; font-family: 'Poppins', sans-serif;
+    padding: 10px 13px;
+    border-radius: 10px;
+    min-width: 150px;
+    white-space: nowrap;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+    pointer-events: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+}
+.rcard-tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: 100%; right: 12px;
+    border: 6px solid transparent;
+    border-bottom-color: #1e293b;
+}
+.rcard-multi-wrap:hover .rcard-tooltip {
+    opacity: 1; visibility: visible;
+    transform: translateY(0);
+}
+.rcard-tooltip-title {
+    font-size: 10px; font-weight: 700; color: #f59e0b;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 6px;
+}
+.rcard-tooltip-item {
+    padding: 3px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    line-height: 1.4;
+}
+.rcard-tooltip-item:last-child { border-bottom: none; }
+
 /* --- Accent bar at bottom of photo area --- */
 .rcard-photo-area::after {
     content: '';
