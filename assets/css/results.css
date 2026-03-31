@@ -326,7 +326,7 @@
 }
 .rcard-tooltip {
     position: absolute;
-    top: calc(100% + 8px); right: 0;
+    bottom: calc(100% + 8px); right: 0;
     background: #1e293b;
     color: #fff;
     font-size: 11px; font-family: 'Poppins', sans-serif;
@@ -335,21 +335,25 @@
     min-width: 150px;
     white-space: nowrap;
     opacity: 0; visibility: hidden;
-    transform: translateY(-4px);
+    transform: translateY(4px);
     transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
     pointer-events: none;
     box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    z-index: 10;
 }
 .rcard-tooltip::before {
     content: '';
     position: absolute;
-    bottom: 100%; right: 12px;
+    top: 100%; right: 12px;
     border: 6px solid transparent;
-    border-bottom-color: #1e293b;
+    border-top-color: #1e293b;
 }
-.rcard-multi-wrap:hover .rcard-tooltip {
-    opacity: 1; visibility: visible;
-    transform: translateY(0);
+/* Hover — desktop only (pointer: fine = mouse) */
+@media (hover: hover) and (pointer: fine) {
+    .rcard-multi-wrap:hover .rcard-tooltip {
+        opacity: 1; visibility: visible;
+        transform: translateY(0);
+    }
 }
 .rcard-tooltip-title {
     font-size: 10px; font-weight: 700; color: #f59e0b;
