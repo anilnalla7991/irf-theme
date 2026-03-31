@@ -152,19 +152,6 @@ $hp_first_key   = array_key_first($hp_ticker_cats);
 $hp_first_color = $hp_ticker_cats[$hp_first_key]['color'];
 ?>
 <div class="irf-ticker-wrap">
-    <div class="irf-ticker-tabs">
-        <?php foreach ($hp_ticker_cats as $hp_key => $hp_cat) :
-            $hp_is_first = ($hp_key === $hp_first_key);
-        ?>
-        <button class="irf-tab <?php echo $hp_is_first ? 'active' : ''; ?>"
-                data-tab="<?php echo esc_attr($hp_key); ?>"
-                data-color="<?php echo esc_attr($hp_cat['color']); ?>"
-                style="--tab-color:<?php echo esc_attr($hp_cat['color']); ?>">
-            <?php echo esc_html($hp_cat['label']); ?>
-        </button>
-        <?php endforeach; ?>
-    </div>
-
     <div class="irf-ticker-bar" id="irfTickerBar" style="background:<?php echo esc_attr($hp_first_color); ?>">
         <div class="irf-ticker-live">
             <span class="irf-live-dot"></span> LIVE
