@@ -164,17 +164,14 @@ $render_card = function($r) use ($get_color, $get_gradient) {
     $gradient     = $get_gradient($exam);
     ob_start();
     ?>
-    <div class="rcard reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>">
+    <div class="rcard reveal" data-year="<?php echo esc_attr($year); ?>" data-exam="<?php echo esc_attr($exam); ?>" style="--rcard-accent:<?php echo esc_attr($color); ?>;">
 
-        <!-- Gradient header -->
-        <div class="rcard-header" style="background:<?php echo esc_attr($gradient); ?>;"></div>
-
-        <!-- Circle photo — overlaps header -->
-        <div class="rcard-photo-ring">
+        <!-- Full-width photo area -->
+        <div class="rcard-photo-area">
             <?php if ($photo) : ?>
             <img src="<?php echo esc_url($photo); ?>" alt="<?php echo esc_attr($name); ?>" loading="lazy">
             <?php else : ?>
-            <div class="rcard-initials-ph" style="background:<?php echo esc_attr($color); ?>;"><?php echo esc_html($init ?: '?'); ?></div>
+            <div class="rcard-initials-ph" style="background:<?php echo esc_attr($gradient); ?>;"><?php echo esc_html($init ?: '?'); ?></div>
             <?php endif; ?>
         </div>
 
