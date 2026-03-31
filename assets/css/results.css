@@ -282,6 +282,8 @@
     transition: transform 0.22s ease, box-shadow 0.22s ease;
     display: flex; flex-direction: column;
     position: relative;
+    min-width: 0;    /* prevent grid column blowout */
+    width: 100%;     /* stay within grid column */
 }
 .rcard:hover           { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(15,23,42,0.13); }
 .rcard.rcard-hidden    { display: none; }
@@ -388,10 +390,11 @@
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
 }
 .rcard-exam-pill {
-    display: inline-block;
+    display: block;
     font-size: 10px; font-weight: 700; letter-spacing: 0.3px;
     padding: 3px 10px; border-radius: 50px; color: #fff;
-    max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    box-sizing: border-box;
 }
 .rcard-ht        { font-size: 10px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .rcard-ht strong { color: #374151; font-weight: 600; }
