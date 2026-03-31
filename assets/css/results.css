@@ -452,7 +452,7 @@
     .exam-chips          { gap: 6px; }
     .exam-chip           { padding: 7px 14px; font-size: 12px; }
     .rbslide-stats       { display: none; }
-    .results-cards-grid  { grid-template-columns: repeat(3,1fr); gap: 8px; }
-    .rcard-photo-area    { height: 110px; }
-    .rcard-body          { padding: 8px 8px 10px; }
+    .results-cards-grid  { grid-template-columns: repeat(2,1fr); gap: 12px; }
+    .rcard-photo-area    { height: 140px; }
+    .rcard-name          { font-size: 13px; }
 }
