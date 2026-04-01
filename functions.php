@@ -908,6 +908,55 @@ function irf_register_acf_fields() {
                     ),
                 ),
             ),
+
+            /* ── TAB: Scrolling Ticker ── */
+            array('key' => 'field_rp_tab_ticker', 'label' => 'Scrolling Ticker', 'name' => '', 'type' => 'tab'),
+            array(
+                'key'           => 'field_rp_ticker_enable',
+                'label'         => 'Enable Ticker',
+                'name'          => 'results_ticker_enable',
+                'type'          => 'true_false',
+                'default_value' => 0,
+                'ui'            => 1,
+                'instructions'  => 'Toggle ON to display the scrolling highlights strip immediately below the header.',
+            ),
+            array(
+                'key'          => 'field_rp_ticker_items',
+                'label'        => 'Ticker Items',
+                'name'         => 'results_ticker_items',
+                'type'         => 'repeater',
+                'instructions' => 'Each row becomes one item in the scrolling strip. Example → Icon: ● | Value: 385 | Text: Students Selected',
+                'min'          => 0,
+                'layout'       => 'table',
+                'button_label' => 'Add Item',
+                'sub_fields'   => array(
+                    array(
+                        'key'           => 'field_rp_ti_icon',
+                        'label'         => 'Icon',
+                        'name'          => 'ticker_icon',
+                        'type'          => 'text',
+                        'default_value' => '●',
+                        'instructions'  => 'Symbol — e.g. ● ★ ✔ ✦ ▶',
+                        'wrapper'       => array('width' => '15'),
+                    ),
+                    array(
+                        'key'          => 'field_rp_ti_value',
+                        'label'        => 'Value (optional)',
+                        'name'         => 'ticker_value',
+                        'type'         => 'text',
+                        'instructions' => 'Bold number/stat — e.g. 385, 96%',
+                        'wrapper'      => array('width' => '25'),
+                    ),
+                    array(
+                        'key'          => 'field_rp_ti_text',
+                        'label'        => 'Text',
+                        'name'         => 'ticker_text',
+                        'type'         => 'text',
+                        'instructions' => 'Label text — e.g. Students Selected',
+                        'wrapper'      => array('width' => '60'),
+                    ),
+                ),
+            ),
         ),
     ));
 

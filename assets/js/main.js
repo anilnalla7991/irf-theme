@@ -231,6 +231,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ==========================================
+    // Results Page: Scrolling Ticker Speed
+    // Measures the inner strip width and sets animation-duration
+    // so the scroll speed stays constant regardless of item count.
+    // ==========================================
+    var resultsTickerInner = document.getElementById('resultsTickerInner');
+    if (resultsTickerInner) {
+        var RTK_PX_PER_SEC = 90; // pixels per second — lower = slower, higher = faster
+        var rtkClone = resultsTickerInner.cloneNode(true);
+        rtkClone.style.cssText = [
+            'position:fixed', 'top:-9999px', 'left:0',
+            'display:inline-flex', 'white-space:nowrap',
+            'visibility:hidden', 'animation:none', 'transform:none',
+            'pointer-events:none', 'z-index:-1'
+        ].join(';');
+        document.body.appendChild(rtkClone);
+        var rtkW = rtkClone.offsetWidth;
+        document.body.removeChild(rtkClone);
+        if (rtkW > 0) {
+            /* Animate over half the total width (items are duplicated) */
+            var rtkDur = Math.max(8, Math.round((rtkW / 2) / RTK_PX_PER_SEC));
+            resultsTickerInner.style.animationDuration = rtkDur + 's';
+        }
+    }
+
+    // ==========================================
     // Banner Slider — Dynamic Effect System
     // Effects cycle: fade → slide → zoom-in → cube-h →
     //                zoom-out → cube-v → (repeat)

@@ -11,6 +11,72 @@
 
 
 /* =============================================================
+   0. SCROLLING TICKER STRIP
+   ============================================================= */
+
+.results-ticker-strip {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 2px solid rgba(238, 44, 60, 0.14);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    position: relative;
+    z-index: 100;
+}
+
+.results-ticker-inner {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    /* Duration is set by JS based on content width; fallback: 30s */
+    animation: resultsTicker 30s linear infinite;
+}
+
+.results-ticker-strip:hover .results-ticker-inner {
+    animation-play-state: paused;
+}
+
+@keyframes resultsTicker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+
+.rtk-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 11px 30px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    border-right: 1px solid rgba(238, 44, 60, 0.14);
+    flex-shrink: 0;
+}
+
+.rtk-icon {
+    font-size: 11px;
+    color: #ee2c3c;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.rtk-value {
+    font-weight: 700;
+    font-size: 15px;
+    color: #ee2c3c;
+    letter-spacing: -0.2px;
+}
+
+.rtk-text {
+    font-weight: 500;
+    color: #2d2d2d;
+}
+
+@media (max-width: 767px) {
+    .rtk-item  { padding: 9px 20px; font-size: 13px; gap: 6px; }
+    .rtk-value { font-size: 14px; }
+}
+
+/* =============================================================
    1. CINEMATIC BANNER SLIDES
    ============================================================= */
 

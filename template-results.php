@@ -45,6 +45,10 @@ $ex_tag      = $has_acf ? (get_field('results_ex_tag')      ?: 'All Categories')
 $ex_title    = $has_acf ? (get_field('results_ex_title')    ?: 'Browse by Exam')                                  : 'Browse by Exam';
 $ex_subtitle = $has_acf ? (get_field('results_ex_subtitle') ?: 'Filter results by exam category to find toppers in your target exam.') : 'Filter results by exam category to find toppers in your target exam.';
 
+/* ── ACF: Scrolling Ticker ──────────────────────────────────────── */
+$ticker_enabled = $has_acf ? (bool) get_field('results_ticker_enable') : false;
+$ticker_items   = ($ticker_enabled && $has_acf) ? (get_field('results_ticker_items') ?: array()) : array();
+
 /* ── ACF: Reels (from homepage) ─────────────────────────────────── */
 $home_id       = (int) get_option('page_on_front');
 $reels_acf     = ($has_acf && $home_id) ? get_field('home_youtube_videos', $home_id) : array();
@@ -200,6 +204,33 @@ $render_card = function($r) use ($get_color, $get_gradient) {
 };
 $render_card_portrait = $render_card;
 ?>
+
+<?php if ($ticker_enabled && !empty($ticker_items)) : ?>
+<!-- ============================================================
+     SCROLLING TICKER STRIP
+     ============================================================ -->
+<div class="results-ticker-strip" id="resultsTickerStrip" aria-label="Results highlights">
+    <div class="results-ticker-inner" id="resultsTickerInner">
+        <?php
+        /* Render items twice for a seamless infinite loop */
+        for ($pass = 0; $pass < 2; $pass++) :
+            foreach ($ticker_items as $item) :
+                $icon  = esc_html($item['ticker_icon']  ?? '●');
+                $value = esc_html($item['ticker_value'] ?? '');
+                $text  = esc_html($item['ticker_text']  ?? '');
+        ?>
+        <span class="rtk-item"<?php echo $pass === 1 ? ' aria-hidden="true"' : ''; ?>>
+            <span class="rtk-icon"><?php echo $icon; ?></span>
+            <?php if ($value) : ?><strong class="rtk-value"><?php echo $value; ?></strong><?php endif; ?>
+            <?php if ($text)  : ?><span  class="rtk-text"><?php echo $text; ?></span><?php endif; ?>
+        </span>
+        <?php
+            endforeach;
+        endfor;
+        ?>
+    </div>
+</div>
+<?php endif; ?>
 
 <!-- ============================================================
      SECTION 1: ANIMATED STATS STRIP
