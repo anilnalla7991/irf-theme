@@ -134,4 +134,9 @@
     applyLimit('yearGrid', 'yearShowMore');
     applyLimit('examGrid', 'examShowMore');
 
+    /* ── Batch grids: apply limit to every batch section grid ── */
+    document.querySelectorAll('[id^="batchGrid"]').forEach(function (grid) {
+        applyLimit(grid.id, grid.id.replace('batchGrid', 'batchShowMore'));
+    });
+
 }());

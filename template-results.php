@@ -77,6 +77,7 @@ foreach ($rs_rows as $row) {
     // Extra exams: comma-separated text field e.g. "IBPS PO, SBI Clerk"
     $extra_raw   = sanitize_text_field($row['rs_extra_exams'] ?? '');
     $extra_exams = $extra_raw ? array_filter(array_map('trim', explode(',', $extra_raw))) : array();
+    $batch       = sanitize_text_field($row['rs_batch_name'] ?? '');
 
     if (!$sname) continue;
 
@@ -88,6 +89,7 @@ foreach ($rs_rows as $row) {
         'photo_url'    => $photo_url,
         'ht_no'        => $ht_no,
         'extra_exams'  => $extra_exams, // additional selections
+        'batch'        => $batch,       // batch grouping
     );
     if ($year     && !in_array($year,     $years_set)) $years_set[] = $year;
     if ($category && !in_array($category, $exams_set)) $exams_set[] = $category;
@@ -97,26 +99,52 @@ rsort($years_set);
 /* ── Demo fallback (shown when no ACF student data entered yet) ─── */
 if (empty($all_results)) {
     $all_results = array(
-        array('sname' => 'Ravi Kumar',   'exam' => 'SSC',     'exam_display' => 'SSC CGL',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001234', 'extra_exams' => array('IBPS PO', 'SBI Clerk')),
-        array('sname' => 'Priya Reddy',  'exam' => 'Banking', 'exam_display' => 'RBI Grade B', 'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025005678', 'extra_exams' => array('IBPS PO')),
-        array('sname' => 'Kiran Babu',   'exam' => 'Police',  'exam_display' => 'SI Police',   'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025009012', 'extra_exams' => array()),
-        array('sname' => 'Anand Sharma', 'exam' => 'RRB',     'exam_display' => 'RRB NTPC',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025003456', 'extra_exams' => array()),
-        array('sname' => 'Deepa Rao',    'exam' => 'Banking', 'exam_display' => 'IBPS PO',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025007890', 'extra_exams' => array()),
-        array('sname' => 'Suresh Nair',  'exam' => 'SSC',     'exam_display' => 'SSC CHSL',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025002345', 'extra_exams' => array()),
-        array('sname' => 'Lakshmi V',    'exam' => 'Banking', 'exam_display' => 'SBI PO',      'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025006789', 'extra_exams' => array('SSC CGL')),
-        array('sname' => 'Sneha Mehta',  'exam' => 'SSC',     'exam_display' => 'SSC CGL',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001111', 'extra_exams' => array()),
-        array('sname' => 'Raj Mohan',    'exam' => 'Banking', 'exam_display' => 'RBI Grade B', 'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024004321', 'extra_exams' => array()),
-        array('sname' => 'Meena Kumari', 'exam' => 'SSC',     'exam_display' => 'SSC CGL',     'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024008765', 'extra_exams' => array()),
-        array('sname' => 'Arjun Singh',  'exam' => 'Police',  'exam_display' => 'SI Police',   'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024001357', 'extra_exams' => array()),
-        array('sname' => 'Fatima Khan',  'exam' => 'Banking', 'exam_display' => 'IBPS PO',     'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024009753', 'extra_exams' => array()),
-        array('sname' => 'Venkat Rao',   'exam' => 'RRB',     'exam_display' => 'RRB NTPC',    'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024002468', 'extra_exams' => array()),
-        array('sname' => 'Sita Devi',    'exam' => 'SSC',     'exam_display' => 'SSC MTS',     'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023006543', 'extra_exams' => array()),
-        array('sname' => 'Ramesh Babu',  'exam' => 'SSC',     'exam_display' => 'SSC CGL',     'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023003217', 'extra_exams' => array()),
-        array('sname' => 'Geetha Patel', 'exam' => 'Banking', 'exam_display' => 'SBI Clerk',   'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023007891', 'extra_exams' => array()),
+        array('sname' => 'Ravi Kumar',   'exam' => 'SSC',     'exam_display' => 'SSC CGL',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001234', 'extra_exams' => array('IBPS PO', 'SBI Clerk'), 'batch' => 'Batch 1'),
+        array('sname' => 'Priya Reddy',  'exam' => 'Banking', 'exam_display' => 'RBI Grade B', 'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025005678', 'extra_exams' => array('IBPS PO'),              'batch' => 'Batch 1'),
+        array('sname' => 'Kiran Babu',   'exam' => 'Police',  'exam_display' => 'SI Police',   'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025009012', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Anand Sharma', 'exam' => 'RRB',     'exam_display' => 'RRB NTPC',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025003456', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Deepa Rao',    'exam' => 'Banking', 'exam_display' => 'IBPS PO',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025007890', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Suresh Nair',  'exam' => 'SSC',     'exam_display' => 'SSC CHSL',    'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025002345', 'extra_exams' => array(),                        'batch' => 'Batch 2'),
+        array('sname' => 'Lakshmi V',    'exam' => 'Banking', 'exam_display' => 'SBI PO',      'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025006789', 'extra_exams' => array('SSC CGL'),               'batch' => 'Batch 2'),
+        array('sname' => 'Sneha Mehta',  'exam' => 'SSC',     'exam_display' => 'SSC CGL',     'year' => '2025', 'photo_url' => '', 'ht_no' => 'HT2025001111', 'extra_exams' => array(),                        'batch' => 'Batch 2'),
+        array('sname' => 'Raj Mohan',    'exam' => 'Banking', 'exam_display' => 'RBI Grade B', 'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024004321', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Meena Kumari', 'exam' => 'SSC',     'exam_display' => 'SSC CGL',     'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024008765', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Arjun Singh',  'exam' => 'Police',  'exam_display' => 'SI Police',   'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024001357', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Fatima Khan',  'exam' => 'Banking', 'exam_display' => 'IBPS PO',     'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024009753', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Venkat Rao',   'exam' => 'RRB',     'exam_display' => 'RRB NTPC',    'year' => '2024', 'photo_url' => '', 'ht_no' => 'HT2024002468', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Sita Devi',    'exam' => 'SSC',     'exam_display' => 'SSC MTS',     'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023006543', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Ramesh Babu',  'exam' => 'SSC',     'exam_display' => 'SSC CGL',     'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023003217', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
+        array('sname' => 'Geetha Patel', 'exam' => 'Banking', 'exam_display' => 'SBI Clerk',   'year' => '2023', 'photo_url' => '', 'ht_no' => 'HT2023007891', 'extra_exams' => array(),                        'batch' => 'Batch 1'),
     );
     $years_set = array('2025', '2024', '2023');
     $exams_set = array('SSC', 'Banking', 'RRB', 'Police');
+    /* Demo batch metadata shown when no ACF data configured */
+    $demo_bm = array(
+        '2025' => array(
+            'Batch 1' => array('rb_batch_label' => 'Jan – Jun 2025', 'rb_total_students' => 6),
+            'Batch 2' => array('rb_batch_label' => 'Jul – Dec 2025', 'rb_total_students' => 4),
+        ),
+        '2024' => array('Batch 1' => array('rb_batch_label' => 'Jan – Dec 2024', 'rb_total_students' => 6)),
+        '2023' => array('Batch 1' => array('rb_batch_label' => 'Jan – Dec 2023', 'rb_total_students' => 4)),
+    );
 }
+
+/* ── Batch-wise grouping ─────────────────────────────────────────── */
+$batch_by_year = array();
+foreach ($all_results as $r) {
+    if (empty($r['batch'])) continue;
+    $batch_by_year[$r['year'] ?: 'Unknown'][$r['batch']][] = $r;
+}
+krsort($batch_by_year); // newest year first
+
+/* Batch metadata lookup: ACF → fallback to demo meta */
+$bm_lookup = array();
+$batch_defs_raw = $has_acf ? (get_field('results_batches') ?: array()) : array();
+foreach ($batch_defs_raw as $bd) {
+    $yr = trim($bd['rb_year'] ?? ''); $bn = trim($bd['rb_batch_name'] ?? '');
+    if ($yr && $bn) $bm_lookup[$yr][$bn] = $bd;
+}
+if (empty($bm_lookup) && !empty($demo_bm)) $bm_lookup = $demo_bm;
 
 /* ── Exam category → colour map (deterministic) ─────────────────── */
 $cat_colors = array(
@@ -255,6 +283,88 @@ $render_card_portrait = $render_card;
         </div>
     </div>
 </div>
+
+
+<?php if (!empty($batch_by_year)) : ?>
+<!-- ============================================================
+     SECTION 2: BATCH-WISE RESULTS
+     ============================================================ -->
+<section class="section results-batches-section">
+    <div class="container">
+        <div class="section-header reveal">
+            <span class="section-tag">Batch Wise</span>
+            <h2 class="section-title">Results by Batch</h2>
+            <p class="section-subtitle">Year-wise batch performance — selection count, success ratio and student highlights.</p>
+        </div>
+
+        <?php foreach ($batch_by_year as $yr => $batches) :
+            $yr_key = preg_replace('/[^a-z0-9]/i', '', (string)$yr);
+        ?>
+        <div class="batch-year-group reveal">
+            <div class="batch-year-label"><?php echo esc_html($yr); ?></div>
+
+            <?php $b_idx = 0; foreach ($batches as $bn => $b_students) :
+                $meta     = $bm_lookup[$yr][$bn] ?? array();
+                $label    = $meta['rb_batch_label']    ?? '';
+                $total    = max((int)($meta['rb_total_students'] ?? 0), count($b_students));
+                $selected = count($b_students);
+                $pct      = $total > 0 ? round($selected / $total * 100, 1) : 0;
+                $grid_id  = 'batchGrid_'     . $yr_key . '_' . $b_idx;
+                $btn_id   = 'batchShowMore_' . $yr_key . '_' . $b_idx;
+            ?>
+            <div class="batch-group">
+
+                <!-- Batch header: name · date range · selected/total · % · progress bar -->
+                <div class="batch-header">
+                    <div class="batch-header-info">
+                        <div class="batch-name"><?php echo esc_html($bn); ?></div>
+                        <?php if ($label) : ?>
+                        <div class="batch-label"><?php echo esc_html($label); ?></div>
+                        <?php endif; ?>
+                    </div>
+
+                    <div class="batch-stats-row">
+                        <div class="batch-stat-box">
+                            <div class="batch-stat-num"><?php echo esc_html($selected . ' / ' . $total); ?></div>
+                            <div class="batch-stat-lbl">Selected</div>
+                        </div>
+                        <div class="batch-stat-box">
+                            <div class="batch-stat-num batch-pct"><?php echo esc_html($pct); ?>%</div>
+                            <div class="batch-stat-lbl">Success Rate</div>
+                        </div>
+                    </div>
+
+                    <div class="batch-progress-wrap">
+                        <div class="batch-progress-meta">
+                            <span>Success Ratio</span>
+                            <span><?php echo esc_html($selected . '/' . $total); ?></span>
+                        </div>
+                        <div class="batch-progress-bar">
+                            <div class="batch-progress-fill" style="width:<?php echo esc_attr(min($pct, 100)); ?>%"></div>
+                        </div>
+                        <div class="batch-progress-pct"><?php echo esc_html($pct); ?>%</div>
+                    </div>
+                </div>
+
+                <!-- Student cards — reuses existing rcard styles, no changes needed -->
+                <div class="results-cards-grid" id="<?php echo esc_attr($grid_id); ?>">
+                    <?php foreach ($b_students as $r) echo $render_card($r); ?>
+                </div>
+                <?php if (count($b_students) > 12) : ?>
+                <div class="results-show-more-wrap">
+                    <button class="btn-show-more" id="<?php echo esc_attr($btn_id); ?>"
+                            onclick="showMoreCards('<?php echo esc_js($grid_id); ?>','<?php echo esc_js($btn_id); ?>')">
+                        Show More &nbsp;&#8595;
+                    </button>
+                </div>
+                <?php endif; ?>
+            </div>
+            <?php $b_idx++; endforeach; ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+</section>
+<?php endif; ?>
 
 
 <!-- ============================================================
