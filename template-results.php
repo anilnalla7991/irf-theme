@@ -297,11 +297,24 @@ $render_card_portrait = $render_card;
             <p class="section-subtitle">Year-wise batch performance — selection count, success ratio and student highlights.</p>
         </div>
 
-        <?php foreach ($batch_by_year as $yr => $batches) :
+        <!-- Year tabs: side-by-side, click to switch panel -->
+        <div class="batch-yr-tabs" role="tablist">
+            <?php $first = true; foreach ($batch_by_year as $yr => $unused) : ?>
+            <button class="batch-yr-tab<?php echo $first ? ' active' : ''; ?>"
+                    data-batchyr="<?php echo esc_attr($yr); ?>"
+                    role="tab" aria-selected="<?php echo $first ? 'true' : 'false'; ?>">
+                <?php echo esc_html($yr); ?>
+            </button>
+            <?php $first = false; endforeach; ?>
+        </div>
+
+        <!-- Year panels: only active one is visible -->
+        <?php $first = true; foreach ($batch_by_year as $yr => $batches) :
             $yr_key = preg_replace('/[^a-z0-9]/i', '', (string)$yr);
         ?>
-        <div class="batch-year-group reveal">
-            <div class="batch-year-label"><?php echo esc_html($yr); ?></div>
+        <div class="batch-yr-panel<?php echo $first ? ' active' : ''; ?>"
+             data-batchyrpanel="<?php echo esc_attr($yr); ?>"
+             role="tabpanel">
 
             <?php $b_idx = 0; foreach ($batches as $bn => $b_students) :
                 $meta     = $bm_lookup[$yr][$bn] ?? array();
@@ -314,7 +327,6 @@ $render_card_portrait = $render_card;
             ?>
             <div class="batch-group">
 
-                <!-- Batch header: name · date range · selected/total · % · progress bar -->
                 <div class="batch-header">
                     <div class="batch-header-info">
                         <div class="batch-name"><?php echo esc_html($bn); ?></div>
@@ -346,7 +358,6 @@ $render_card_portrait = $render_card;
                     </div>
                 </div>
 
-                <!-- Student cards — reuses existing rcard styles, no changes needed -->
                 <div class="results-cards-grid" id="<?php echo esc_attr($grid_id); ?>">
                     <?php foreach ($b_students as $r) echo $render_card($r); ?>
                 </div>
@@ -361,7 +372,7 @@ $render_card_portrait = $render_card;
             </div>
             <?php $b_idx++; endforeach; ?>
         </div>
-        <?php endforeach; ?>
+        <?php $first = false; endforeach; ?>
     </div>
 </section>
 <?php endif; ?>

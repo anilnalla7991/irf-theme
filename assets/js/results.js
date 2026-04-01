@@ -134,6 +134,25 @@
     applyLimit('yearGrid', 'yearShowMore');
     applyLimit('examGrid', 'examShowMore');
 
+    /* ── Batch year tabs: click to switch panel ─────────────── */
+    document.querySelectorAll('.batch-yr-tab').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('.batch-yr-tab').forEach(function (b) {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            document.querySelectorAll('.batch-yr-panel').forEach(function (p) {
+                p.classList.remove('active');
+            });
+            this.classList.add('active');
+            this.setAttribute('aria-selected', 'true');
+            var panel = document.querySelector(
+                '.batch-yr-panel[data-batchyrpanel="' + this.dataset.batchyr + '"]'
+            );
+            if (panel) panel.classList.add('active');
+        });
+    });
+
     /* ── Batch grids: apply limit to every batch section grid ── */
     document.querySelectorAll('[id^="batchGrid"]').forEach(function (grid) {
         applyLimit(grid.id, grid.id.replace('batchGrid', 'batchShowMore'));
