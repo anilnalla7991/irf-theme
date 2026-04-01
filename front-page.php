@@ -14,7 +14,6 @@ $home_banners = function_exists('get_field') ? get_field('home_banners') : array
     <!-- Slides -->
     <div class="banner-slides" id="bannerTrack">
         <?php
-        $banner_effects = array('diagonal', 'slide-x', 'slide-y', 'cube', 'zoom-fade', 'iris');
         foreach ($home_banners as $idx => $slide) :
             $desk_img  = $slide['image'];
             $desk_src  = is_array($desk_img) ? $desk_img['url'] : $desk_img;
@@ -25,8 +24,7 @@ $home_banners = function_exists('get_field') ? get_field('home_banners') : array
             $mob_link  = !empty($slide['mobile_link']) ? $slide['mobile_link'] : $desk_link;
             $is_first  = $idx === 0;
         ?>
-        <?php $bfx = $banner_effects[$idx % count($banner_effects)]; ?>
-        <div class="banner-slide<?php echo $is_first ? ' active' : ''; ?>" data-fx="<?php echo esc_attr($bfx); ?>">
+        <div class="banner-slide<?php echo $is_first ? ' active' : ''; ?>">
 
             <!-- Desktop image -->
             <?php if ($desk_src) : ?>

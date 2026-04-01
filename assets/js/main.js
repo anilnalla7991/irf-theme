@@ -231,7 +231,10 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ==========================================
-    // Banner Slider — Cinematic Clip-Path Reveal
+    // Banner Slider — Dynamic Effect System
+    // Effects cycle: fade → slide → zoom-in → cube-h →
+    //                fragment → zoom-out → cube-v → (repeat)
+    // direction-aware: slide reverses to slide-rev on prev nav
     // ==========================================
     var bannerTrack = document.getElementById('bannerTrack');
     if (bannerTrack) {
@@ -245,22 +248,42 @@ document.addEventListener('DOMContentLoaded', function () {
         var bannerTotal    = bannerSlides.length;
         var bannerBusy     = false;
         var bannerTimer;
-        var progressTimer;
-        var INTERVAL       = 5000; // ms between slides
-        var TRANSITION     = 900;  // ms clip-path animation duration
+        var INTERVAL       = 5000;
 
-        function bannerPad(n) {
-            return (n < 10 ? '0' : '') + n;
-        }
+        // Ordered effect sequence — light effects interspersed with heavy ones.
+        // Cycles automatically for any number of slides; never two heavy effects
+        // back-to-back in a 7-slot period.
+        var FX_SEQUENCE = ['fade', 'slide', 'zoom-in', 'cube-h', 'fragment', 'zoom-out', 'cube-v'];
+
+        // Per-effect animation duration (ms)
+        var FX_DURATION = {
+            'fade':      650,
+            'slide':     750,
+            'slide-rev': 750,
+            'zoom-in':   700,
+            'zoom-out':  700,
+            'cube-h':    900,
+            'cube-v':    900,
+            'fragment':  1100
+        };
+
+        // Effects that also animate the leaving slide via CSS
+        var BFX_HAS_LEAVE = { 'slide': true, 'slide-rev': true, 'cube-h': true, 'cube-v': true };
+
+        // Assign effect to every slide upfront — scalable, no PHP changes needed
+        bannerSlides.forEach(function (slide, i) {
+            slide.setAttribute('data-fx', FX_SEQUENCE[i % FX_SEQUENCE.length]);
+        });
+
+        function bannerPad(n) { return (n < 10 ? '0' : '') + n; }
 
         function bannerUpdateUI(index) {
             bannerDots.forEach(function (d, i) { d.classList.toggle('active', i === index); });
-            if (bannerCurrNum) { bannerCurrNum.textContent = bannerPad(index + 1); }
+            if (bannerCurrNum) bannerCurrNum.textContent = bannerPad(index + 1);
         }
 
         function bannerStartProgress() {
             if (!bannerProgress) return;
-            clearInterval(progressTimer);
             bannerProgress.style.transition = 'none';
             bannerProgress.style.width = '0%';
             requestAnimationFrame(function () {
@@ -271,10 +294,64 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // FX that animate the LEAVING (current) slide too
-        var BFX_HAS_LEAVE = { 'slide-x': true, 'slide-y': true, 'cube': true, 'zoom-fade': true };
+        // Fragment effect: JS-built tile grid that exits staggered, revealing
+        // the entering slide piece-by-piece. No blur, transform+opacity only.
+        function bannerRunFragment(currEl, nextEl, duration, onDone) {
+            var COLS = 5, ROWS = 4, TILES = COLS * ROWS;
+            var slider   = document.getElementById('bannerSlider');
+            var overlay  = document.createElement('div');
+            overlay.className = 'banner-frag-overlay';
 
-        function bannerGoTo(next) {
+            // Shuffle exit order so tiles disappear in random positions
+            var order = [];
+            for (var i = 0; i < TILES; i++) order.push(i);
+            for (var i = order.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
+            }
+
+            // Spread tile exits over 72% of the total duration
+            var spreadMs = duration * 0.72;
+            var tileMs   = Math.round(duration * 0.32);
+            var stepMs   = TILES > 1 ? spreadMs / (TILES - 1) : 0;
+
+            for (var idx = 0; idx < TILES; idx++) {
+                var r    = Math.floor(idx / COLS);
+                var c    = idx % COLS;
+                var tile = document.createElement('div');
+                tile.className = 'banner-frag-tile';
+                tile.style.left            = (c / COLS * 100) + '%';
+                tile.style.top             = (r / ROWS * 100) + '%';
+                tile.style.width           = (100 / COLS) + '%';
+                tile.style.height          = (100 / ROWS) + '%';
+                tile.style.transitionDuration = tileMs + 'ms, ' + tileMs + 'ms';
+                tile.style.transitionDelay    = Math.round(order[idx] * stepMs) + 'ms';
+                overlay.appendChild(tile);
+            }
+
+            // Overlay sits above both slides; swap active immediately (tiles cover the cut)
+            slider.appendChild(overlay);
+            nextEl.classList.add('active');
+            currEl.classList.remove('active');
+
+            // Trigger tile exit on next paint
+            requestAnimationFrame(function () {
+                requestAnimationFrame(function () {
+                    var tiles = overlay.querySelectorAll('.banner-frag-tile');
+                    for (var i = 0; i < tiles.length; i++) {
+                        tiles[i].style.opacity   = '0';
+                        tiles[i].style.transform = 'scale(0.85)';
+                    }
+                });
+            });
+
+            setTimeout(function () {
+                if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
+                onDone();
+            }, duration);
+        }
+
+        function bannerGoTo(next, isPrev) {
             if (bannerBusy || bannerTotal < 2) return;
             var target = (next + bannerTotal) % bannerTotal;
             if (target === bannerCurrent) return;
@@ -282,68 +359,74 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var curr   = bannerSlides[bannerCurrent];
             var nextEl = bannerSlides[target];
-            var fx     = nextEl.getAttribute('data-fx') || 'diagonal';
+            var fx     = nextEl.getAttribute('data-fx') || 'fade';
 
-            // Show entering slide
-            nextEl.style.opacity = '1';
-            nextEl.classList.add('entering-' + fx);
+            // Reverse slide direction when going backwards
+            if (isPrev && fx === 'slide') fx = 'slide-rev';
 
-            // Animate current slide out (push/cube effects)
-            if (BFX_HAS_LEAVE[fx]) {
-                curr.classList.add('leaving-' + fx);
+            var duration = FX_DURATION[fx] || 750;
+
+            // Fragment is handled entirely in JS
+            if (fx === 'fragment') {
+                bannerRunFragment(curr, nextEl, duration, function () {
+                    bannerCurrent = target;
+                    bannerUpdateUI(bannerCurrent);
+                    bannerBusy = false;
+                });
+                return;
             }
 
+            // CSS-animation approach for all other effects
+            nextEl.style.opacity = '1';
+            nextEl.classList.add('entering-' + fx);
+            if (BFX_HAS_LEAVE[fx]) curr.classList.add('leaving-' + fx);
+
             setTimeout(function () {
-                // Clean up entering slide
                 nextEl.classList.remove('entering-' + fx);
                 nextEl.style.opacity = '';
                 nextEl.classList.add('active');
-
-                // Clean up leaving slide
                 curr.classList.remove('active');
                 curr.classList.remove('leaving-' + fx);
-
                 bannerCurrent = target;
                 bannerUpdateUI(bannerCurrent);
                 bannerBusy = false;
-            }, TRANSITION);
+            }, duration);
         }
 
         function bannerStartAuto() {
             clearInterval(bannerTimer);
             bannerStartProgress();
             bannerTimer = setInterval(function () {
-                bannerGoTo(bannerCurrent + 1);
+                bannerGoTo(bannerCurrent + 1, false);
                 bannerStartProgress();
             }, INTERVAL);
         }
 
-        // Init UI
         bannerUpdateUI(0);
 
         if (bannerPrev) {
             bannerPrev.addEventListener('click', function () {
                 clearInterval(bannerTimer);
-                bannerGoTo(bannerCurrent - 1);
+                bannerGoTo(bannerCurrent - 1, true);
                 bannerStartAuto();
             });
         }
         if (bannerNext) {
             bannerNext.addEventListener('click', function () {
                 clearInterval(bannerTimer);
-                bannerGoTo(bannerCurrent + 1);
+                bannerGoTo(bannerCurrent + 1, false);
                 bannerStartAuto();
             });
         }
         bannerDots.forEach(function (dot, i) {
             dot.addEventListener('click', function () {
                 clearInterval(bannerTimer);
-                bannerGoTo(i);
+                bannerGoTo(i, i < bannerCurrent);
                 bannerStartAuto();
             });
         });
 
-        if (bannerTotal > 1) { bannerStartAuto(); }
+        if (bannerTotal > 1) bannerStartAuto();
     }
 
     // ==========================================
