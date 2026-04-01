@@ -233,21 +233,6 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     100% { transform: rotateX(-90deg) scale(0.9); filter: brightness(0.25); }
 }
 
-/* ── Fragment: JS-driven tile grid reveal (heavy) ──
-   JS appends .banner-frag-overlay with .banner-frag-tile children.
-   Tiles start opaque, exit staggered revealing the entering slide.  */
-.banner-frag-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 8;
-    pointer-events: none;
-}
-.banner-frag-tile {
-    position: absolute;
-    background: #07071a;
-    transition-property: opacity, transform;
-    transition-timing-function: ease-in-out;
-}
 
 /* Top progress bar */
 .banner-progress-track {

@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // ==========================================
     // Banner Slider — Dynamic Effect System
     // Effects cycle: fade → slide → zoom-in → cube-h →
-    //                fragment → zoom-out → cube-v → (repeat)
+    //                zoom-out → cube-v → (repeat)
     // direction-aware: slide reverses to slide-rev on prev nav
     // ==========================================
     var bannerTrack = document.getElementById('bannerTrack');
@@ -251,9 +251,8 @@ document.addEventListener('DOMContentLoaded', function () {
         var INTERVAL       = 5000;
 
         // Ordered effect sequence — light effects interspersed with heavy ones.
-        // Cycles automatically for any number of slides; never two heavy effects
-        // back-to-back in a 7-slot period.
-        var FX_SEQUENCE = ['fade', 'slide', 'zoom-in', 'cube-h', 'fragment', 'zoom-out', 'cube-v'];
+        // Cycles automatically for any number of slides.
+        var FX_SEQUENCE = ['fade', 'slide', 'zoom-in', 'cube-h', 'zoom-out', 'cube-v'];
 
         // Per-effect animation duration (ms)
         var FX_DURATION = {
@@ -263,8 +262,7 @@ document.addEventListener('DOMContentLoaded', function () {
             'zoom-in':   700,
             'zoom-out':  700,
             'cube-h':    900,
-            'cube-v':    900,
-            'fragment':  1100
+            'cube-v':    900
         };
 
         // Effects that also animate the leaving slide via CSS
@@ -294,63 +292,6 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
 
-        // Fragment effect: JS-built tile grid that exits staggered, revealing
-        // the entering slide piece-by-piece. No blur, transform+opacity only.
-        function bannerRunFragment(currEl, nextEl, duration, onDone) {
-            var COLS = 5, ROWS = 4, TILES = COLS * ROWS;
-            var slider   = document.getElementById('bannerSlider');
-            var overlay  = document.createElement('div');
-            overlay.className = 'banner-frag-overlay';
-
-            // Shuffle exit order so tiles disappear in random positions
-            var order = [];
-            for (var i = 0; i < TILES; i++) order.push(i);
-            for (var i = order.length - 1; i > 0; i--) {
-                var j = Math.floor(Math.random() * (i + 1));
-                var tmp = order[i]; order[i] = order[j]; order[j] = tmp;
-            }
-
-            // Spread tile exits over 72% of the total duration
-            var spreadMs = duration * 0.72;
-            var tileMs   = Math.round(duration * 0.32);
-            var stepMs   = TILES > 1 ? spreadMs / (TILES - 1) : 0;
-
-            for (var idx = 0; idx < TILES; idx++) {
-                var r    = Math.floor(idx / COLS);
-                var c    = idx % COLS;
-                var tile = document.createElement('div');
-                tile.className = 'banner-frag-tile';
-                tile.style.left            = (c / COLS * 100) + '%';
-                tile.style.top             = (r / ROWS * 100) + '%';
-                tile.style.width           = (100 / COLS) + '%';
-                tile.style.height          = (100 / ROWS) + '%';
-                tile.style.transitionDuration = tileMs + 'ms, ' + tileMs + 'ms';
-                tile.style.transitionDelay    = Math.round(order[idx] * stepMs) + 'ms';
-                overlay.appendChild(tile);
-            }
-
-            // Overlay sits above both slides; swap active immediately (tiles cover the cut)
-            slider.appendChild(overlay);
-            nextEl.classList.add('active');
-            currEl.classList.remove('active');
-
-            // Trigger tile exit on next paint
-            requestAnimationFrame(function () {
-                requestAnimationFrame(function () {
-                    var tiles = overlay.querySelectorAll('.banner-frag-tile');
-                    for (var i = 0; i < tiles.length; i++) {
-                        tiles[i].style.opacity   = '0';
-                        tiles[i].style.transform = 'scale(0.85)';
-                    }
-                });
-            });
-
-            setTimeout(function () {
-                if (overlay.parentNode) overlay.parentNode.removeChild(overlay);
-                onDone();
-            }, duration);
-        }
-
         function bannerGoTo(next, isPrev) {
             if (bannerBusy || bannerTotal < 2) return;
             var target = (next + bannerTotal) % bannerTotal;
@@ -366,17 +307,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
             var duration = FX_DURATION[fx] || 750;
 
-            // Fragment is handled entirely in JS
-            if (fx === 'fragment') {
-                bannerRunFragment(curr, nextEl, duration, function () {
-                    bannerCurrent = target;
-                    bannerUpdateUI(bannerCurrent);
-                    bannerBusy = false;
-                });
-                return;
-            }
-
-            // CSS-animation approach for all other effects
+            // CSS-animation approach
             nextEl.style.opacity = '1';
             nextEl.classList.add('entering-' + fx);
             if (BFX_HAS_LEAVE[fx]) curr.classList.add('leaving-' + fx);
