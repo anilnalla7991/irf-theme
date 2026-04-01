@@ -33,7 +33,8 @@ $home_banners = function_exists('get_field') ? get_field('home_banners') : array
                 <img src="<?php echo esc_url($desk_src); ?>"
                      alt="<?php echo esc_attr($desk_alt); ?>"
                      class="banner-bg-img"
-                     loading="<?php echo $is_first ? 'eager' : 'lazy'; ?>">
+                     loading="<?php echo $is_first ? 'eager' : 'lazy'; ?>"
+                     <?php echo $is_first ? 'decoding="sync"' : ''; ?>>
                 <?php if ($desk_link) : ?></a><?php endif; ?>
             </div>
             <?php endif; ?>
@@ -45,7 +46,8 @@ $home_banners = function_exists('get_field') ? get_field('home_banners') : array
                 <img src="<?php echo esc_url($mob_src); ?>"
                      alt="<?php echo esc_attr(is_array($mob_img) ? $mob_img['alt'] : $desk_alt); ?>"
                      class="banner-bg-img"
-                     loading="lazy">
+                     loading="<?php echo $is_first ? 'eager' : 'lazy'; ?>"
+                     <?php echo $is_first ? 'decoding="sync"' : ''; ?>>
                 <?php if ($mob_link) : ?></a><?php endif; ?>
             </div>
             <?php endif; ?>

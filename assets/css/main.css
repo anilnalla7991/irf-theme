@@ -80,7 +80,10 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     opacity: 0;
     z-index: 1;
     overflow: hidden;
-    will-change: transform, opacity, filter;
+    /* filter removed from will-change — pre-creating filter layers causes
+       the browser to rasterise at the wrong resolution, producing a blurry
+       flash on hard refresh before the GPU compositor is ready. */
+    will-change: transform, opacity;
 }
 .banner-slide.active { opacity: 1; z-index: 2; }
 
@@ -99,8 +102,13 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     object-fit: cover;
     object-position: center;
     display: block;
-    transform: scale(1.08);
+    /* translateZ(0) promotes the image to its own GPU layer immediately at
+       the correct resolution, preventing the blurry-then-sharp flash that
+       occurs when a scaled element is composited mid-animation. */
+    transform: translateZ(0) scale(1.08);
     transition: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Ken Burns: zoom out slowly while slide is active */
@@ -108,8 +116,8 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     animation: kenBurns 7s ease-out forwards;
 }
 @keyframes kenBurns {
-    from { transform: scale(1.08) translateX(1%);  }
-    to   { transform: scale(1.00) translateX(0%);  }
+    from { transform: translateZ(0) scale(1.08) translateX(1%); }
+    to   { transform: translateZ(0) scale(1.00) translateX(0%); }
 }
 
 /* Desktop / Mobile visibility */
