@@ -329,22 +329,29 @@ h1,h2,h3,h4,h5,h6 { font-family: 'Poppins', sans-serif; font-weight: 700; line-h
     .banner-slider { height: 400px; min-height: 360px; max-height: 420px; }
 }
 @media (max-width: 767px) {
-    /* Mobile — 640×360px landscape image */
-    .banner-slider    { height: 56vw; min-height: 220px; max-height: 360px; }
+    /* Mobile — tall immersive banner */
+    .banner-slider    { height: 75vh; min-height: 320px; max-height: 600px; }
     .banner-desk-wrap { display: none; }
     .banner-mob-wrap  { display: block; }
-    /* Landscape mobile image: cover fills cleanly */
-    .banner-mob-wrap .banner-bg-img { object-fit: cover; object-position: center; }
+    .banner-mob-wrap .banner-bg-img { object-fit: cover; object-position: center top; }
+    /* Stronger bottom gradient for readability on taller canvas */
+    .banner-overlay {
+        background:
+            linear-gradient(to bottom,  rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 45%, rgba(0,0,0,0.65) 100%),
+            linear-gradient(to right,   rgba(0,0,0,0.15) 0%, transparent 25%),
+            linear-gradient(to left,    rgba(0,0,0,0.15) 0%, transparent 25%);
+    }
     .banner-nav  { width: 38px; height: 38px; }
     .banner-prev { left: 10px; }
     .banner-next { right: 10px; }
     .banner-curr { font-size: 22px; }
-    .banner-footer { bottom: 12px; gap: 14px; }
+    .banner-footer { bottom: 18px; gap: 14px; }
 }
 @media (max-width: 480px) {
-    /* Small mobile */
-    .banner-slider { height: 56vw; min-height: 200px; max-height: 300px; }
+    /* Small mobile — same tall treatment */
+    .banner-slider { height: 75vh; min-height: 300px; max-height: 560px; }
     .banner-nav    { display: none; }
+    .banner-footer { bottom: 14px; }
 }
 
 /* Scroll reveal */
