@@ -13,6 +13,8 @@
                     echo 'Tag: ' . esc_html(single_tag_title('', false));
                 } elseif (is_author()) {
                     echo 'Author: ' . esc_html(get_the_author());
+                } elseif (is_post_type_archive()) {
+                    echo esc_html(post_type_archive_title('', false));
                 } else {
                     echo 'Blog';
                 }
@@ -21,7 +23,10 @@
             <nav class="breadcrumb" aria-label="Breadcrumb">
                 <a href="<?php echo esc_url(home_url('/')); ?>">Home</a>
                 <span class="breadcrumb-sep">&#8250;</span>
-                <span>Blog</span>
+                <span><?php
+                    if (is_post_type_archive()) echo esc_html(post_type_archive_title('', false));
+                    else echo 'Blog';
+                ?></span>
             </nav>
         </div>
     </div>
